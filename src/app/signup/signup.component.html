@@ -1,5 +1,6 @@
 <div class="container">
   <h1>Sign up</h1>
+  <h2 [hidden]="!hasError">Error</h2>
   <form (ngSubmit)="onSubmit()" #signupForm="ngForm">
     <div class="form-group">
       <label for="name">Name:</label>

@@ -1,5 +1,7 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { AngularFireAuth } from 'angularfire2/auth';
+import { AngularFireModule } from 'angularfire2';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
 import * as firebase from 'firebase/app';
 
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
@@ -16,6 +18,7 @@ export class SignupComponent implements OnInit {
 
   constructor(
     public afAuth: AngularFireAuth,
+    private afDb: AngularFireDatabaseModule,
     private router: Router
   ) { }
 
@@ -25,11 +28,19 @@ export class SignupComponent implements OnInit {
   model = new User("", "", "", 0);
 
   onSubmit() {
-    this.afAuth.auth.createUserWithEmailAndPassword(this.model.email, this.model.password).catch(function(error){
+    this.afAuth.auth.createUserWithEmailAndPassword(this.model.email, this.model.password).then((user) => {
+      // User created, add details
+      firebase.database().ref(`Users/${user.uid}`).set({
+        Name: this.model.name
+      });
+    }).then( () => {
+      // Success
+      this.router.navigate(['/']);
+    }).catch(function(error){
       // Handle errors
       var errorCode = error.code;
       var errorMessage = error.message;
+      console.log(errorMessage);
     });
-    this.router.navigate(['/']);
   }
 }
