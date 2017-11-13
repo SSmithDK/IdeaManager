@@ -2,6 +2,8 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AppNavbarComponent } from './app-navbar.component';
 
+import { AngularFireAuth } from 'angularfire2/auth';
+
 describe('AppNavbarComponent', () => {
   let component: AppNavbarComponent;
   let fixture: ComponentFixture<AppNavbarComponent>;
