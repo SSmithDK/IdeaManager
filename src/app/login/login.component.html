@@ -1,0 +1,14 @@
+<div class="login-page">
+  <div [hidden]="!hasError" class="alert alert-warning">
+    <strong>Error!</strong> {{errorMessage}}<br />
+    <span [hidden]="!badPassword">Forgot your password? <a [routerLink]="[ '/password' ]">Recover password</a></span>
+  </div>
+  <div class="form">
+    <form class="login-form" (ngSubmit)="onSubmit()" #loginForm="ngForm">
+      <input type="text" placeholder="Email" required [(ngModel)]="currUser.email" name="email" />
+      <input type="password" placeholder="Password" required [(ngModel)]="currUser.password" name="password" />
+      <button type="submit" [disabled]="!loginForm.form.valid">Login</button>
+      <p>Not registered? <a [routerLink]="[ '/signup' ]">Sign up here</a></p>
+    </form>
+  </div>  
+</div>

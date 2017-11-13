@@ -4,29 +4,33 @@ import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import * as firebase from 'firebase/app';
 
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+
 @Component({
-  selector: 'app-navbar',
-  templateUrl: './app-navbar.component.html',
-  styleUrls: ['./app-navbar.component.css'],
+  selector: 'app-logout',
+  templateUrl: './logout.component.html',
+  styleUrls: ['./logout.component.css'],
   encapsulation: ViewEncapsulation.None
 })
-export class AppNavbarComponent implements OnInit {
+export class LogoutComponent implements OnInit {
 
   constructor(
-    private afAuth: AngularFireAuth
+    private afAuth: AngularFireAuth,
+    private router: Router
   ) { 
     this.afAuth.authState.subscribe((auth) => {
-      this.authState = auth;
+      if( auth!==null )
+      {
+        this.afAuth.auth.signOut();
+      }
+      else
+      {
+        this.router.navigate(['/']);
+      }
     });
   }
 
   ngOnInit() {
   }
-
-  public isAuthenticated(): boolean {
-    return this.authState !== null;
-  }
-
-  authState: any = null;
 
 }

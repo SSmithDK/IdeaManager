@@ -18,13 +18,19 @@ import { AppNavbarComponent } from './app-navbar/app-navbar.component';
 import { SignupComponent } from './signup/signup.component';
 import { AppRoutingModule } from './app-routing.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { LoginComponent } from './login/login.component';
+import { RecoverPasswordComponent } from './recover-password/recover-password.component';
+import { LogoutComponent } from './logout/logout.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     AppNavbarComponent,
     SignupComponent,
-    DashboardComponent
+    DashboardComponent,
+    LoginComponent,
+    RecoverPasswordComponent,
+    LogoutComponent
   ],
   imports: [
     BrowserModule,

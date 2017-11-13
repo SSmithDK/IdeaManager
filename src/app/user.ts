@@ -3,7 +3,8 @@ export class User {
         public id: string,
         public name: string,
         public email: string,
-        public type: number,
+        public isManager?: boolean,
+        public isApproved?: boolean,
         public password?: string
     ) { }
 }

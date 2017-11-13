@@ -9,12 +9,12 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { User } from '../user';
 
 @Component({
-  selector: 'app-signup',
-  templateUrl: './signup.component.html',
-  styleUrls: ['./signup.component.css'],
+  selector: 'app-login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.css'],
   encapsulation: ViewEncapsulation.None
 })
-export class SignupComponent implements OnInit {
+export class LoginComponent implements OnInit {
 
   constructor(
     public afAuth: AngularFireAuth,
@@ -32,24 +32,21 @@ export class SignupComponent implements OnInit {
   ngOnInit() {
   }
 
-  model = new User("", "", "");
-  hasError = false;
-  errorMessage = "";
-
-
   onSubmit() {
-    this.afAuth.auth.createUserWithEmailAndPassword(this.model.email, this.model.password).then((user) => {
-      // User created, add details
-      firebase.database().ref(`Users/${user.uid}`).set({
-        Name: this.model.name
-      });
-    }).then( () => {
-      // Success
+    this.afAuth.auth.signInWithEmailAndPassword(this.currUser.email, this.currUser.password).then((user) => {
+      // Authenticated!
       this.router.navigate(['/']);
-    }).catch( (err) => {
-      // Handle errors
+    }).catch((error) => {
       this.hasError = true;
-      this.errorMessage = err.message;
+      this.errorMessage = error.message;
+      this.badPassword = error.code==="auth/wrong-password";
     });
   }
+
+  currUser = new User("", "", "");
+
+  hasError = false;
+  badPassword = false;
+  errorMessage = "";
+
 }
