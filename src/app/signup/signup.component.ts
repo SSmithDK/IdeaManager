@@ -26,6 +26,9 @@ export class SignupComponent implements OnInit {
   }
 
   model = new User("", "", "", 0);
+  hasError = false;
+  errorMessage = "";
+
 
   onSubmit() {
     this.afAuth.auth.createUserWithEmailAndPassword(this.model.email, this.model.password).then((user) => {
@@ -36,11 +39,10 @@ export class SignupComponent implements OnInit {
     }).then( () => {
       // Success
       this.router.navigate(['/']);
-    }).catch(function(error){
+    }).catch( (err) => {
       // Handle errors
-      var errorCode = error.code;
-      var errorMessage = error.message;
-      console.log(errorMessage);
+      this.hasError = true;
+      this.errorMessage = err.message;
     });
   }
 }

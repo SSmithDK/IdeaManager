@@ -1,6 +1,8 @@
 <div class="container">
   <h1>Sign up</h1>
-  <h2 [hidden]="!hasError">Error</h2>
+  <div [hidden]="!hasError" class="alert alert-danger" role="alert">
+    <strong>An error occured:</strong> {{errorMessage}}
+  </div>
   <form (ngSubmit)="onSubmit()" #signupForm="ngForm">
     <div class="form-group">
       <label for="name">Name:</label>
