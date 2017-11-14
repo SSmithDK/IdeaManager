@@ -24,6 +24,7 @@ import { LogoutComponent } from './logout/logout.component';
 import { CreateIdeaComponent } from './create-idea/create-idea.component';
 import { UserAuthGuard} from "./userauth.guard";
 import { VotingIdeasComponent } from './voting-ideas/voting-ideas.component';
+import { IdeaDetailsComponent } from './idea-details/idea-details.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { VotingIdeasComponent } from './voting-ideas/voting-ideas.component';
     RecoverPasswordComponent,
     LogoutComponent,
     CreateIdeaComponent,
-    VotingIdeasComponent
+    VotingIdeasComponent,
+    IdeaDetailsComponent
   ],
   imports: [
     BrowserModule,
