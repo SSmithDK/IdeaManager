@@ -4,11 +4,13 @@
     <span [hidden]="!badPassword">Forgot your password? <a [routerLink]="[ '/password' ]">Recover password</a></span>
   </div>
   <div class="form">
+    <h2 class="text-center mb-4">Login</h2>
     <form class="login-form" (ngSubmit)="onSubmit()" #loginForm="ngForm">
-      <input type="text" placeholder="Email" required [(ngModel)]="currUser.email" name="email" />
+      <input type="text" placeholder="Email" required [(ngModel)]="currUser.email" name="email" autofocus />
       <input type="password" placeholder="Password" required [(ngModel)]="currUser.password" name="password" />
       <button type="submit" [disabled]="!loginForm.form.valid">Login</button>
       <p>Not registered? <a [routerLink]="[ '/signup' ]">Sign up here</a></p>
+      <p>Forgot your password? <a [routerLink]="[ '/password' ]">Recover here</a></p>
     </form>
   </div>  
 </div>
