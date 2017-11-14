@@ -25,7 +25,16 @@ export class DashboardComponent implements OnInit {
   }
   // TODO: map valus into a proper array.
   getIdeas(listPath): Observable<any[]> {
-    return this.afDb.list<any>('Ideas', ref => ref.orderByChild('Timestamp').limitToLast(10)).snapshotChanges().map((arr) => {return arr.reverse(); });
+    return this.afDb.list<any>('Ideas', ref => ref.orderByChild('Timestamp').limitToLast(10)).snapshotChanges().map((arr) => { 
+      return arr.sort(function(a, b){
+        var keyA = a.payload.val().Timestamp,
+            keyB = b.payload.val().Timestamp;
+        // Compare the 2 dates
+        if(keyA > keyB) return -1;
+        if(keyA < keyB) return 1;
+        return 0;
+      });
+    });
   }
 
 
