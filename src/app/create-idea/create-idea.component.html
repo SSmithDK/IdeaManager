@@ -27,7 +27,7 @@
       <textarea type="text" id="description" class="form-control" style="resize:none" rows="5" minlength="10" required [(ngModel)]="model.description"
              name="description" #description="ngModel" aria-describedby="descHelp" placeholder="Description"></textarea>
       <small id="descHelp" class="form-text text-muted">Provide a description of the idea.</small>
-      <div [hidden]="title.valid" class="alert alert-info">A description of min. 10 characters is required.</div>
+      <div [hidden]="description.valid" class="alert alert-info">A description of min. 10 characters is required.</div>
     </div>
 
     <button type="submit" class="btn btn-success" [disabled]="!createIdeaForm.form.valid">Create</button>

@@ -36,6 +36,7 @@ export class CreateIdeaComponent implements OnInit {
       Description: this.model.description,
       ShortDescription: this.model.shortDescription,
       User: this.user.uid,
+      OwnerName: this.user.displayName,
       Published: this.model.published,
       PositiveVotes: this.model.positiveVotes,
       NegativeVotes: this.model.negativeVotes,
