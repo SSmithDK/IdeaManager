@@ -13,29 +13,20 @@ import { Observable } from 'rxjs/Observable';
 })
 export class DashboardComponent implements OnInit {
 
-  listings: any[] = [];
+  ideasObservable: Observable<any[]>;
 
   constructor(
     public afAuth: AngularFireAuth,
     public afDb: AngularFireDatabase
-  ) {
-    this.afDb.object('Ideas')
-      .snapshotChanges()
-      .map(action =>{
-        const data = action.payload.toJSON();
-        return data;
-      }).subscribe(result =>{ 
-        this.listings = [];
-        Object.keys(result).map(key=>{ 
-          this.listings.push({ 
-            'key': key, 
-            'data':result[key] 
-          }); 
-        }); 
-        this.listings.reverse();
-      });
-   }
+  ) { }
 
   ngOnInit() {
+    this.ideasObservable = this.getIdeas('/Ideas');
   }
+  // TODO: map valus into a proper array.
+  getIdeas(listPath): Observable<any[]> {
+    return this.afDb.list<any>('Ideas', ref => ref.orderByChild('Timestamp').limitToLast(10)).snapshotChanges().map((arr) => {return arr.reverse(); });
+  }
+
+
 }
