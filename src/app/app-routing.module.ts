@@ -9,15 +9,17 @@ import { RecoverPasswordComponent } from './recover-password/recover-password.co
 import { LogoutComponent } from './logout/logout.component';
 import { CreateIdeaComponent } from "./create-idea/create-idea.component";
 import { UserAuthGuard } from "./userauth.guard";
+import { IdeaDetailsComponent } from './idea-details/idea-details.component';
 
 const routes: Routes = [
-  { path: '', component: DashboardComponent, pathMatch: 'full'},
-  { path: 'dashboard', component: DashboardComponent },
+  { path: '', component: DashboardComponent, pathMatch: 'full', canActivate: [UserAuthGuard]},
+  { path: 'dashboard', component: DashboardComponent, canActivate: [UserAuthGuard] },
   { path: 'signup', component: SignupComponent },
   { path: 'login', component: LoginComponent },
   { path: 'password', component: RecoverPasswordComponent },
   { path: 'logout', component: LogoutComponent },
-  { path: 'create', component: CreateIdeaComponent, canActivate: [UserAuthGuard] }
+  { path: 'create', component: CreateIdeaComponent, canActivate: [UserAuthGuard] },
+  { path: 'details/:id', component: IdeaDetailsComponent, canActivate: [UserAuthGuard] }
 ];
 
 @NgModule({
