@@ -37,8 +37,8 @@ export class SignupComponent implements OnInit {
   onSubmit() {
     this.afAuth.auth.createUserWithEmailAndPassword(this.model.email, this.model.password).then((user) => {
       // User created, add details
-      firebase.database().ref(`Users/${user.uid}`).set({
-        Name: this.model.name
+      user.updateProfile({
+        displayName: this.model.name
       });
     }).then( () => {
       // Success
