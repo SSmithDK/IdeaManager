@@ -1,7 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { AngularFireAuth } from 'angularfire2/auth';
-import { AngularFireModule } from 'angularfire2';
-import { AngularFireDatabaseModule } from 'angularfire2/database';
 import * as firebase from 'firebase/app';
 
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
@@ -18,7 +16,6 @@ export class SignupComponent implements OnInit {
 
   constructor(
     public afAuth: AngularFireAuth,
-    private afDb: AngularFireDatabaseModule,
     private router: Router
   ) {
     this.afAuth.authState.subscribe((auth) => {

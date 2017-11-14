@@ -21,6 +21,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { LoginComponent } from './login/login.component';
 import { RecoverPasswordComponent } from './recover-password/recover-password.component';
 import { LogoutComponent } from './logout/logout.component';
+import { CreateIdeaComponent } from './create-idea/create-idea.component';
+import {AuthGuard, UserAuthGuard} from "./userauth.guard";
 
 @NgModule({
   declarations: [
@@ -30,7 +32,8 @@ import { LogoutComponent } from './logout/logout.component';
     DashboardComponent,
     LoginComponent,
     RecoverPasswordComponent,
-    LogoutComponent
+    LogoutComponent,
+    CreateIdeaComponent
   ],
   imports: [
     BrowserModule,
@@ -41,7 +44,9 @@ import { LogoutComponent } from './logout/logout.component';
     AppRoutingModule,
     FormsModule
   ],
-  providers: [],
+  providers: [
+    UserAuthGuard
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,0 +1,35 @@
+<div class="container">
+
+  <h1>Add an idea</h1>
+
+  <img src="../../assets/img/create_idea.png" class="img-fluid" alt="create idea" height="200" width="200" align="center">
+
+
+  <div [hidden]="!hasError" class="alert alert-danger" role="alert">
+    <strong>An error occured on the creation of your idea:</strong> {{errorMessage}}
+  </div>
+  <form (ngSubmit)="onSubmit()" #createIdeaForm="ngForm">
+
+    <div class="form-group">
+      <input type="text" id="title" class="form-control-lg" minlength="5" required [(ngModel)]="model.title" name="title" #title="ngModel"
+             aria-describedby="titleHelp" placeholder="Title">
+      <small id="titleHelp" class="form-text text-muted">Give your idea a short title.</small>
+      <div [hidden]="title.valid" class="alert alert-info">A title of min. 5 characters is required.</div>
+    </div>
+
+    <div class="form-group">
+      <textarea type="text" id="shortDesc" class="form-control" style="resize:none" rows="2" [(ngModel)]="model.shortDescription" name="short_desc"
+                #short_desc="ngModel" aria-describedby="shortDescHelp" placeholder="Short description"></textarea>
+      <small id="shortDescHelp" class="form-text text-muted">Provide a brief description of the idea.</small>
+    </div>
+
+    <div class="form-group">
+      <textarea type="text" id="description" class="form-control" style="resize:none" rows="5" minlength="10" required [(ngModel)]="model.description"
+             name="description" #description="ngModel" aria-describedby="descHelp" placeholder="Description"></textarea>
+      <small id="descHelp" class="form-text text-muted">Provide a description of the idea.</small>
+      <div [hidden]="title.valid" class="alert alert-info">A description of min. 10 characters is required.</div>
+    </div>
+
+    <button type="submit" class="btn btn-success" [disabled]="!createIdeaForm.form.valid">Create</button>
+  </form>
+</div>
