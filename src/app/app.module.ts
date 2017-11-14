@@ -21,6 +21,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { LoginComponent } from './login/login.component';
 import { RecoverPasswordComponent } from './recover-password/recover-password.component';
 import { LogoutComponent } from './logout/logout.component';
+import { VotingIdeasComponent } from './voting-ideas/voting-ideas.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { LogoutComponent } from './logout/logout.component';
     DashboardComponent,
     LoginComponent,
     RecoverPasswordComponent,
-    LogoutComponent
+    LogoutComponent,
+    VotingIdeasComponent
   ],
   imports: [
     BrowserModule,
