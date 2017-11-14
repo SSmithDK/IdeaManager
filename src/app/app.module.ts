@@ -21,12 +21,9 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { LoginComponent } from './login/login.component';
 import { RecoverPasswordComponent } from './recover-password/recover-password.component';
 import { LogoutComponent } from './logout/logout.component';
-<<<<<<< HEAD
 import { CreateIdeaComponent } from './create-idea/create-idea.component';
-import {AuthGuard, UserAuthGuard} from "./userauth.guard";
-=======
+import { UserAuthGuard} from "./userauth.guard";
 import { VotingIdeasComponent } from './voting-ideas/voting-ideas.component';
->>>>>>> 970619f817062b5c244ee5b081ac92bdd2904388
 
 @NgModule({
   declarations: [
