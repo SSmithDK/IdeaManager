@@ -19,4 +19,5 @@ export class VotingIdeasComponent implements OnInit {
   SeeComments="";
   PositiveVotes=0;
   NegativeVotes=0;
+  status="status"
 }
