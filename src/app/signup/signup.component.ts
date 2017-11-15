@@ -40,6 +40,9 @@ export class SignupComponent implements OnInit {
       user.updateProfile({
         displayName: this.model.name
       });
+      firebase.database().ref(`Users/${user.uid}`).set({
+        Name: this.model.name
+      });
     }).then( () => {
       // Success
       this.router.navigate(['/']);
