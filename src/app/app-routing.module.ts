@@ -10,6 +10,7 @@ import { LogoutComponent } from './logout/logout.component';
 import { CreateIdeaComponent } from "./create-idea/create-idea.component";
 import { UserAuthGuard } from "./userauth.guard";
 import { IdeaDetailsComponent } from './idea-details/idea-details.component';
+import {UserApprovementComponent} from "./user-approvement/user-approvement.component";
 
 const routes: Routes = [
   { path: '', component: DashboardComponent, pathMatch: 'full', canActivate: [UserAuthGuard]},
@@ -19,7 +20,8 @@ const routes: Routes = [
   { path: 'password', component: RecoverPasswordComponent },
   { path: 'logout', component: LogoutComponent },
   { path: 'create', component: CreateIdeaComponent, canActivate: [UserAuthGuard] },
-  { path: 'details/:id', component: IdeaDetailsComponent, canActivate: [UserAuthGuard] }
+  { path: 'details/:id', component: IdeaDetailsComponent, canActivate: [UserAuthGuard]},
+  { path: 'approvement', component: UserApprovementComponent, canActivate: [UserAuthGuard]}
 ];
 
 @NgModule({
