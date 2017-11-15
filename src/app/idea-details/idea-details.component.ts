@@ -21,7 +21,6 @@ export class IdeaDetailsComponent implements OnInit {
 
   ngOnInit() {
     this.getIdea();
-    this.idea.subscribe(item=>console.log(item));
   }
 
   getIdea(): void {

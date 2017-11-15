@@ -1,5 +1,5 @@
 <div class="container">
-  <div *ngIf="idea | async; let idea; else loading">
+  <div class="card" *ngIf="idea | async; let idea; else loading">
     <div class="card-header">
         <div class="row mb-0">
             <div class="col-sm-8">
