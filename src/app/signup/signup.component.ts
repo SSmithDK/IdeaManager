@@ -29,19 +29,19 @@ export class SignupComponent implements OnInit {
   ngOnInit() {
   }
 
-  model = new User("", "", "");
+  model = new User();
   hasError = false;
   errorMessage = "";
 
 
   onSubmit() {
-    this.afAuth.auth.createUserWithEmailAndPassword(this.model.email, this.model.password).then((user) => {
+    this.afAuth.auth.createUserWithEmailAndPassword(this.model.Email, this.model.password).then((user) => {
       // User created, add details
       user.updateProfile({
-        displayName: this.model.name
+        displayName: this.model.Name
       });
       firebase.database().ref(`Users/${user.uid}`).set({
-        Name: this.model.name
+        Name: this.model.Name
       });
     }).then( () => {
       // Success

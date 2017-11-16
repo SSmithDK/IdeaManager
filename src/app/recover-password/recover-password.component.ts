@@ -18,7 +18,7 @@ export class RecoverPasswordComponent implements OnInit {
 
   hasError = false;
   errorMessage = "";
-  currUser = new User("", "", "");
+  currUser = new User();
 
   constructor(
     private afAuth: AngularFireAuth,
@@ -36,7 +36,7 @@ export class RecoverPasswordComponent implements OnInit {
   }
 
   onSubmit() {
-    this.afAuth.auth.sendPasswordResetEmail(this.currUser.email).then( _ => {
+    this.afAuth.auth.sendPasswordResetEmail(this.currUser.Email).then( _ => {
       this.router.navigate(['/login']);
     }).catch((error) => {
       this.hasError = true;

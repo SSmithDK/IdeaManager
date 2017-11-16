@@ -26,13 +26,13 @@ export class UserService {
         data.Email = this.afAuth.auth.currentUser.uid;
         return data;
       }).do((user) => {
-        this.afDb.object<any>(`Approved/${this.getUserId()}`).valueChanges().subscribe((approved) => user.approved = approved.Approved);
+        this.afDb.object<any>(`Approved/${this.getUserId()}`).valueChanges().subscribe((approved) => user.approved = approved);
         this.afDb.object<any>(`Managers/${this.getUserId()}`).valueChanges().subscribe(
           (manager) => {
-            user.manager = manager != null
+            user.Manager = manager != null
           },
           error => {
-            user.manager = false;
+            user.Manager = false;
             console.log("Permission problem");
           });
       });

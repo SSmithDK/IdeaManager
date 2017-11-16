@@ -33,17 +33,17 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
-    this.afAuth.auth.signInWithEmailAndPassword(this.currUser.email, this.currUser.password).then((user) => {
+    this.afAuth.auth.signInWithEmailAndPassword(this.currUser.Email, this.currUser.password).then((user) => {
       // Authenticated!
       this.router.navigate(['/']);
     }).catch((error) => {
       this.hasError = true;
       this.errorMessage = error.message;
-      this.badPassword = error.code==="auth/wrong-password";
+      this.badPassword = error.code === "auth/wrong-password";
     });
   }
 
-  currUser = new User("", "", "");
+  currUser = new User();
 
   hasError = false;
   badPassword = false;

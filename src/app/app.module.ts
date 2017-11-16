@@ -26,6 +26,7 @@ import { UserAuthGuard} from "./userauth.guard";
 import { VotingIdeasComponent } from './voting-ideas/voting-ideas.component';
 import { IdeaDetailsComponent } from './idea-details/idea-details.component';
 import { UserApprovementComponent } from './user-approvement/user-approvement.component';
+import {UserService} from "./user.service";
 
 @NgModule({
   declarations: [
@@ -51,7 +52,8 @@ import { UserApprovementComponent } from './user-approvement/user-approvement.co
     FormsModule
   ],
   providers: [
-    UserAuthGuard
+    UserAuthGuard,
+    UserService
   ],
   bootstrap: [AppComponent]
 })
