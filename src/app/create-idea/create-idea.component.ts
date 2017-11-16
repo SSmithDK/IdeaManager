@@ -1,10 +1,9 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import {Idea} from "../Idea";
-import {AngularFireDatabaseModule} from "angularfire2/database";
-import {AngularFireAuth} from "angularfire2/auth";
-import {User} from "firebase";
 import * as firebase from 'firebase/app';
 import {Router} from "@angular/router";
+import { UserService } from '../user.service';
+import { User } from '../user';
 
 @Component({
   selector: 'app-create-idea',
@@ -20,23 +19,29 @@ export class CreateIdeaComponent implements OnInit {
   errorMessage = "";
   model = new Idea("", "", "");
 
-  constructor(public afAuth: AngularFireAuth,
+  constructor(public userService: UserService,
               private router: Router)
-  {
-    this.user = this.afAuth.auth.currentUser;
-  }
+  { }
 
   ngOnInit() {
+    this.userService.getAuthState().subscribe((auth) => {
+      this.getCurrentUser();
+    });
+  }
+
+  private getCurrentUser(): void {
+    this.userService.getCurrentUser().subscribe((user) => {
+      this.user = user;
+    });
   }
 
   onSubmit() {
-
     firebase.database().ref('Ideas').push({
       Title: this.model.title,
       Description: this.model.description,
       ShortDescription: this.model.shortDescription,
-      User: this.user.uid,
-      OwnerName: this.user.displayName,
+      User: this.user.id,
+      OwnerName: this.user.Name,
       Published: this.model.published,
       PositiveVotes: this.model.positiveVotes,
       NegativeVotes: this.model.negativeVotes,

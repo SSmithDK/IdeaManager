@@ -1,8 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { AngularFireAuth } from 'angularfire2/auth';
-import { AngularFireModule } from 'angularfire2';
-import { AngularFireDatabaseModule } from 'angularfire2/database';
-import * as firebase from 'firebase/app';
+import { UserService } from '../user.service';
+import { User } from '../user';
 
 @Component({
   selector: 'app-navbar',
@@ -12,21 +10,23 @@ import * as firebase from 'firebase/app';
 })
 export class AppNavbarComponent implements OnInit {
 
+  user: User;
+
   constructor(
-    private afAuth: AngularFireAuth
-  ) { 
-    this.afAuth.authState.subscribe((auth) => {
-      this.authState = auth;
+    public userService: UserService
+  ) { }
+
+  ngOnInit() {
+    this.userService.getAuthState().subscribe((auth) => {
+      if( auth !== null )
+        this.getCurrentUser();
     });
   }
 
-  ngOnInit() {
+  private getCurrentUser(): void {
+    this.userService.getCurrentUser().subscribe((user) => {
+      this.user = user;
+    });
   }
-
-  public isAuthenticated(): boolean {
-    return this.authState !== null;
-  }
-
-  authState: any = null;
 
 }
