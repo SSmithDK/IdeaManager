@@ -1,12 +1,8 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { AngularFireAuth } from 'angularfire2/auth';
-import { AngularFireModule } from 'angularfire2';
-import { AngularFireDatabaseModule } from 'angularfire2/database';
-import * as firebase from 'firebase/app';
+import { Router } from '@angular/router';
 
-import { Router, ActivatedRoute, ParamMap } from '@angular/router';
-
-import { User } from '../user';
+import { AuthService } from '../auth.service';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-recover-password',
@@ -18,30 +14,25 @@ export class RecoverPasswordComponent implements OnInit {
 
   hasError = false;
   errorMessage = "";
-  currUser = new User();
 
   constructor(
-    private afAuth: AngularFireAuth,
+    private authService: AuthService,
     private router: Router
-  ) {
-    this.afAuth.authState.subscribe((auth) => {
-      if( auth !== null )
-      {
-        this.router.navigate(['/']);
-      }
-    });
-   }
+  ) { }
 
   ngOnInit() {
   }
 
-  onSubmit() {
-    this.afAuth.auth.sendPasswordResetEmail(this.currUser.Email).then( _ => {
-      this.router.navigate(['/login']);
-    }).catch((error) => {
-      this.hasError = true;
-      this.errorMessage = error.message;
-    });
+  onSubmit(formData: NgForm) {
+    if(formData.valid)
+    {
+      this.authService.recoverPassword(formData.value.email).then( _ => {
+        this.router.navigate(['/login']);
+      }).catch((error) => {
+        this.hasError = true;
+        this.errorMessage = error.message;
+      });
+    }
   }
 
 }

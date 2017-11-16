@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { UserService } from '../user.service';
 import { User } from '../user';
+import { AuthService } from '../auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -11,22 +12,39 @@ import { User } from '../user';
 export class AppNavbarComponent implements OnInit {
 
   user: User;
+  public isLoggedIn: boolean;
 
   constructor(
-    public userService: UserService
-  ) { }
-
-  ngOnInit() {
-    this.userService.getAuthState().subscribe((auth) => {
-      if( auth !== null )
-        this.getCurrentUser();
+    public authService: AuthService,
+    private router: Router
+  ) {
+    this.user = new User;
+    this.authService.afAuth.authState.subscribe((auth) => {
+      if( auth == null )
+      {
+        this.isLoggedIn = false;
+        this.user.Name = "";
+        this.user.Email = "";
+      }
+      else
+      {
+        this.isLoggedIn = true;
+        this.user.id = auth.uid;
+        this.user.Name = auth.displayName;
+        this.user.Email = auth.email;
+      }
     });
   }
 
+  ngOnInit() {
+  }
+
   private getCurrentUser(): void {
-    this.userService.getCurrentUser().subscribe((user) => {
-      this.user = user;
-    });
+  }
+
+  logout() {
+    this.authService.logout();
+    this.router.navigate(['/login']);
   }
 
 }

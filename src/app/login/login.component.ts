@@ -1,9 +1,8 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Router } from '@angular/router';
 
-import { Router, ActivatedRoute, ParamMap } from '@angular/router';
-
-import { User } from '../user';
-import { UserService } from '../user.service';
+import { AuthService } from '../auth.service';
+import { NgForm } from '@angular/forms/src/directives/ng_form';
 
 @Component({
   selector: 'app-login',
@@ -13,27 +12,32 @@ import { UserService } from '../user.service';
 })
 export class LoginComponent implements OnInit {
 
-  private user: User;
 
   constructor(
-    public userService: UserService,
+    public authService: AuthService,
     private router: Router
   ) { }
 
   ngOnInit() {
   }
 
-  onSubmit() {
-    this.userService.login(this.currUser.Email, this.currUser.password).then((user) => {
-      this.router.navigate(['/']);
-    }).catch((error) => {
+  onSubmit(formData: NgForm) {
+    if( formData.valid )
+    {
+      this.authService.login(formData.value.email, formData.value.password).then((data) => {
+        this.router.navigate(['/']);
+      }).catch((error) => {
+        this.hasError = true;
+        this.badPassword = error.code === "auth/wrong-password";
+        this.errorMessage = error.message;
+      });
+    }
+    else
+    {
       this.hasError = true;
-      this.badPassword = error.code==="auth/wrong-password";
-      this.errorMessage = "Something went wrong";
-    });
+      this.errorMessage = "The form is not correctly filled";
+    }
   }
-
-  currUser: User = new User;
 
   hasError = false;
   badPassword = false;

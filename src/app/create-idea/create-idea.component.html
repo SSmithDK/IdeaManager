@@ -8,22 +8,22 @@
   </div>
   <div class="row">
     <div class="col-8">
-      <form (ngSubmit)="onSubmit()" #createIdeaForm="ngForm">
+      <form (ngSubmit)="onSubmit(createIdeaForm)" #createIdeaForm="ngForm">
           <div class="form-group">
-            <input type="text" id="title" class="form-control form-control-lg" minlength="5" required [(ngModel)]="model.title" name="title" #title="ngModel"
+            <input type="text" id="title" class="form-control form-control-lg" minlength="5" required ngModel name="title" #title="ngModel"
                     aria-describedby="titleHelp" placeholder="Title">
             <small id="titleHelp" class="form-text text-muted">Give your idea a short title.</small>
             <div [hidden]="title.valid || title.pristine" class="alert alert-info">A title of min. 5 characters is required.</div>
           </div>
       
           <div class="form-group">
-            <textarea type="text" id="shortDesc" class="form-control" style="resize:none" rows="2" [(ngModel)]="model.shortDescription" name="short_desc"
+            <textarea type="text" id="shortDesc" class="form-control" style="resize:none" rows="2" ngModel name="short_desc"
                       #short_desc="ngModel" aria-describedby="shortDescHelp" placeholder="Short description"></textarea>
             <small id="shortDescHelp" class="form-text text-muted">Provide a brief description of the idea.</small>
           </div>
       
           <div class="form-group">
-            <textarea type="text" id="description" class="form-control" style="resize:none" rows="5" minlength="10" required [(ngModel)]="model.description"
+            <textarea type="text" id="description" class="form-control" style="resize:none" rows="5" minlength="10" required ngModel
                     name="description" #description="ngModel" aria-describedby="descHelp" placeholder="Description"></textarea>
             <small id="descHelp" class="form-text text-muted">Provide a description of the idea.</small>
             <div [hidden]="description.valid || description.pristine" class="alert alert-info">A description of min. 10 characters is required.</div>

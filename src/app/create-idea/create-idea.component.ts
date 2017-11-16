@@ -1,9 +1,9 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import {Idea} from "../Idea";
-import * as firebase from 'firebase/app';
 import {Router} from "@angular/router";
-import { UserService } from '../user.service';
 import { User } from '../user';
+import { NgForm } from '@angular/forms';
+import { IdeaService } from '../idea.service';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-create-idea',
@@ -14,45 +14,44 @@ import { User } from '../user';
 export class CreateIdeaComponent implements OnInit {
 
   private user: User;
+  public isLoggedIn: boolean;
 
   hasError = false;
   errorMessage = "";
-  model = new Idea("", "", "");
 
-  constructor(public userService: UserService,
-              private router: Router)
-  { }
+  constructor(
+    public ideaService: IdeaService,
+    public authService: AuthService,
+    private router: Router)
+  {
+    this.user = new User;
+    this.authService.afAuth.authState.subscribe((auth) => {
+      if( auth == null )
+      {
+        this.isLoggedIn = false;
+        this.user.Name = "";
+        this.user.Email = "";
+      }
+      else
+      {
+        this.isLoggedIn = true;
+        this.user.id = auth.uid;
+        this.user.Name = auth.displayName;
+        this.user.Email = auth.email;
+      }
+    });
+   }
 
   ngOnInit() {
-    this.userService.getAuthState().subscribe((auth) => {
-      this.getCurrentUser();
-    });
   }
 
-  private getCurrentUser(): void {
-    this.userService.getCurrentUser().subscribe((user) => {
-      this.user = user;
-    });
-  }
-
-  onSubmit() {
-    firebase.database().ref('Ideas').push({
-      Title: this.model.title,
-      Description: this.model.description,
-      ShortDescription: this.model.shortDescription,
-      User: this.user.id,
-      OwnerName: this.user.Name,
-      Published: this.model.published,
-      PositiveVotes: this.model.positiveVotes,
-      NegativeVotes: this.model.negativeVotes,
-      Timestamp: this.model.timestamp
-    }, (err) => {
-      if (err) {
-        this.hasError = true;
-        this.errorMessage = err.message;
-      }
-    }).then(() => {
-      this.router.navigate(['/']);
-    })
+  onSubmit(formData: NgForm) {
+    if( formData.valid )
+    {
+      let v = formData.value;
+      this.ideaService.createIdea(v.title, v.description, v.short_desc, this.user.id, this.user.Name, true).then(() => {
+        this.router.navigate(['/']);
+      });
+    }
   }
 }

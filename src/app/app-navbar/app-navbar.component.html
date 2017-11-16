@@ -5,22 +5,22 @@
   </button>
   <div class="collapse navbar-collapse" id="navbarsExampleDefault">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item" routerLinkActive="active" routerLinkActiveOptions="{exact: true}">
+      <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
         <a class="nav-link" routerLink="/">Home</a>
       </li>
-      <li class="nav-item" routerLinkActive="active" [hidden]="userService.isAuthenticated()">
+      <li class="nav-item" routerLinkActive="active" [hidden]="isLoggedIn">
         <a class="nav-link" routerLink="/signup">Sign up</a>
       </li>
-      <li class="nav-item" routerLinkActive="active" [hidden]="userService.isAuthenticated()">
+      <li class="nav-item" routerLinkActive="active" [hidden]="isLoggedIn">
         <a class="nav-link" routerLink="/login">Login</a>
       </li>
-      <li class="nav-item" routerLinkActive="active" [hidden]="!userService.isAuthenticated()">
+      <li class="nav-item" routerLinkActive="active" [hidden]="!isLoggedIn">
         <a class="nav-link" routerLink="/create">Add an idea</a>
       </li>
     </ul>
     <ul class="navbar-nav ml-auth">
-      <li class="nav-item float-right" routerLinkActive="active" [hidden]="!userService.isAuthenticated()">
-        <a class="nav-link" routerLink="/logout">Logout</a>
+      <li class="nav-item float-right" routerLinkActive="active" [hidden]="!isLoggedIn">
+        <a class="nav-link" (click)="logout()">Logout</a>
       </li>
     </ul>
     <form class="form-inline my-2 my-lg-0">

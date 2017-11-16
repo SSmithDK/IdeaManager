@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 
 // Firebase
 import { AngularFireModule } from 'angularfire2';
-import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { AngularFireDatabaseModule, AngularFireDatabase } from 'angularfire2/database';
 import { AngularFireAuthModule, AngularFireAuth } from 'angularfire2/auth';
 
 // Environment
@@ -27,6 +27,8 @@ import { VotingIdeasComponent } from './voting-ideas/voting-ideas.component';
 import { IdeaDetailsComponent } from './idea-details/idea-details.component';
 import { RouterModule } from '@angular/router';
 import { UserService } from './user.service';
+import { AuthService } from './auth.service';
+import { IdeaService } from './idea.service';
 
 export const firebaseConfig = {
   apiKey: "AIzaSyDGMsVOfYPh5aMTgwIEjwnwKCL3_WMQK9U",
@@ -61,7 +63,10 @@ export const firebaseConfig = {
   providers: [
     UserAuthGuard,
     UserService,
-    AngularFireAuth
+    AuthService,
+    AngularFireAuth,
+    AngularFireDatabase,
+    IdeaService
   ],
   bootstrap: [AppComponent]
 })
