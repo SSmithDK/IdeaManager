@@ -12,7 +12,6 @@ import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/first';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/map';
-import { Response } from '_debugger';
 import { Tag } from '../tag';
 
 @Component({
