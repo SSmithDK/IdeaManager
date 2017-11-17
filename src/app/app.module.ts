@@ -20,7 +20,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { LoginComponent } from './login/login.component';
 import { RecoverPasswordComponent } from './recover-password/recover-password.component';
-import { LogoutComponent } from './logout/logout.component';
 import { CreateIdeaComponent } from './create-idea/create-idea.component';
 import { UserAuthGuard} from "./userauth.guard";
 import { VotingIdeasComponent } from './voting-ideas/voting-ideas.component';
@@ -29,6 +28,7 @@ import { RouterModule } from '@angular/router';
 import { UserService } from './user.service';
 import { AuthService } from './auth.service';
 import { IdeaService } from './idea.service';
+import {UserApprovementComponent} from "./user-approvement/user-approvement.component";
 
 export const firebaseConfig = {
   apiKey: "AIzaSyDGMsVOfYPh5aMTgwIEjwnwKCL3_WMQK9U",
@@ -47,10 +47,10 @@ export const firebaseConfig = {
     DashboardComponent,
     LoginComponent,
     RecoverPasswordComponent,
-    LogoutComponent,
     CreateIdeaComponent,
     VotingIdeasComponent,
-    IdeaDetailsComponent
+    IdeaDetailsComponent,
+    UserApprovementComponent
   ],
   imports: [
     BrowserModule,

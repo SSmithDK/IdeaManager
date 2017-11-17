@@ -1,7 +1,8 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { User } from '../user';
-import { AuthService } from '../auth.service';
-import { Router } from '@angular/router';
+import {User} from "../user";
+import {AuthService} from "../auth.service";
+import {UserService} from "../user.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-navbar',
@@ -16,6 +17,7 @@ export class AppNavbarComponent implements OnInit {
 
   constructor(
     public authService: AuthService,
+    public userService: UserService,
     private router: Router
   ) {
     this.user = new User;
@@ -45,6 +47,10 @@ export class AppNavbarComponent implements OnInit {
   logout() {
     this.authService.logout();
     this.router.navigate(['/login']);
+  }
+
+  public isManager(): boolean {
+    return this.isLoggedIn && this.userService.isManager(this.user.id);
   }
 
 }
