@@ -43,7 +43,8 @@
       </div>
     </div>
     <div class="card-footer">
-      Some other info?
+      <span class="badge badge-primary mr-1 p-2" *ngFor="let tag of idea.Tags">{{tag.Title}}</span>
+      <i class="text-muted" [hidden]="idea.Tags">No tags</i>
     </div>
   </div>
   <ng-template #loading>
