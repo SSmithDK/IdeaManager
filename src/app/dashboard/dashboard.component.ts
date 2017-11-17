@@ -18,12 +18,6 @@ export class DashboardComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.ideasObservable = this.getIdeas('/Ideas');
+    this.ideasObservable = this.ideaService.getIdeas();
   }
-  // TODO: map valus into a proper array.
-  getIdeas(listPath): Observable<any[]> {
-    return this.ideaService.getIdeas();
-  }
-
-
 }

@@ -28,6 +28,16 @@
             <small id="descHelp" class="form-text text-muted">Provide a description of the idea.</small>
             <div [hidden]="description.valid || description.pristine" class="alert alert-info">A description of min. 10 characters is required.</div>
           </div>
+          <div class="form-group">
+              <tag-input name="tags" [(ngModel)]='items' theme="bootstrap" #tags="ngModel" [onTextChangeDebounce]="50">
+                <tag-input-dropdown 
+                  [autocompleteObservable]="autocompleteItems" 
+                  [displayBy]="'title'" 
+                  [identifyBy]="'id'" 
+                  [focusFirstElement]="true">
+                </tag-input-dropdown>
+              </tag-input>
+          </div>
           <button type="submit" class="btn btn-success" [disabled]="!createIdeaForm.form.valid">Create</button>
         </form>
     </div>
