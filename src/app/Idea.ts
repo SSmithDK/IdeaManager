@@ -1,17 +1,16 @@
 import {User} from "./user";
+import { Tag } from "./tag";
 
 export class Idea {
-
-  constructor(
-    public id: string,
-    public title: string,
-    public description: string,
-    public owner?: string,
-    public username?: string,
-    public timestamp: number = new Date().getTime(),
-    public positiveVotes: number = 0,
-    public negativeVotes: number = 0,
-    public published: boolean = true,
-    public shortDescription: string = "",
-  ) { }
+    public id: string;
+    public title: string;
+    public description: string;
+    public owner?: string;
+    public username?: string;
+    public timestamp: number;
+    public positiveVotes: number;
+    public negativeVotes: number;
+    public published: boolean;
+    public shortDescription: string;
+    public tags: Tag[];
 }

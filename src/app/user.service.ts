@@ -4,6 +4,7 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFireDatabase } from 'angularfire2/database';
 
 import { Observable } from 'rxjs/Observable';
+import { User } from './user';
 
 @Injectable()
 export class UserService {
@@ -49,9 +50,18 @@ export class UserService {
     });
   }
 
-  public getPendingUsers(): Observable<any> {
+  public getPendingUsers(): Observable<User[]> {
     return this.afDb.list('Users/', ref => ref.orderByChild('Approved').equalTo(false))
-      .snapshotChanges();
+      .snapshotChanges().map((arr) => {
+        return arr.map((item) => {
+          var user = new User;
+          user.id = item.key;
+          user.Name = item.payload.val().Name;
+          user.Email = item.payload.val().Email;
+          user.Approved = item.payload.val().Approved;
+          return user;
+        });
+      });
   }
 
   public isManager(uid: string) {

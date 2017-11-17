@@ -8,7 +8,7 @@ export class TagService {
 
   constructor(private afDb: AngularFireDatabase) { }
 
-  getAllTags(): Observable<any> {
+  getAllTags(): Observable<Tag[]> {
     return this.afDb.list<any>('Tags', ref => ref.orderByChild('Title')).snapshotChanges().map((arr) => { 
       return arr.sort(function(a, b){
         var keyA = a.payload.val().Title,

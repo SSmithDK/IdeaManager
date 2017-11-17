@@ -2,6 +2,7 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 
 import { Observable } from 'rxjs/Observable';
 import { IdeaService } from '../idea.service';
+import { Idea } from '../Idea';
 
 @Component({
   selector: 'app-dashboard',
@@ -11,7 +12,7 @@ import { IdeaService } from '../idea.service';
 })
 export class DashboardComponent implements OnInit {
 
-  ideasObservable: Observable<any[]>;
+  ideasObservable: Observable<Idea[]>;
 
   constructor(
     public ideaService: IdeaService

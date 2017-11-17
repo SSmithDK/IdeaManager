@@ -12,13 +12,14 @@ import {UserService} from "../user.service";
 })
 export class UserApprovementComponent implements OnInit {
 
-  pendingUsers: Observable<any>;
+  pendingUsers: Observable<User[]>;
 
   hasError = false;
   errorMessage = "";
 
-  constructor(public afDb: AngularFireDatabase,
-              private userService: UserService
+  constructor(
+    public afDb: AngularFireDatabase,
+    private userService: UserService
   ) { }
 
   ngOnInit() {

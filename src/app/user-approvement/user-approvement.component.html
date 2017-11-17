@@ -6,12 +6,11 @@
   <div [hidden]="!hasError" class="alert alert-danger" role="alert">
     <strong>An error occured:</strong> {{errorMessage}}
   </div>
-
   <div class="pt-2" *ngFor="let user of pendingUsers | async">
   <div class="card card-body col-4">
     <div class="card-block">
-      <h4 class="card-title">{{user.payload.val().Name}}</h4>
-      <h6 class="card-subtitle mb-2 text-muted">{{user.payload.val().Email}}</h6>
+      <h4 class="card-title">{{user.Name}}</h4>
+      <h6 class="card-subtitle mb-2 text-muted">{{user.Email}}</h6>
       <button (click)="onAccept(user.key)" type="button" class="btn btn-success">Approve</button>
       <button (click)="onDecline(user.key)" type="button" class="btn btn-danger">Disapprove</button>
       <div>
