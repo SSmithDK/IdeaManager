@@ -23,6 +23,14 @@ export class UserService {
     });
   }
 
+  public createUser(uid: string, name: string, email: string) {
+    this.afDb.database.ref(`Users/${uid}`).set({
+      Name: name,
+      Approved: false,
+      Email: email
+    });
+  }
+
   public deleteUser(uid: string, onComplete?: (a: Error | null) => any) {
 
     this.afDb.database.ref(`Users/${uid}`).remove((error) => {

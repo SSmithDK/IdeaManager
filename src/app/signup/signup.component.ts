@@ -35,7 +35,7 @@ export class SignupComponent implements OnInit {
         user.updateProfile({
           displayName: formData.value.name
         });
-        this.userService.updateName(user.uid, formData.value.name);
+        this.userService.createUser(user.uid, formData.value.name, formData.value.email);
       }).then( () => {
         // Success
         this.router.navigate(['/']);
