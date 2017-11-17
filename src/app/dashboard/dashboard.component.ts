@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 
 import { Observable } from 'rxjs/Observable';
-import { IdeaService } from '../idea.service';
+import { IdeaService } from '../services/idea.service';
 import { Idea } from '../Idea';
 
 @Component({

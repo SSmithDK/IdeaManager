@@ -5,7 +5,7 @@ import { User } from '../user';
 import { NgForm } from '@angular/forms';
 //import { IdeaService } from '../idea.service';
 import { CommentService } from '../comment.service';
-import { AuthService } from '../auth.service';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-create-comment',

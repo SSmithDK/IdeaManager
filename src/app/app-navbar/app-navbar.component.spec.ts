@@ -1,8 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AppNavbarComponent } from './app-navbar.component';
-
-import { AngularFireAuth } from 'angularfire2/auth';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('AppNavbarComponent', () => {
   let component: AppNavbarComponent;
@@ -10,6 +9,7 @@ describe('AppNavbarComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [ RouterTestingModule ],
       declarations: [ AppNavbarComponent ]
     })
     .compileComponents();

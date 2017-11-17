@@ -2,9 +2,9 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import {Router} from "@angular/router";
 import { User } from '../user';
 import { NgForm } from '@angular/forms';
-import { IdeaService } from '../idea.service';
-import { AuthService } from '../auth.service';
-import { TagService } from '../tag.service';
+import { IdeaService } from '../services/idea.service';
+import { AuthService } from '../services/auth.service';
+import { TagService } from '../services/tag.service';
 import { Observable } from 'rxjs/Observable';
 
 import 'rxjs/add/observable/of';

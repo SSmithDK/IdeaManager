@@ -1,11 +1,11 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
-import { IdeaService } from '../idea.service';
+import { IdeaService } from '../services/idea.service';
 import { CommentService } from '../comment.service';
 import { User } from '../user';
 import { Comment } from '../Comment';
-import { AuthService } from '../auth.service';
+import { AuthService } from '../services/auth.service';
 import { NgForm } from '@angular/forms';
 import {Router} from "@angular/router";
 

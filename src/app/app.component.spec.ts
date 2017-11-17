@@ -2,20 +2,18 @@ import { TestBed, async, inject } from '@angular/core/testing';
 import { AppComponent } from './app.component';
 
 import { AppNavbarComponent } from './app-navbar/app-navbar.component';
-import { RouterOutlet, RouterModule } from '@angular/router';
-import { AngularFireAuthModule } from 'angularfire2/auth';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('AppComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        AngularFireAuthModule
+        RouterTestingModule
       ],
       declarations: [
         AppComponent,
-        AppNavbarComponent,
-        RouterOutlet
+        AppNavbarComponent
       ]
     }).compileComponents();
   }));

@@ -5,7 +5,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/take';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/map';
-import { AuthService } from './auth.service';
+import { AuthService } from './services/auth.service';
 
 @Injectable()
 export class UserAuthGuard implements CanActivate {

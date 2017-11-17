@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import {User} from "../user";
-import {AuthService} from "../auth.service";
-import {UserService} from "../user.service";
+import {AuthService} from "../services/auth.service";
+import {UserService} from "../services/user.service";
 import {Router} from "@angular/router";
 
 @Component({

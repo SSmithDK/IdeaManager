@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { Observable } from 'rxjs/Observable';
-import { Tag } from './tag';
+import { Tag } from '../tag';
 import { TagService } from './tag.service';
-import { Idea } from './Idea';
+import { Idea } from '../Idea';
 
 @Injectable()
 export class IdeaService {

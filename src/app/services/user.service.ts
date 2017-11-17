@@ -4,7 +4,7 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFireDatabase } from 'angularfire2/database';
 
 import { Observable } from 'rxjs/Observable';
-import { User } from './user';
+import { User } from '../user';
 
 @Injectable()
 export class UserService {
