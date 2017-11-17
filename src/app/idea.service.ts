@@ -15,7 +15,10 @@ export class IdeaService {
       User: userID,
       OwnerName: userName,
       Published: published,
-      Timestamp: +new Date
+      Timestamp: +new Date,
+      PositiveVote:0,
+      NegativeVote:0
+
     });
   }
 
