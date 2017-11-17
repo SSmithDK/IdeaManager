@@ -28,7 +28,10 @@ export class IdeaService {
       OwnerName: userName,
       Published: published,
       Timestamp: +new Date,
-      Tags: saveTags
+      Tags: saveTags,
+      PositiveVote:0,
+      NegativeVote:0
+
     });
   }
 
