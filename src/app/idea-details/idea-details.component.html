@@ -46,6 +46,12 @@
       <span class="badge badge-primary mr-1 p-2" *ngFor="let tag of idea.Tags">{{tag.Title}}</span>
       <i class="text-muted" [hidden]="idea.Tags">No tags</i>
 
+      <div class="row">
+        <div class=col-sm-10>
+          <p class="card-text p-2">{{comments}}</p>
+        </div>
+      </div>
+
       <form (ngSubmit)="createComment(createCommentForm)" #createCommentForm="ngForm">
           <div class="form-group">
             <input type="hidden" id="idea_id" value="{{id}}">

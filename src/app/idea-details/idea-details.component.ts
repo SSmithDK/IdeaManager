@@ -17,6 +17,7 @@ import {Router} from "@angular/router";
 export class IdeaDetailsComponent implements OnInit {
 
   idea: Observable<any>;
+  comments: Observable<any>;
   id: string;
   private user: User;
   public isLoggedIn: boolean;
@@ -50,6 +51,10 @@ export class IdeaDetailsComponent implements OnInit {
   getIdea(): void {
     this.id = this.route.snapshot.paramMap.get("id");
     this.idea = this.ideaService.getIdea(this.id);
+  }
+
+  getComments(): void {
+    this.comments = this.commentService.getComments(this.id);
   }
 
   createComment(formData: NgForm) {
