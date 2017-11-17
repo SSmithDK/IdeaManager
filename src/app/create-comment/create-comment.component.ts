@@ -4,7 +4,7 @@ import { User } from '../user';
 //import { Idea } from '../idea';
 import { NgForm } from '@angular/forms';
 //import { IdeaService } from '../idea.service';
-import { CommentService } from '../comment.service';
+import { CommentService } from '../services/comment.service';
 import { AuthService } from '../services/auth.service';
 
 @Component({
@@ -46,9 +46,7 @@ export class CreateCommentComponent implements OnInit {
   onSubmit(formData: NgForm) {
     if (formData.valid) {
       let v = formData.value;
-      this.commentService.createComment(v.content, this.user.id, this.user.Name, v.idea_id).then(() => {
-        // Stays here and show comment!
-      });
+      this.commentService.createComment(v.content, this.user.id, this.user.Name, v.idea_id);
     }
   }
 

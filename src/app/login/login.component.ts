@@ -2,7 +2,7 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { AuthService } from '../services/auth.service';
-import { NgForm } from '@angular/forms/src/directives/ng_form';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-login',

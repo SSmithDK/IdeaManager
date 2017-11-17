@@ -32,7 +32,7 @@ import { UserApprovementComponent } from "./user-approvement/user-approvement.co
 import { TagInputModule } from 'ngx-chips';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TagService } from './services/tag.service'; 
-import { CommentService } from './comment.service';
+import { CommentService } from './services/comment.service';
 import { CreateCommentComponent } from './create-comment/create-comment.component';
 import { CommentDetailsComponent } from './comment-details/comment-details.component';
 

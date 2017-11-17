@@ -1,5 +1,4 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import {AngularFireDatabase, SnapshotAction} from "angularfire2/database";
 import {Observable} from "rxjs/Observable";
 import {User} from "../user";
 import {UserService} from "../services/user.service";
@@ -18,7 +17,6 @@ export class UserApprovementComponent implements OnInit {
   errorMessage = "";
 
   constructor(
-    public afDb: AngularFireDatabase,
     private userService: UserService
   ) { }
 

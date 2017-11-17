@@ -2,7 +2,7 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { IdeaService } from '../services/idea.service';
-import { CommentService } from '../comment.service';
+import { CommentService } from '../services/comment.service';
 import { User } from '../user';
 import { Comment } from '../Comment';
 import { AuthService } from '../services/auth.service';
