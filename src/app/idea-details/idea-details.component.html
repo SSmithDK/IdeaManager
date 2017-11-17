@@ -48,9 +48,7 @@
 {{comments}}
           <p *ngFor="let c of comments | async">
             <span>{{ c.username }}</span>
-            <div class="row">
                 {{ c.content }}
-            </div>
           </p>
 
       <form (ngSubmit)="createComment(createCommentForm)" #createCommentForm="ngForm">
