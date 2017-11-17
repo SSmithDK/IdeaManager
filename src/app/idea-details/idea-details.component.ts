@@ -4,6 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import { IdeaService } from '../idea.service';
 import { CommentService } from '../comment.service';
 import { User } from '../user';
+import { Comment } from '../Comment';
 import { AuthService } from '../auth.service';
 import { NgForm } from '@angular/forms';
 import {Router} from "@angular/router";
@@ -17,7 +18,7 @@ import {Router} from "@angular/router";
 export class IdeaDetailsComponent implements OnInit {
 
   idea: Observable<any>;
-  comments: Observable<any>;
+  comments: Observable<any[]>;
   id: string;
   private user: User;
   public isLoggedIn: boolean;
@@ -53,8 +54,9 @@ export class IdeaDetailsComponent implements OnInit {
     this.idea = this.ideaService.getIdea(this.id);
   }
 
-  getComments(): void {
+  getComments(content: string, user: string) {
     this.comments = this.commentService.getComments(this.id);
+    //this.comments.push(new Comment("1", content, "2", user, this.id));
   }
 
   createComment(formData: NgForm) {
@@ -63,6 +65,7 @@ export class IdeaDetailsComponent implements OnInit {
       this.commentService.createComment(v.content, this.user.id, this.user.Name, this.id).then(() => {
         // Stays here and show comment!
         formData.value.content = "";
+        this.getComments(v.content, this.user.Name);
       });
     }
   }

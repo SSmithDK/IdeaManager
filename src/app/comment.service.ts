@@ -19,7 +19,7 @@ export class CommentService {
   }
 
   getComments(idea_id: string): Observable<any> { //TODO get only comments for an idea_id
-    return this.afDb.list<any>('Comments', ref => ref.orderByChild('Timestamp').limitToLast(10)).snapshotChanges().map((arr) => {
+    return this.afDb.list<any>('Comments', ref => ref.limitToLast(10)).snapshotChanges().map((arr) => {
       return arr.sort(function(a, b) {
         var keyA = a.payload.val().Timestamp,
             keyB = b.payload.val().Timestamp;
