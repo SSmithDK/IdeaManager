@@ -28,7 +28,10 @@ import { RouterModule } from '@angular/router';
 import { UserService } from './user.service';
 import { AuthService } from './auth.service';
 import { IdeaService } from './idea.service';
-import {UserApprovementComponent} from "./user-approvement/user-approvement.component";
+import { UserApprovementComponent } from "./user-approvement/user-approvement.component";
+import { TagInputModule } from 'ngx-chips';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { TagService } from './tag.service'; 
 
 export const firebaseConfig = {
   apiKey: "AIzaSyDGMsVOfYPh5aMTgwIEjwnwKCL3_WMQK9U",
@@ -58,7 +61,9 @@ export const firebaseConfig = {
     NgbModule.forRoot(),
     AppRoutingModule,
     FormsModule,
-    RouterModule
+    RouterModule,
+    TagInputModule,
+    BrowserAnimationsModule
   ],
   providers: [
     UserAuthGuard,
@@ -66,7 +71,8 @@ export const firebaseConfig = {
     AuthService,
     AngularFireAuth,
     AngularFireDatabase,
-    IdeaService
+    IdeaService,
+    TagService
   ],
   bootstrap: [AppComponent]
 })

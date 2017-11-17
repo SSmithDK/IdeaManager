@@ -1,13 +1,25 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { Observable } from 'rxjs/Observable';
+import { Tag } from './tag';
+import { TagService } from './tag.service';
 
 @Injectable()
 export class IdeaService {
 
-  constructor(public afDb: AngularFireDatabase) { }
+  constructor(public afDb: AngularFireDatabase, public tagService: TagService) { }
 
-  createIdea(title: string, description: string, shortDescription: string, userID: string, userName: string, published: boolean) {
+  createIdea(title: string, description: string, shortDescription: string, userID: string, userName: string, tags?: any[], published?: boolean) {
+    var saveTags: {ID: string, Title: string}[] = [];
+    for(var i=0; i < tags.length; i++)
+    {
+      if( tags[i].id==null ) // If the tag doesn't exist, create it
+      {
+        tags[i].id = this.tagService.addTag(tags[i].display);
+      }
+      saveTags.push({ID: tags[i].id, Title: tags[i].display});
+    }
+    console.log(saveTags);
     return this.afDb.database.ref("Ideas").push({
       Title: title,
       Description: description,
@@ -15,7 +27,8 @@ export class IdeaService {
       User: userID,
       OwnerName: userName,
       Published: published,
-      Timestamp: +new Date
+      Timestamp: +new Date,
+      Tags: saveTags
     });
   }
 

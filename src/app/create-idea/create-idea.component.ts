@@ -4,6 +4,16 @@ import { User } from '../user';
 import { NgForm } from '@angular/forms';
 import { IdeaService } from '../idea.service';
 import { AuthService } from '../auth.service';
+import { TagService } from '../tag.service';
+import { Observable } from 'rxjs/Observable';
+
+import 'rxjs/add/observable/of';
+import 'rxjs/add/operator/filter';
+import 'rxjs/add/operator/first';
+import 'rxjs/add/operator/debounceTime';
+import 'rxjs/add/operator/map';
+import { Response } from '_debugger';
+import { Tag } from '../tag';
 
 @Component({
   selector: 'app-create-idea',
@@ -16,12 +26,17 @@ export class CreateIdeaComponent implements OnInit {
   private user: User;
   public isLoggedIn: boolean;
 
+  items: Tag[];
+
+  tags;
+
   hasError = false;
   errorMessage = "";
 
   constructor(
     public ideaService: IdeaService,
     public authService: AuthService,
+    public tagService: TagService,
     private router: Router)
   {
     this.user = new User;
@@ -45,11 +60,15 @@ export class CreateIdeaComponent implements OnInit {
   ngOnInit() {
   }
 
+  autocompleteItems = (text: string): Observable<Tag[]> => {
+    return this.tagService.getAllTags();
+  }
+
   onSubmit(formData: NgForm) {
     if( formData.valid )
     {
       let v = formData.value;
-      this.ideaService.createIdea(v.title, v.description, v.short_desc, this.user.id, this.user.Name, true).then(() => {
+      this.ideaService.createIdea(v.title, v.description, v.short_desc, this.user.id, this.user.Name, v.tags, true).then(() => {
         this.router.navigate(['/']);
       });
     }
