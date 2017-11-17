@@ -45,6 +45,23 @@
     <div class="card-footer">
       <span class="badge badge-primary mr-1 p-2" *ngFor="let tag of idea.Tags">{{tag.Title}}</span>
       <i class="text-muted" [hidden]="idea.Tags">No tags</i>
+{{comments}}
+          <p *ngFor="let c of comments | async">
+            <span>{{ c.username }}</span>
+                {{ c.content }}
+          </p>
+
+      <form (ngSubmit)="createComment(createCommentForm)" #createCommentForm="ngForm">
+          <div class="form-group">
+            <input type="hidden" id="idea_id" value="{{id}}">
+            <input type="text" id="content" class="form-control form-control-lg" minlength="5" required ngModel name="content" #content="ngModel"
+                    aria-describedby="contentHelp" placeholder="Content">
+            <small id="contentHelp" class="form-text text-muted">Write the content here.</small>
+            <div [hidden]="content.valid || content.pristine" class="alert alert-info">Content must have min. 5 characters.</div>
+          </div>
+          <button type="submit" class="btn btn-success" [disabled]="!createCommentForm.form.valid">Comment!</button>
+      </form>
+
     </div>
   </div>
   <ng-template #loading>
