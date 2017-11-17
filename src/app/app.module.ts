@@ -32,6 +32,9 @@ import { UserApprovementComponent } from "./user-approvement/user-approvement.co
 import { TagInputModule } from 'ngx-chips';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TagService } from './tag.service'; 
+import { CommentService } from './comment.service';
+import { CreateCommentComponent } from './create-comment/create-comment.component';
+import { CommentDetailsComponent } from './comment-details/comment-details.component';
 
 export const firebaseConfig = {
   apiKey: "AIzaSyDGMsVOfYPh5aMTgwIEjwnwKCL3_WMQK9U",
@@ -53,7 +56,9 @@ export const firebaseConfig = {
     CreateIdeaComponent,
     VotingIdeasComponent,
     IdeaDetailsComponent,
-    UserApprovementComponent
+    UserApprovementComponent,
+    CreateCommentComponent,
+    CommentDetailsComponent
   ],
   imports: [
     BrowserModule,
@@ -72,6 +77,7 @@ export const firebaseConfig = {
     AngularFireAuth,
     AngularFireDatabase,
     IdeaService,
+    CommentService,
     TagService
   ],
   bootstrap: [AppComponent]
