@@ -1,13 +1,9 @@
 import { Injectable } from '@angular/core';
 
-import { User } from './user';
-
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFireDatabase } from 'angularfire2/database';
-import * as firebase from 'firebase/app';
 
 import { Observable } from 'rxjs/Observable';
-import { of } from 'rxjs/observable/of';
 
 @Injectable()
 export class UserService {
@@ -17,42 +13,41 @@ export class UserService {
     private afDb: AngularFireDatabase
   ) { }
 
-  public getCurrentUser(): Observable<User> {
-    if( this.isAuthenticated() )
-    {
-      return this.afDb.object<User>(`Users/${this.getUserId()}`).snapshotChanges().map(action => {
-        const id = action.payload.key;
-        const data = { id, ...action.payload.val() };
-        data.Email = this.afAuth.auth.currentUser.uid;
-        return data;
-      }).do((user) => {
-        this.afDb.object<any>(`Approved/${this.getUserId()}`).valueChanges().subscribe((approved) => user.approved = approved);
-        this.afDb.object<any>(`Managers/${this.getUserId()}`).valueChanges().subscribe(
-          (manager) => {
-            user.Manager = manager != null
-          },
-          error => {
-            user.Manager = false;
-            console.log("Permission problem");
-          });
-      });
-    }
-    else
-    {
-      return null;
-    }
+  public updateName(uid: string, name: string) {
+    this.afAuth.auth.currentUser.updateProfile({
+      displayName: name,
+      photoURL: ''
+    });
+    this.afDb.database.ref(`Users/${uid}`).set({
+      Name: name
+    });
   }
 
-  public getUserId(): string {
-    return this.isAuthenticated() !== null ? this.afAuth.auth.currentUser.uid : "";
+  public deleteUser(uid: string, onComplete?: (a: Error | null) => any) {
+
+    this.afDb.database.ref(`Users/${uid}`).remove((error) => {
+
+      onComplete(error);
+
+    });
   }
 
-  public isAuthenticated(): boolean {
-    return this.afAuth.auth.currentUser !== null;
+  public approveUser(uid: string, onComplete?: (a: Error | null) => any) {
+
+    this.afDb.database.ref(`Users/${uid}/Approved`).set(true, (error) => {
+
+      onComplete(error);
+
+    });
   }
 
-  public getAuthState(): Observable<firebase.User> {
-    return this.afAuth.authState;
+  public getPendingUsers(): Observable<any> {
+    return this.afDb.list('Users/', ref => ref.orderByChild('Approved').equalTo(false))
+      .snapshotChanges();
+  }
+
+  public isManager(uid: string) {
+    return this.afDb.database.ref(`Managers/`).child(uid) !== null;
   }
 
 }

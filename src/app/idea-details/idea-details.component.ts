@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { AngularFireDatabase, AngularFireObject } from 'angularfire2/database';
 import { Observable } from 'rxjs/Observable';
+import { IdeaService } from '../idea.service';
 
 @Component({
   selector: 'app-idea-details',
@@ -16,7 +16,7 @@ export class IdeaDetailsComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private afDb: AngularFireDatabase
+    private ideaService: IdeaService
   ) { }
 
   ngOnInit() {
@@ -25,11 +25,7 @@ export class IdeaDetailsComponent implements OnInit {
 
   getIdea(): void {
     this.id = this.route.snapshot.paramMap.get("id");
-    this.idea = this.afDb.object<any>(`Ideas/${this.id}`).snapshotChanges().map(action => {
-      const $key = action.payload.key;
-      const data = { $key, ...action.payload.val() };
-      return data;
-    });
+    this.idea = this.ideaService.getIdea(this.id);
   }
 
 }

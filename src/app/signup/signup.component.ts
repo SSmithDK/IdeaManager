@@ -1,10 +1,10 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { AngularFireAuth } from 'angularfire2/auth';
-import * as firebase from 'firebase/app';
 
-import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { Router } from '@angular/router';
 
-import { User } from '../user';
+import { AuthService } from '../auth.service';
+import { NgForm } from '@angular/forms/src/directives/ng_form';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-signup',
@@ -15,41 +15,35 @@ import { User } from '../user';
 export class SignupComponent implements OnInit {
 
   constructor(
-    public afAuth: AngularFireAuth,
+    public authService: AuthService,
+    public userService: UserService,
     private router: Router
-  ) {
-    this.afAuth.authState.subscribe((auth) => {
-      if( auth !== null )
-      {
-        this.router.navigate(['/']);
-      }
-    });
-   }
+  ) { }
 
   ngOnInit() {
   }
 
-  model = new User();
   hasError = false;
   errorMessage = "";
 
 
-  onSubmit() {
-    this.afAuth.auth.createUserWithEmailAndPassword(this.model.Email, this.model.password).then((user) => {
-      // User created, add details
-      user.updateProfile({
-        displayName: this.model.Name
+  onSubmit(formData: NgForm) {
+    if(formData.valid)
+    {
+      this.authService.createUser(formData.value.email, formData.value.password).then((user) => {
+        // User created, add details
+        user.updateProfile({
+          displayName: formData.value.name
+        });
+        this.userService.updateName(user.uid, formData.value.name);
+      }).then( () => {
+        // Success
+        this.router.navigate(['/']);
+      }).catch( (err) => {
+        // Handle errors
+        this.hasError = true;
+        this.errorMessage = err.message;
       });
-      firebase.database().ref(`Users/${user.uid}`).set({
-        Name: this.model.Name
-      });
-    }).then( () => {
-      // Success
-      this.router.navigate(['/']);
-    }).catch( (err) => {
-      // Handle errors
-      this.hasError = true;
-      this.errorMessage = err.message;
-    });
+    }
   }
 }

@@ -1,10 +1,8 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { AngularFireAuth } from 'angularfire2/auth';
-import { AngularFireModule } from 'angularfire2';
-import { AngularFireDatabaseModule } from 'angularfire2/database';
-import * as firebase from 'firebase/app';
-import {UserService} from "../user.service";
 import {User} from "../user";
+import {AuthService} from "../auth.service";
+import {UserService} from "../user.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-navbar',
@@ -14,36 +12,45 @@ import {User} from "../user";
 })
 export class AppNavbarComponent implements OnInit {
 
-  private user: User;
-  private authState: any = null;
+  user: User;
+  public isLoggedIn: boolean;
 
   constructor(
-    private afAuth: AngularFireAuth,
-    private userService: UserService
+    public authService: AuthService,
+    public userService: UserService,
+    private router: Router
   ) {
-    this.afAuth.authState.subscribe((auth) => {
-      this.authState = auth;
+    this.user = new User;
+    this.authService.afAuth.authState.subscribe((auth) => {
+      if( auth == null )
+      {
+        this.isLoggedIn = false;
+        this.user.Name = "";
+        this.user.Email = "";
+      }
+      else
+      {
+        this.isLoggedIn = true;
+        this.user.id = auth.uid;
+        this.user.Name = auth.displayName;
+        this.user.Email = auth.email;
+      }
     });
   }
 
   ngOnInit() {
-    this.userService.getAuthState().subscribe((auth) => {
-      this.getCurrentUser();
-    });
   }
 
-  getCurrentUser() {
-    this.userService.getCurrentUser().subscribe(user => {
-      this.user = user;
-    });
+  private getCurrentUser(): void {
   }
 
-  public isAuthenticated(): boolean {
-    return this.authState !== null;
+  logout() {
+    this.authService.logout();
+    this.router.navigate(['/login']);
   }
 
   public isManager(): boolean {
-    return this.isAuthenticated() && this.user.Manager;
+    return this.isLoggedIn && this.userService.isManager(this.user.id);
   }
 
 }

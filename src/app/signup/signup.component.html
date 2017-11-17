@@ -7,22 +7,22 @@
       <div [hidden]="!hasError" class="alert alert-danger" role="alert">
         <strong>An error occured:</strong> {{errorMessage}}
       </div>
-      <form (ngSubmit)="onSubmit()" #signupForm="ngForm" class="signup-form">
+      <form (ngSubmit)="onSubmit(signupForm)" #signupForm="ngForm" class="signup-form">
         <div class="form-group">
-          <input type="text" class="form-control" id="name" required [(ngModel)]="model.name" name="name" #name="ngModel" autofocus placeholder="Full name">
+          <input type="test" class="form-control" id="name" required name="name" ngModel #name="ngModel" autofocus placeholder="Full name">
           <div [hidden]="name.valid || name.pristine" class="alert alert-danger mt-1">
             Name is required
           </div>
         </div>
         <div class="form-group">
-          <input type="email" class="form-control mb-0" id="email" aria-describedby="emailHelp" required [(ngModel)]="model.Email" name="email" #email="ngModel" placeholder="Email address">
+          <input type="email" class="form-control mb-0" id="email" aria-describedby="emailHelp" required name="email" ngModel #email="ngModel" placeholder="Email address">
           <small id="emailHelp" class="form-text text-muted text-left mt-0">We'll never share you email address with anyone else</small>
           <div [hidden]="email.valid || email.pristine" class="alert alert-danger mt-1">
             Email is required
           </div>
         </div>
         <div class="form-group">
-          <input type="password" class="form-control" id="password" required [(ngModel)]="model.password" name="password" #password="ngModel" placeholder="Password">
+          <input type="password" class="form-control" id="password" required name="password" ngModel #password="ngModel" placeholder="Password">
           <div [hidden]="password.valid || password.pristine" class="alert alert-danger mt-1">
             Password is required
           </div>

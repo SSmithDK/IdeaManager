@@ -5,12 +5,12 @@
   </div>
   <div class="form">
     <h2 class="text-center mb-4">Login</h2>
-    <form class="login-form" (ngSubmit)="onSubmit()" #loginForm="ngForm">
-      <input type="text" placeholder="Email" required [(ngModel)]="currUser.Email" name="email" autofocus />
-      <input type="password" placeholder="Password" required [(ngModel)]="currUser.password" name="password" />
+    <form class="login-form" (ngSubmit)="onSubmit(loginForm)" #loginForm="ngForm">
+      <input type="text" placeholder="Email" required name="email" ngModel #email="ngModel" autofocus />
+      <input type="password" placeholder="Password" required name="password" ngModel #password="ngModel" />
       <button type="submit" [disabled]="!loginForm.form.valid">Login</button>
       <p>Not registered? <a [routerLink]="[ '/signup' ]">Sign up here</a></p>
       <p>Forgot your password? <a [routerLink]="[ '/password' ]">Recover here</a></p>
     </form>
-  </div>
+  </div>  
 </div>

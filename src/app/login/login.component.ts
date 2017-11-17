@@ -1,12 +1,8 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { AngularFireAuth } from 'angularfire2/auth';
-import { AngularFireModule } from 'angularfire2';
-import { AngularFireDatabaseModule } from 'angularfire2/database';
-import * as firebase from 'firebase/app';
+import { Router } from '@angular/router';
 
-import { Router, ActivatedRoute, ParamMap } from '@angular/router';
-
-import { User } from '../user';
+import { AuthService } from '../auth.service';
+import { NgForm } from '@angular/forms/src/directives/ng_form';
 
 @Component({
   selector: 'app-login',
@@ -16,34 +12,32 @@ import { User } from '../user';
 })
 export class LoginComponent implements OnInit {
 
+
   constructor(
-    public afAuth: AngularFireAuth,
-    private afDb: AngularFireDatabaseModule,
+    public authService: AuthService,
     private router: Router
-  ) {
-    this.afAuth.authState.subscribe((auth) => {
-      if( auth !== null )
-      {
-        this.router.navigate(['/']);
-      }
-    });
-   }
+  ) { }
 
   ngOnInit() {
   }
 
-  onSubmit() {
-    this.afAuth.auth.signInWithEmailAndPassword(this.currUser.Email, this.currUser.password).then((user) => {
-      // Authenticated!
-      this.router.navigate(['/']);
-    }).catch((error) => {
+  onSubmit(formData: NgForm) {
+    if( formData.valid )
+    {
+      this.authService.login(formData.value.email, formData.value.password).then((data) => {
+        this.router.navigate(['/']);
+      }).catch((error) => {
+        this.hasError = true;
+        this.badPassword = error.code === "auth/wrong-password";
+        this.errorMessage = error.message;
+      });
+    }
+    else
+    {
       this.hasError = true;
-      this.errorMessage = error.message;
-      this.badPassword = error.code === "auth/wrong-password";
-    });
+      this.errorMessage = "The form is not correctly filled";
+    }
   }
-
-  currUser = new User();
 
   hasError = false;
   badPassword = false;
