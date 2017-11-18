@@ -37,7 +37,7 @@ export class IdeaService {
   }
 
   getIdeas(): Observable<Idea[]>{
-    return this.afDb.list<any>('Ideas', ref => ref.orderByChild('Timestamp').limitToLast(10)).snapshotChanges().map((arr) => { 
+    return this.afDb.list<any>('Ideas', ref => ref.orderByChild('Published').equalTo(true)).snapshotChanges().map((arr) => { 
       return arr.sort(function(a, b){
         var keyA = a.payload.val().Timestamp,
             keyB = b.payload.val().Timestamp;

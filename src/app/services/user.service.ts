@@ -86,7 +86,7 @@ export class UserService {
   }
 
   public getPendingUsers(): Observable<User[]> {
-    return this.afDb.list('Users/', ref => ref.orderByChild('Approved').equalTo(false))
+    return this.afDb.list('Users/', ref => ref.orderByChild('Approved').equalTo(false)) 
       .snapshotChanges().map((arr) => {
         return arr.map((item) => {
           var user = new User;
