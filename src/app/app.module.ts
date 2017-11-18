@@ -37,6 +37,7 @@ import { CreateCommentComponent } from './create-comment/create-comment.componen
 import { CommentDetailsComponent } from './comment-details/comment-details.component';
 import { MyIdeasComponent } from './my-ideas/my-ideas.component';
 import { IdeaComponent } from './idea/idea.component';
+import { ProfileComponent } from './profile/profile.component';
 
 export const firebaseConfig = {
   apiKey: "AIzaSyDGMsVOfYPh5aMTgwIEjwnwKCL3_WMQK9U",
@@ -62,7 +63,8 @@ export const firebaseConfig = {
     CreateCommentComponent,
     CommentDetailsComponent,
     MyIdeasComponent,
-    IdeaComponent
+    IdeaComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,

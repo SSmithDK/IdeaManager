@@ -27,11 +27,14 @@ export class AppNavbarComponent implements OnInit {
     this.userService.currentUser.subscribe((user) => {
       if(user!==null)
       {
+        this.user = user;
         this.isManager = user.Manager;
         this.isApproved = user.Approved;
       }
       else
       {
+        this.user = null;
+        this.isApproved = false;
         this.isManager = false;
       }
     })

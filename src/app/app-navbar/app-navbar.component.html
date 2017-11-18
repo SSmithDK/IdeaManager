@@ -25,6 +25,9 @@
       </li>
     </ul>
     <ul class="navbar-nav ml-auth">
+      <li class="nav-item float-right" routerLinkActive="active" *ngIf="user">
+        <a class="nav-link" routerLink="/profile">{{user.Name}}</a>
+      </li>
       <li class="nav-item float-right" routerLinkActive="active" [hidden]="!isLoggedIn">
         <a class="nav-link" (click)="logout()">Logout</a>
       </li>
