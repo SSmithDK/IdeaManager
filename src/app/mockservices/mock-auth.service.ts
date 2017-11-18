@@ -1,9 +1,14 @@
 import { Injectable } from '@angular/core';
+import { Subject } from 'rxjs/Subject';
 
 @Injectable()
 export class MockAuthService {
 
-  constructor() { }
+  public isAuthorized = new Subject<boolean>();
+
+  constructor() {
+    this.isAuthorized.next(true);
+   }
 
   login(email: string, password: string) {
     var defer;

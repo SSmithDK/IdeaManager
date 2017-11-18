@@ -10,6 +10,7 @@ import { MockTagService } from '../mockservices/mock-tag.service';
 import { FormsModule } from '@angular/forms';
 import { TagInputModule } from 'ngx-chips';
 import { RouterTestingModule } from '@angular/router/testing';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('CreateIdeaComponent', () => {
   let component: CreateIdeaComponent;
@@ -17,7 +18,7 @@ describe('CreateIdeaComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [ FormsModule, TagInputModule, RouterTestingModule ],
+      imports: [ FormsModule, TagInputModule, RouterTestingModule, BrowserAnimationsModule ],
       declarations: [ CreateIdeaComponent ],
       providers: [ 
         {provide: IdeaService, useClass: MockIdeaService},

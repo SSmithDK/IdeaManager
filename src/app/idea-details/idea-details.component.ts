@@ -31,18 +31,7 @@ export class IdeaDetailsComponent implements OnInit {
     private router: Router
   ) { 
       this.user = new User;
-      this.authService.afAuth.authState.subscribe((auth) => {
-        if (auth == null) {
-          this.isLoggedIn = false;
-          this.user.Name = "";
-          this.user.Email = "";
-        } else {
-          this.isLoggedIn = true;
-          this.user.id = auth.uid;
-          this.user.Name = auth.displayName;
-          this.user.Email = auth.email;
-        }
-      });
+      this.authService.isAuthorized.subscribe((isAuth) => this.isLoggedIn = isAuth);
   }
 
   ngOnInit() {

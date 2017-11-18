@@ -34,26 +34,10 @@ export class CreateIdeaComponent implements OnInit {
 
   constructor(
     public ideaService: IdeaService,
-    public authService: AuthService,
     public tagService: TagService,
     private router: Router)
   {
     this.user = new User;
-    this.authService.afAuth.authState.subscribe((auth) => {
-      if( auth == null )
-      {
-        this.isLoggedIn = false;
-        this.user.Name = "";
-        this.user.Email = "";
-      }
-      else
-      {
-        this.isLoggedIn = true;
-        this.user.id = auth.uid;
-        this.user.Name = auth.displayName;
-        this.user.Email = auth.email;
-      }
-    });
    }
 
   ngOnInit() {
