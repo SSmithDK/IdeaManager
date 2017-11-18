@@ -1,9 +1,9 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Input } from '@angular/core/';
 import { Idea } from '../Idea';
-import { IdeaService } from '../idea.service';
+import { IdeaService } from '../services/idea.service';
 import { User } from '../user';
-import { AuthService } from '../auth.service';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-voting-ideas',
