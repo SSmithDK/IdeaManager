@@ -4,8 +4,9 @@ import { User } from '../user';
 //import { Idea } from '../idea';
 import { NgForm } from '@angular/forms';
 //import { IdeaService } from '../idea.service';
-import { CommentService } from '../comment.service';
-import { AuthService } from '../auth.service';
+import { CommentService } from '../services/comment.service';
+import { AuthService } from '../services/auth.service';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-create-comment',
@@ -15,7 +16,7 @@ import { AuthService } from '../auth.service';
 })
 export class CreateCommentComponent implements OnInit {
 
-  private user: User;
+  private user = new User;
   public isLoggedIn: boolean;
 
   hasError = false;
@@ -24,19 +25,11 @@ export class CreateCommentComponent implements OnInit {
   constructor(
     public commentService: CommentService,
     public authService: AuthService,
+    public userService: UserService,
     private router: Router) {
-      this.user = new User;
-      this.authService.afAuth.authState.subscribe((auth) => {
-        if (auth == null) {
-          this.isLoggedIn = false;
-          this.user.Name = "";
-          this.user.Email = "";
-        } else {
-          this.isLoggedIn = true;
-          this.user.id = auth.uid;
-          this.user.Name = auth.displayName;
-          this.user.Email = auth.email;
-        }
+      this.authService.isAuthorized.subscribe((isAuth) => this.isLoggedIn = isAuth);
+      this.userService.currentUser.subscribe((user) => {
+        this.user = user;
       });
   }
 
@@ -46,9 +39,7 @@ export class CreateCommentComponent implements OnInit {
   onSubmit(formData: NgForm) {
     if (formData.valid) {
       let v = formData.value;
-      this.commentService.createComment(v.content, this.user.id, this.user.Name, v.idea_id).then(() => {
-        // Stays here and show comment!
-      });
+      this.commentService.createComment(v.content, this.user.id, this.user.Name, v.idea_id);
     }
   }
 

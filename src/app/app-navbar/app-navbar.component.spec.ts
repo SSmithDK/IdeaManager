@@ -1,8 +1,11 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AppNavbarComponent } from './app-navbar.component';
-
-import { AngularFireAuth } from 'angularfire2/auth';
+import { RouterTestingModule } from '@angular/router/testing';
+import { AuthService } from '../services/auth.service';
+import { MockAuthService } from '../mockservices/mock-auth.service';
+import { UserService } from '../services/user.service';
+import { MockUserService } from '../mockservices/mock-user.service';
 
 describe('AppNavbarComponent', () => {
   let component: AppNavbarComponent;
@@ -10,7 +13,12 @@ describe('AppNavbarComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AppNavbarComponent ]
+      imports: [ RouterTestingModule ],
+      declarations: [ AppNavbarComponent ],
+      providers: [ 
+        {provide: AuthService, useClass: MockAuthService},
+        {provide: UserService, useClass: MockUserService}
+      ]
     })
     .compileComponents();
   }));

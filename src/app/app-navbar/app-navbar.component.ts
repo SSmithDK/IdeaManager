@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import {User} from "../user";
-import {AuthService} from "../auth.service";
-import {UserService} from "../user.service";
+import {AuthService} from "../services/auth.service";
+import {UserService} from "../services/user.service";
 import {Router} from "@angular/router";
 
 @Component({
@@ -14,6 +14,8 @@ export class AppNavbarComponent implements OnInit {
 
   user: User;
   public isLoggedIn: boolean;
+  public isManager: boolean;
+  public isApproved: boolean;
 
   constructor(
     public authService: AuthService,
@@ -21,36 +23,26 @@ export class AppNavbarComponent implements OnInit {
     private router: Router
   ) {
     this.user = new User;
-    this.authService.afAuth.authState.subscribe((auth) => {
-      if( auth == null )
+    this.authService.isAuthorized.subscribe((isAuth) => this.isLoggedIn = isAuth);
+    this.userService.currentUser.subscribe((user) => {
+      if(user!==null)
       {
-        this.isLoggedIn = false;
-        this.user.Name = "";
-        this.user.Email = "";
+        this.isManager = user.Manager;
+        this.isApproved = user.Approved;
       }
       else
       {
-        this.isLoggedIn = true;
-        this.user.id = auth.uid;
-        this.user.Name = auth.displayName;
-        this.user.Email = auth.email;
+        this.isManager = false;
       }
-    });
+    })
   }
 
   ngOnInit() {
   }
 
-  private getCurrentUser(): void {
-  }
-
   logout() {
     this.authService.logout();
     this.router.navigate(['/login']);
-  }
-
-  public isManager(): boolean {
-    return this.isLoggedIn && this.userService.isManager(this.user.id);
   }
 
 }

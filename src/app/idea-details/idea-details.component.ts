@@ -1,13 +1,13 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
-import { IdeaService } from '../idea.service';
-import { CommentService } from '../comment.service';
+import { IdeaService } from '../services/idea.service';
+import { CommentService } from '../services/comment.service';
 import { User } from '../user';
 import { Comment } from '../Comment';
-import { AuthService } from '../auth.service';
 import { NgForm } from '@angular/forms';
 import {Router} from "@angular/router";
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-idea-details',
@@ -20,29 +20,18 @@ export class IdeaDetailsComponent implements OnInit {
   idea: Observable<any>;
   comments: Observable<any[]>;
   id: string;
-  private user: User;
-  public isLoggedIn: boolean;
+  private user = new User;
 
   constructor(
     private route: ActivatedRoute,
     private ideaService: IdeaService,
     private commentService: CommentService,
-    public authService: AuthService,
+    private userService: UserService,
     private router: Router
   ) { 
-      this.user = new User;
-      this.authService.afAuth.authState.subscribe((auth) => {
-        if (auth == null) {
-          this.isLoggedIn = false;
-          this.user.Name = "";
-          this.user.Email = "";
-        } else {
-          this.isLoggedIn = true;
-          this.user.id = auth.uid;
-          this.user.Name = auth.displayName;
-          this.user.Email = auth.email;
-        }
-      });
+    this.userService.currentUser.subscribe((user) => {
+      this.user = user;
+    });
   }
 
   ngOnInit() {

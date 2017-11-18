@@ -1,6 +1,16 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { IdeaDetailsComponent } from './idea-details.component';
+import { FormsModule } from '@angular/forms';
+import { IdeaService } from '../services/idea.service';
+import { MockIdeaService } from '../mockservices/mock-idea.service';
+import { CommentService } from '../services/comment.service';
+import { MockCommentService } from '../mockservices/mock-comment.service';
+import { AuthService } from '../services/auth.service';
+import { MockAuthService } from '../mockservices/mock-auth.service';
+import { RouterTestingModule } from '@angular/router/testing';
+import { MockUserService } from '../mockservices/mock-user.service';
+import { UserService } from '../services/user.service';
 
 describe('IdeaDetailsComponent', () => {
   let component: IdeaDetailsComponent;
@@ -8,7 +18,14 @@ describe('IdeaDetailsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ IdeaDetailsComponent ]
+      imports: [ FormsModule, RouterTestingModule ],
+      declarations: [ IdeaDetailsComponent ],
+      providers: [
+        {provide: IdeaService, useClass: MockIdeaService},
+        {provide: CommentService, useClass: MockCommentService},
+        {provide: AuthService, useClass: MockAuthService},
+        {provide: UserService, useClass: MockUserService}
+      ]
     })
     .compileComponents();
   }));

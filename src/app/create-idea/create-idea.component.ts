@@ -2,9 +2,9 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import {Router} from "@angular/router";
 import { User } from '../user';
 import { NgForm } from '@angular/forms';
-import { IdeaService } from '../idea.service';
-import { AuthService } from '../auth.service';
-import { TagService } from '../tag.service';
+import { IdeaService } from '../services/idea.service';
+import { AuthService } from '../services/auth.service';
+import { TagService } from '../services/tag.service';
 import { Observable } from 'rxjs/Observable';
 
 import 'rxjs/add/observable/of';
@@ -13,6 +13,7 @@ import 'rxjs/add/operator/first';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/map';
 import { Tag } from '../tag';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-create-idea',
@@ -22,7 +23,7 @@ import { Tag } from '../tag';
 })
 export class CreateIdeaComponent implements OnInit {
 
-  private user: User;
+  private user = new User;
   public isLoggedIn: boolean;
 
   items: Tag[];
@@ -34,25 +35,12 @@ export class CreateIdeaComponent implements OnInit {
 
   constructor(
     public ideaService: IdeaService,
-    public authService: AuthService,
     public tagService: TagService,
+    public userService: UserService,
     private router: Router)
   {
-    this.user = new User;
-    this.authService.afAuth.authState.subscribe((auth) => {
-      if( auth == null )
-      {
-        this.isLoggedIn = false;
-        this.user.Name = "";
-        this.user.Email = "";
-      }
-      else
-      {
-        this.isLoggedIn = true;
-        this.user.id = auth.uid;
-        this.user.Name = auth.displayName;
-        this.user.Email = auth.email;
-      }
+    this.userService.currentUser.subscribe((user) => {
+      this.user = user;
     });
    }
 
