@@ -1,4 +1,9 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Input } from '@angular/core/';
+import { Idea } from '../Idea';
+import { IdeaService } from '../idea.service';
+import { User } from '../user';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-voting-ideas',
@@ -7,17 +12,45 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
   encapsulation: ViewEncapsulation.None
 })
 export class VotingIdeasComponent implements OnInit {
-
-  constructor() { }
+  @Input() idea:Idea;
+  private user: User;
+  public isLoggedIn: boolean;
+  
+  constructor(
+    public ideaService: IdeaService,
+    public authService: AuthService
+  ) {
+    this.user = new User;
+    this.authService.afAuth.authState.subscribe((auth) => {
+      if (auth == null) {
+        this.isLoggedIn = false;
+        this.user.Name = "";
+        this.user.Email = "";
+      } else {
+        this.isLoggedIn = true;
+        this.user.id = auth.uid;
+        this.user.Name = auth.displayName;
+        this.user.Email = auth.email;
+      }
+    });
+    
+   }
 
   ngOnInit() {
+    console.log(this.idea);
   }
 
-  TitleIdea="Title Idea example";
-  DescriprionIdea=" Description idea example";
-  Comment="";
-  SeeComments="";
-  PositiveVotes=0;
-  NegativeVotes=0;
-  status="status"
+  vote_Up(idea) {
+    this.idea.positiveVotes++;
+    console.log(this.idea.positiveVotes);
+    this.ideaService.updateIdeaVote(idea)
+  }
+
+  vote_Down(idea) {
+    this.idea.positiveVotes--;
+    console.log(this.idea.positiveVotes);
+    this.ideaService.updateIdeaVote(idea)
+  }
+
+  
 }

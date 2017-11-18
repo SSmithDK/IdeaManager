@@ -1,0 +1,18 @@
+
+
+.number-votes{
+    padding: 7px;
+}
+
+.image_vote{
+    width: 25px; 
+    height: 25px;
+}
+.image_vote img{
+    width: 100%;
+    height: 100%;
+}
+
+.image_vote:hover {
+    cursor: pointer;
+}
