@@ -37,18 +37,15 @@ export class VotingIdeasComponent implements OnInit {
    }
 
   ngOnInit() {
-    console.log(this.idea);
   }
 
   vote_Up(idea) {
     this.idea.positiveVotes++;
-    console.log(this.idea.positiveVotes);
     this.ideaService.updateIdeaVote(idea)
   }
 
   vote_Down(idea) {
     this.idea.positiveVotes--;
-    console.log(this.idea.positiveVotes);
     this.ideaService.updateIdeaVote(idea)
   }
 
