@@ -4,6 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import { Tag } from '../tag';
 import { TagService } from './tag.service';
 import { Idea } from '../Idea';
+import { of } from 'rxjs/observable/of';
 
 @Injectable()
 export class IdeaService {
@@ -37,11 +38,11 @@ export class IdeaService {
   }
 
   getIdeas(): Observable<Idea[]>{
-    return this.afDb.list<any>('Ideas', ref => ref.orderByChild('Timestamp').limitToLast(10)).snapshotChanges().map((arr) => { 
+    return this.afDb.list<any>('Ideas', ref => ref.orderByChild('Published').equalTo(true)).snapshotChanges().map((arr) => { 
       return arr.sort(function(a, b){
         var keyA = a.payload.val().Timestamp,
             keyB = b.payload.val().Timestamp;
-        // Compare the 2 dates
+        // Compare the 2 timestamps
         if(keyA > keyB) return -1;
         if(keyA < keyB) return 1;
         return 0;
@@ -56,7 +57,7 @@ export class IdeaService {
         idea.shortDescription = pv.ShortDescription;
         idea.owner = pv.User;
         idea.username = pv.OwnerName;
-        idea.published = pv.published;
+        idea.published = pv.Published;
         idea.negativeVotes = pv.NegativeVote;
         idea.positiveVotes = pv.PositiveVote;
         idea.timestamp = pv.Timestamp;
@@ -71,9 +72,49 @@ export class IdeaService {
     });
   }
 
-  //after fetch idea,create an Object Idea.ts,
-  // because we need to map firebase idea to Ideas.ts the make stuff simple
-  //this process will be repeted for every object we fetch from firebase
+  getIdeasFromUser(userID: string): Observable<Idea[]> {
+    if(userID != null)
+    {
+      return this.afDb.list<any>('Ideas', ref => ref.orderByChild('User').equalTo(userID)).snapshotChanges().map((arr) => {
+        return arr.sort(function(a, b) {
+          var keyA = a.payload.val().Timestamp, 
+              keyB= b.payload.val().Timestamp;
+          // Compare the two timestamps
+          if(keyA > keyB) return -1;
+          if(keyA < keyB) return 1;
+          return 0;
+        });
+      }).map((arr) => {
+        return arr.map((item) => {
+          var idea = new Idea;
+          var pv = item.payload.val();
+          idea.id = item.key;
+          idea.title = pv.Title;
+          idea.description = pv.Description;
+          idea.shortDescription = pv.ShortDescription;
+          idea.owner = pv.User;
+          idea.username = pv.OwnerName;
+          idea.published = pv.Published;
+          idea.negativeVotes = pv.NegativeVote;
+          idea.positiveVotes = pv.PositiveVote;
+          idea.timestamp = pv.Timestamp;
+          idea.tags = pv.Tags.map((tagItem) => {
+            var tag = new Tag;
+            tag.id = tagItem.ID;
+            tag.title = tagItem.Title;
+            return tag;
+          });
+          return idea;
+        });
+      });
+    }
+    else
+    {
+      return of(null);
+    }
+    
+  }
+
   getIdea(id: string): Observable<Idea> {
     return this.afDb.object<any>(`Ideas/${id}`).snapshotChanges().map(action => {
       var idea = new Idea;
@@ -84,7 +125,7 @@ export class IdeaService {
       idea.shortDescription = pv.ShortDescription;
       idea.owner = pv.User;
       idea.username = pv.OwnerName;
-      idea.published = pv.published;
+      idea.published = pv.Published;
       idea.negativeVotes = pv.NegativeVote;
       idea.positiveVotes = pv.PositiveVote;
       idea.timestamp = pv.Timestamp;
@@ -95,17 +136,11 @@ export class IdeaService {
         return tag;
       });
       return idea;
-
-      //It is not necessary this
-      //const $key = action.payload.key;
-      //const data = { $key, ...action.payload.val() };
-      //return data;
     });
   }
 
   updateIdeaVote(idea:Idea):void{
     this.afDb.object('Ideas/'+idea.id).update({PositiveVote:idea.positiveVotes});
-    
   }
 
 }

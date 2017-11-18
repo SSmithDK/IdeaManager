@@ -1,21 +1,28 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DashboardComponent } from './dashboard.component';
-import { RouterTestingModule } from '@angular/router/testing';
+import { MyIdeasComponent } from './my-ideas.component';
+import { IdeaComponent } from '../idea/idea.component';
+import { UserService } from '../services/user.service';
+import { MockUserService } from '../mockservices/mock-user.service';
 import { IdeaService } from '../services/idea.service';
 import { MockIdeaService } from '../mockservices/mock-idea.service';
-import { IdeaComponent } from '../idea/idea.component';
+import { RouterTestingModule } from '@angular/router/testing';
 import { VotingIdeasComponent } from '../voting-ideas/voting-ideas.component';
 
-describe('DashboardComponent', () => {
-  let component: DashboardComponent;
-  let fixture: ComponentFixture<DashboardComponent>;
+describe('MyIdeasComponent', () => {
+  let component: MyIdeasComponent;
+  let fixture: ComponentFixture<MyIdeasComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [ RouterTestingModule ],
-      declarations: [ DashboardComponent, IdeaComponent, VotingIdeasComponent ],
+      declarations: [
+        MyIdeasComponent, 
+        IdeaComponent,
+        VotingIdeasComponent
+      ],
       providers: [
+        {provide: UserService, useClass: MockUserService},
         {provide: IdeaService, useClass: MockIdeaService}
       ]
     })
@@ -23,7 +30,7 @@ describe('DashboardComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(DashboardComponent);
+    fixture = TestBed.createComponent(MyIdeasComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

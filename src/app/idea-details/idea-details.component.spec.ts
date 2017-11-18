@@ -11,6 +11,8 @@ import { MockAuthService } from '../mockservices/mock-auth.service';
 import { RouterTestingModule } from '@angular/router/testing';
 import { MockUserService } from '../mockservices/mock-user.service';
 import { UserService } from '../services/user.service';
+import { IdeaComponent } from '../idea/idea.component';
+import { VotingIdeasComponent } from '../voting-ideas/voting-ideas.component';
 
 describe('IdeaDetailsComponent', () => {
   let component: IdeaDetailsComponent;
@@ -19,7 +21,7 @@ describe('IdeaDetailsComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [ FormsModule, RouterTestingModule ],
-      declarations: [ IdeaDetailsComponent ],
+      declarations: [ IdeaDetailsComponent, IdeaComponent, VotingIdeasComponent ],
       providers: [
         {provide: IdeaService, useClass: MockIdeaService},
         {provide: CommentService, useClass: MockCommentService},

@@ -25,6 +25,7 @@ export class CreateIdeaComponent implements OnInit {
 
   private user = new User;
   public isLoggedIn: boolean;
+  public published = false; // Default value for the radio buttons in form
 
   items: Tag[];
 
@@ -55,7 +56,7 @@ export class CreateIdeaComponent implements OnInit {
     if( formData.valid )
     {
       let v = formData.value;
-      this.ideaService.createIdea(v.title, v.description, v.short_desc, this.user.id, this.user.Name, v.tags, true).then(() => {
+      this.ideaService.createIdea(v.title, v.description, v.short_desc, this.user.id, this.user.Name, v.tags, v.published).then(() => {
         this.router.navigate(['/']);
       });
     }

@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs/Subject';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 @Injectable()
 export class MockAuthService {
 
-  public isAuthorized = new Subject<boolean>();
+  public isAuthorized = new BehaviorSubject<boolean>(false);
 
   constructor() {
     this.isAuthorized.next(true);

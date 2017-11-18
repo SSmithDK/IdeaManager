@@ -8,6 +8,7 @@ import { Comment } from '../Comment';
 import { NgForm } from '@angular/forms';
 import {Router} from "@angular/router";
 import { UserService } from '../services/user.service';
+import { Idea } from '../Idea';
 
 @Component({
   selector: 'app-idea-details',
@@ -17,7 +18,7 @@ import { UserService } from '../services/user.service';
 })
 export class IdeaDetailsComponent implements OnInit {
 
-  idea: Observable<any>;
+  idea: Observable<Idea>;
   comments: Observable<any[]>;
   id: string;
   private user = new User;

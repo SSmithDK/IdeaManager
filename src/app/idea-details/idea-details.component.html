@@ -1,51 +1,6 @@
 <div class="container">
-  <div class="card" *ngIf="idea | async; let idea; else loading">
-    <div class="card-header">
-        <div class="row mb-0">
-            <div class="col-sm-8">
-              <h4 class="card-title mb-0">{{idea.title}}</h4>
-            </div>
-            <div class="col-sm-4 float-right text-right mb-0">
-              {{idea.timestamp | date:'MMMM d yyyy HH:mm'}}
-            </div>
-        </div>
-        <div class="row mt-0">
-          <div class="col-sm-12">
-            <i>by {{idea.username}}</i>
-          </div>
-        </div>
-    </div>
-    <div class="card-block">
-      <div class="row">
-        <div class=col-sm-11>
-          <p class="card-text p-2">{{idea.description}}</p>
-        </div>
-        <div class="col-sm-1">
-          <app-voting-ideas [idea]="idea"></app-voting-ideas>
-        </div>
-      </div>
-    </div>
-    <div class="card-footer">
-      <span class="badge badge-primary mr-1 p-2" *ngFor="let tag of idea.tags">{{tag.title}}</span>
-      <i class="text-muted" [hidden]="idea.tags">No tags</i>
-{{comments}}
-          <p *ngFor="let c of comments | async">
-            <span>{{ c.username }}</span>
-                {{ c.content }}
-          </p>
-
-      <form (ngSubmit)="createComment(createCommentForm)" #createCommentForm="ngForm">
-          <div class="form-group">
-            <input type="hidden" id="idea_id" value="{{id}}">
-            <input type="text" id="content" class="form-control form-control-lg" minlength="5" required ngModel name="content" #content="ngModel"
-                    aria-describedby="contentHelp" placeholder="Content">
-            <small id="contentHelp" class="form-text text-muted">Write the content here.</small>
-            <div [hidden]="content.valid || content.pristine" class="alert alert-info">Content must have min. 5 characters.</div>
-          </div>
-          <button type="submit" class="btn btn-success" [disabled]="!createCommentForm.form.valid">Comment!</button>
-      </form>
-
-    </div>
+  <div *ngIf="idea | async; let idea; else loading">
+    <idea [idea]="idea" full="true"></idea>
   </div>
   <ng-template #loading>
     <div class="text-center">

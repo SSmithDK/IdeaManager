@@ -3,12 +3,12 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import { Observable } from 'rxjs/Observable';
 import { User } from '../user';
 import { of } from 'rxjs/observable/of';
-import { Subject } from 'rxjs/Subject';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 @Injectable()
 export class AuthService {
 
-  public isAuthorized = new Subject<boolean>();
+  public isAuthorized = new BehaviorSubject<boolean>(false);
 
   constructor(public afAuth: AngularFireAuth) {
     this.afAuth.authState.subscribe((auth) => {

@@ -35,6 +35,8 @@ import { TagService } from './services/tag.service';
 import { CommentService } from './services/comment.service';
 import { CreateCommentComponent } from './create-comment/create-comment.component';
 import { CommentDetailsComponent } from './comment-details/comment-details.component';
+import { MyIdeasComponent } from './my-ideas/my-ideas.component';
+import { IdeaComponent } from './idea/idea.component';
 
 export const firebaseConfig = {
   apiKey: "AIzaSyDGMsVOfYPh5aMTgwIEjwnwKCL3_WMQK9U",
@@ -58,7 +60,9 @@ export const firebaseConfig = {
     IdeaDetailsComponent,
     UserApprovementComponent,
     CreateCommentComponent,
-    CommentDetailsComponent
+    CommentDetailsComponent,
+    MyIdeasComponent,
+    IdeaComponent
   ],
   imports: [
     BrowserModule,

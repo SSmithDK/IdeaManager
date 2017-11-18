@@ -1,0 +1,34 @@
+<div *ngIf="idea">
+  <div class="card mb-3">
+      <div class="card-header">
+          <div class="row mb-0">
+              <div class="col-sm-8">
+                <a routerLink="/details/{{idea.id}}"><h4 class="card-title mb-0 float-left">{{idea.title}}</h4></a>
+                <h4 [hidden]="idea.published" class="text-muted float-left ml-3">(Draft)</h4>
+              </div>
+              <div class="col-sm-4 float-right text-right mb-0">
+                {{idea.timestamp | date:'MMMM d yyyy HH:mm'}}
+              </div>
+          </div>
+          <div class="row mt-0">
+            <div class="col-sm-12">
+              <i>by {{idea.username}}</i>
+            </div>
+          </div>
+      </div>
+      <div class="card-block">
+        <div class="row">
+          <div class=col-sm-11>
+            <p class="card-text p-2">{{full ? idea.description : idea.shortDescription}}</p>
+          </div>
+          <div class="col-sm-1">
+            <voting-ideas [idea]="idea"></voting-ideas>
+          </div>
+        </div>
+        <div class="card-footer">
+          <span class="badge badge-primary mr-1 p-2" *ngFor="let tag of idea.tags">{{tag.title}}</span>
+          <i class="text-muted" [hidden]="idea.tags">No tags</i>
+        </div>
+      </div>
+    </div>
+</div>
