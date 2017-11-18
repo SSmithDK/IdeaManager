@@ -1,9 +1,10 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, OnDestroy } from '@angular/core';
 import { UserService } from '../services/user.service';
 import { User } from '../user';
 import { Observable } from 'rxjs/Observable';
 import { Idea } from '../Idea';
 import { IdeaService } from '../services/idea.service';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-my-ideas',
@@ -22,11 +23,11 @@ export class MyIdeasComponent implements OnInit {
   ) {
     this.userService.currentUser.subscribe((user) => {
       this.user = user;
+      this.ideasObservable = this.ideaService.getIdeasFromUser(this.user.id);
     });
    }
 
   ngOnInit() {
-    this.ideasObservable = this.ideaService.getIdeasFromUser(this.user.id);
   }
 
 }

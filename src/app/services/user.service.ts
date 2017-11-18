@@ -6,14 +6,14 @@ import { AngularFireDatabase } from 'angularfire2/database';
 import { Observable } from 'rxjs/Observable';
 import { User } from '../user';
 import { AuthService } from './auth.service';
-import { Subject } from 'rxjs/Subject';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 @Injectable()
 export class UserService {
 
-  private user = new User;
+  public user = new User;
   private isLoggedIn: boolean;
-  public currentUser = new Subject<User>();
+  public currentUser = new BehaviorSubject<User>(this.user);
 
   constructor(
     private afAuth: AngularFireAuth,

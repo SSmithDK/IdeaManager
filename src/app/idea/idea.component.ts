@@ -1,5 +1,6 @@
 import { Input, Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Idea } from '../Idea';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'idea',
@@ -10,6 +11,7 @@ import { Idea } from '../Idea';
 export class IdeaComponent implements OnInit {
 
   @Input() idea: Idea;
+  @Input() full: boolean;
 
   constructor() { }
 
