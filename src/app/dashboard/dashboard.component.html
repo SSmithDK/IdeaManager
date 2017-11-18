@@ -1,5 +1,8 @@
 <div class="container">
-  <h2 [hidden]="(ideasObservable | async)?.length > 0" class="text-center">There are currently no ideas. Go to <a [routerLink]="[ '/create' ]">Add idea</a> to share your great idea!</h2>
+  <div [hidden]="isApproved" class="alert alert-warning">
+    <strong>Please note!</strong> You have to be approved by a manager first in order to use the dashboard.
+  </div>
+  <h2 [hidden]="(ideasObservable | async)?.length > 0 || !isApproved" class="text-center">There are currently no ideas. Go to <a [routerLink]="[ '/create' ]">Add idea</a> to share your great idea!</h2>
   <div *ngFor="let idea of ideasObservable | async">
     <idea [idea]="idea"></idea>
   </div>

@@ -39,6 +39,7 @@ import { MyIdeasComponent } from './my-ideas/my-ideas.component';
 import { IdeaComponent } from './idea/idea.component';
 import { ProfileComponent } from './profile/profile.component';
 import {ManagerAuthGuard} from "./managerauth.guard";
+import {AdminService} from "./services/admin.service";
 
 export const firebaseConfig = {
   apiKey: "AIzaSyDGMsVOfYPh5aMTgwIEjwnwKCL3_WMQK9U",
@@ -86,7 +87,8 @@ export const firebaseConfig = {
     AngularFireDatabase,
     IdeaService,
     CommentService,
-    TagService
+    TagService,
+    AdminService
   ],
   bootstrap: [AppComponent]
 })

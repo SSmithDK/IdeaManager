@@ -69,20 +69,12 @@ export class UserService {
 
   public deleteUser(uid: string, onComplete?: (a: Error | null) => any) {
 
-    this.afDb.database.ref(`Users/${uid}`).remove((error) => {
-
-      onComplete(error);
-
-    });
+    this.afDb.database.ref(`Users/${uid}`).remove(onComplete);
   }
 
   public approveUser(uid: string, onComplete?: (a: Error | null) => any) {
 
-    this.afDb.database.ref(`Users/${uid}/Approved`).set(true, (error) => {
-
-      onComplete(error);
-
-    });
+    this.afDb.database.ref(`Users/${uid}/Approved`).set(true, onComplete);
   }
 
   public getPendingUsers(): Observable<User[]> {
