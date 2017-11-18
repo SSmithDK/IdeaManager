@@ -6,7 +6,7 @@
   <div class="collapse navbar-collapse" id="navbarsExampleDefault">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-        <a class="nav-link" routerLink="/">Home</a>
+        <a class="nav-link" routerLink="/">Dashboard</a>
       </li>
       <li class="nav-item" routerLinkActive="active" [hidden]="isLoggedIn">
         <a class="nav-link" routerLink="/signup">Sign up</a>
@@ -16,6 +16,9 @@
       </li>
       <li class="nav-item" routerLinkActive="active" [hidden]="!isLoggedIn || !isApproved">
         <a class="nav-link" routerLink="/create">Add an idea</a>
+      </li>
+      <li class="nav-item" routerLinkActive="active" [hidden]="!isLoggedIn || !isApproved">
+        <a class="nav-link" routerLink="/my-ideas">My ideas</a>
       </li>
       <li class="nav-item" routerLinkActive="active" [hidden]="!isManager">
         <a class="nav-link" routerLink="/approvement">User Approvement</a>

@@ -1,56 +1,6 @@
 <div class="container">
-  <h2 [hidden]="!idea">There are currently no ideas. Go to <a [routerLink]="[ '/create' ]">Add idea</a> to share your great idea!</h2>
-  <div class="card mb-3" *ngFor="let idea of ideasObservable | async">
-    <div class="card-header">
-        <div class="row mb-0">
-            <div class="col-sm-8">
-              <a routerLink="/details/{{idea.id}}"><h4 class="card-title mb-0">{{idea.title}}</h4></a>
-            </div>
-            <div class="col-sm-4 float-right text-right mb-0">
-              {{idea.timestamp | date:'MMMM d yyyy HH:mm'}}
-            </div>
-        </div>
-        <div class="row mt-0">
-          <div class="col-sm-12">
-            <i>by {{idea.username}}</i>
-          </div>
-        </div>
-    </div>
-    <div class="card-block">
-      <div class="row">
-        <div class=col-sm-10>
-          <p class="card-text p-2">{{idea.shortDescription}}</p>
-        </div>
-        <div class="col-sm-2">
-          <div class="row">
-              <div class="col-sm-12"> 
-                <div class="row">
-                  <div class="col-md-6">
-                    <button class="btn btn-outline-success btn-block " type="submit">
-                      <div>+</div>
-                    </button>
-                  </div> 
-                  <div class="col-sm-6">
-                    <span class="badge badge-pill badge-success">{{idea.positiveVote}}</span>
-                  </div> 
-                </div>     
-                <div class="row"> 
-                    <div class="col-md-6">
-                      <button class="btn btn-outline-danger btn-block " type="submit">
-                        <div> -</div>
-                      </button>
-                    </div>
-                    <div class="col-sm-6">
-                      <span class="badge badge-pill badge-danger">{{idea.negativeVote}}</span>
-                    </div>
-                </div>
-            </div> 
-          </div>
-         </div>
-      </div>
-    <div class="card-footer">
-      <span class="badge badge-primary mr-1 p-2" *ngFor="let tag of idea.tags">{{tag.title}}</span>
-      <i class="text-muted" [hidden]="idea.tags">No tags</i>
-    </div>
+  <h2 [hidden]="(ideasObservable | async)?.length > 0" class="text-center">There are currently no ideas. Go to <a [routerLink]="[ '/create' ]">Add idea</a> to share your great idea!</h2>
+  <div *ngFor="let idea of ideasObservable | async">
+    <idea [idea]="idea"></idea>
   </div>
 </div>

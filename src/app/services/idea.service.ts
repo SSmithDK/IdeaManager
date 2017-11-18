@@ -4,6 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import { Tag } from '../tag';
 import { TagService } from './tag.service';
 import { Idea } from '../Idea';
+import { of } from 'rxjs/observable/of';
 
 @Injectable()
 export class IdeaService {
@@ -41,7 +42,7 @@ export class IdeaService {
       return arr.sort(function(a, b){
         var keyA = a.payload.val().Timestamp,
             keyB = b.payload.val().Timestamp;
-        // Compare the 2 dates
+        // Compare the 2 timestamps
         if(keyA > keyB) return -1;
         if(keyA < keyB) return 1;
         return 0;
@@ -56,7 +57,7 @@ export class IdeaService {
         idea.shortDescription = pv.ShortDescription;
         idea.owner = pv.User;
         idea.username = pv.OwnerName;
-        idea.published = pv.published;
+        idea.published = pv.Published;
         idea.negativeVotes = pv.NegativeVote;
         idea.positiveVotes = pv.PositiveVote;
         idea.timestamp = pv.Timestamp;
@@ -69,6 +70,49 @@ export class IdeaService {
         return idea;
       });
     });
+  }
+
+  getIdeasFromUser(userID: string): Observable<Idea[]> {
+    if(userID != null)
+    {
+      return this.afDb.list<any>('Ideas', ref => ref.orderByChild('User').equalTo(userID)).snapshotChanges().map((arr) => {
+        return arr.sort(function(a, b) {
+          var keyA = a.payload.val().Timestamp, 
+              keyB= b.payload.val().Timestamp;
+          // Compare the two timestamps
+          if(keyA > keyB) return -1;
+          if(keyA < keyB) return 1;
+          return 0;
+        });
+      }).map((arr) => {
+        return arr.map((item) => {
+          var idea = new Idea;
+          var pv = item.payload.val();
+          idea.id = item.key;
+          idea.title = pv.Title;
+          idea.description = pv.Description;
+          idea.shortDescription = pv.ShortDescription;
+          idea.owner = pv.User;
+          idea.username = pv.OwnerName;
+          idea.published = pv.Published;
+          idea.negativeVotes = pv.NegativeVote;
+          idea.positiveVotes = pv.PositiveVote;
+          idea.timestamp = pv.Timestamp;
+          idea.tags = pv.Tags.map((tagItem) => {
+            var tag = new Tag;
+            tag.id = tagItem.ID;
+            tag.title = tagItem.Title;
+            return tag;
+          });
+          return idea;
+        });
+      });
+    }
+    else
+    {
+      return of(null);
+    }
+    
   }
 
   getIdea(id: string): Observable<Idea> {
