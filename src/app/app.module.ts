@@ -28,16 +28,17 @@ import { RouterModule } from '@angular/router';
 import { UserService } from './services/user.service';
 import { AuthService } from './services/auth.service';
 import { IdeaService } from './services/idea.service';
-import { UserApprovementComponent } from "./user-approvement/user-approvement.component";
+import { UserApprovalComponent } from "./user-approval/user-approval.component";
 import { TagInputModule } from 'ngx-chips';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { TagService } from './services/tag.service'; 
+import { TagService } from './services/tag.service';
 import { CommentService } from './services/comment.service';
 import { CreateCommentComponent } from './create-comment/create-comment.component';
 import { CommentDetailsComponent } from './comment-details/comment-details.component';
 import { MyIdeasComponent } from './my-ideas/my-ideas.component';
 import { IdeaComponent } from './idea/idea.component';
 import { ProfileComponent } from './profile/profile.component';
+import {ManagerAuthGuard} from "./managerauth.guard";
 
 export const firebaseConfig = {
   apiKey: "AIzaSyDGMsVOfYPh5aMTgwIEjwnwKCL3_WMQK9U",
@@ -59,7 +60,7 @@ export const firebaseConfig = {
     CreateIdeaComponent,
     VotingIdeasComponent,
     IdeaDetailsComponent,
-    UserApprovementComponent,
+    UserApprovalComponent,
     CreateCommentComponent,
     CommentDetailsComponent,
     MyIdeasComponent,
@@ -78,6 +79,7 @@ export const firebaseConfig = {
   ],
   providers: [
     UserAuthGuard,
+    ManagerAuthGuard,
     UserService,
     AuthService,
     AngularFireAuth,

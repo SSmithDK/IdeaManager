@@ -4,12 +4,12 @@ import {User} from "../user";
 import {UserService} from "../services/user.service";
 
 @Component({
-  selector: 'app-user-approvement',
-  templateUrl: './user-approvement.component.html',
-  styleUrls: ['./user-approvement.component.css'],
+  selector: 'app-user-approval',
+  templateUrl: './user-approval.component.html',
+  styleUrls: ['./user-approval.component.css'],
   encapsulation: ViewEncapsulation.None
 })
-export class UserApprovementComponent implements OnInit {
+export class UserApprovalComponent implements OnInit {
 
   pendingUsers: Observable<User[]>;
 
@@ -45,7 +45,7 @@ export class UserApprovementComponent implements OnInit {
         this.hasError = true;
         this.errorMessage = error.message;
       }
-      
+
     });
 
   }

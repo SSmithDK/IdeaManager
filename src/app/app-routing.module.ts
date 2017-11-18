@@ -9,9 +9,10 @@ import { RecoverPasswordComponent } from './recover-password/recover-password.co
 import { CreateIdeaComponent } from "./create-idea/create-idea.component";
 import { UserAuthGuard } from "./userauth.guard";
 import { IdeaDetailsComponent } from './idea-details/idea-details.component';
-import {UserApprovementComponent} from "./user-approvement/user-approvement.component";
+import { UserApprovalComponent } from "./user-approval/user-approval.component";
 import { MyIdeasComponent } from './my-ideas/my-ideas.component';
 import { ProfileComponent } from './profile/profile.component';
+import { ManagerAuthGuard} from "./managerauth.guard";
 
 const routes: Routes = [
   { path: '', component: DashboardComponent, pathMatch: 'full', canActivate: [UserAuthGuard]},
@@ -21,7 +22,7 @@ const routes: Routes = [
   { path: 'password', component: RecoverPasswordComponent },
   { path: 'create', component: CreateIdeaComponent, canActivate: [UserAuthGuard] },
   { path: 'details/:id', component: IdeaDetailsComponent, canActivate: [UserAuthGuard]},
-  { path: 'approvement', component: UserApprovementComponent, canActivate: [UserAuthGuard]},
+  { path: 'approval', component: UserApprovalComponent, canActivate: [ManagerAuthGuard]},
   { path: 'my-ideas', component: MyIdeasComponent, canActivate: [UserAuthGuard]},
   { path: 'profile', component: ProfileComponent, canActivate: [UserAuthGuard]}
 ];

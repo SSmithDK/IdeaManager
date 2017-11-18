@@ -1,6 +1,6 @@
 <div class="container">
   <h1>
-    User Approvement
+    User Approval
   </h1>
 
   <div [hidden]="!hasError" class="alert alert-danger" role="alert">
@@ -11,8 +11,8 @@
     <div class="card-block">
       <h4 class="card-title">{{user.Name}}</h4>
       <h6 class="card-subtitle mb-2 text-muted">{{user.Email}}</h6>
-      <button (click)="onAccept(user.key)" type="button" class="btn btn-success">Approve</button>
-      <button (click)="onDecline(user.key)" type="button" class="btn btn-danger">Disapprove</button>
+      <button (click)="onAccept(user.id)" type="button" class="btn btn-success">Approve</button>
+      <button (click)="onDecline(user.id)" type="button" class="btn btn-danger">Disapprove</button>
       <div>
       </div>
     </div>

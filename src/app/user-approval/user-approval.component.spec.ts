@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { UserApprovementComponent } from './user-approvement.component';
+import { UserApprovementComponent } from './user-approval.component';
 import { UserService } from '../services/user.service';
 import { MockUserService } from '../mockservices/mock-user.service';
 

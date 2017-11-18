@@ -9,6 +9,7 @@
 /node_modules
 
 # IDEs and editors
+IdeaManager.iml
 /.idea
 .project
 .classpath
