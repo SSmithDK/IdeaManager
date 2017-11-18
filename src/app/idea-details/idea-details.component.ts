@@ -5,9 +5,9 @@ import { IdeaService } from '../services/idea.service';
 import { CommentService } from '../services/comment.service';
 import { User } from '../user';
 import { Comment } from '../Comment';
-import { AuthService } from '../services/auth.service';
 import { NgForm } from '@angular/forms';
 import {Router} from "@angular/router";
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-idea-details',
@@ -20,18 +20,18 @@ export class IdeaDetailsComponent implements OnInit {
   idea: Observable<any>;
   comments: Observable<any[]>;
   id: string;
-  private user: User;
-  public isLoggedIn: boolean;
+  private user = new User;
 
   constructor(
     private route: ActivatedRoute,
     private ideaService: IdeaService,
     private commentService: CommentService,
-    public authService: AuthService,
+    private userService: UserService,
     private router: Router
   ) { 
-      this.user = new User;
-      this.authService.isAuthorized.subscribe((isAuth) => this.isLoggedIn = isAuth);
+    this.userService.currentUser.subscribe((user) => {
+      this.user = user;
+    });
   }
 
   ngOnInit() {

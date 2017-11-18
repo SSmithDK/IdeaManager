@@ -6,6 +6,8 @@ import { MockCommentService } from '../mockservices/mock-comment.service';
 import { AuthService } from '../services/auth.service';
 import { MockAuthService } from '../mockservices/mock-auth.service';
 import { RouterTestingModule } from '@angular/router/testing';
+import { UserService } from '../services/user.service';
+import { MockUserService } from '../mockservices/mock-user.service';
 
 describe('CreateCommentComponent', () => {
   let component: CreateCommentComponent;
@@ -17,7 +19,8 @@ describe('CreateCommentComponent', () => {
       declarations: [ CreateCommentComponent ],
       providers: [ 
         {provide: CommentService, useClass: MockCommentService},
-        {provide: AuthService, useClass: MockAuthService}
+        {provide: AuthService, useClass: MockAuthService},
+        {provide: UserService, useClass: MockUserService}
       ]
     })
     .compileComponents();

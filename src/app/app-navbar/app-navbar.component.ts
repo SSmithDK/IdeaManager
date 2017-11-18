@@ -14,13 +14,27 @@ export class AppNavbarComponent implements OnInit {
 
   user: User;
   public isLoggedIn: boolean;
+  public isManager: boolean;
+  public isApproved: boolean;
 
   constructor(
     public authService: AuthService,
     public userService: UserService,
     private router: Router
   ) {
+    this.user = new User;
     this.authService.isAuthorized.subscribe((isAuth) => this.isLoggedIn = isAuth);
+    this.userService.currentUser.subscribe((user) => {
+      if(user!==null)
+      {
+        this.isManager = user.Manager;
+        this.isApproved = user.Approved;
+      }
+      else
+      {
+        this.isManager = false;
+      }
+    })
   }
 
   ngOnInit() {
@@ -29,10 +43,6 @@ export class AppNavbarComponent implements OnInit {
   logout() {
     this.authService.logout();
     this.router.navigate(['/login']);
-  }
-
-  public isManager(): boolean {
-    return this.isLoggedIn && this.userService.isManager(this.user.id);
   }
 
 }

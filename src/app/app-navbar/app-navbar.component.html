@@ -14,10 +14,10 @@
       <li class="nav-item" routerLinkActive="active" [hidden]="isLoggedIn">
         <a class="nav-link" routerLink="/login">Login</a>
       </li>
-      <li class="nav-item" routerLinkActive="active" [hidden]="!isLoggedIn">
+      <li class="nav-item" routerLinkActive="active" [hidden]="!isLoggedIn || !isApproved">
         <a class="nav-link" routerLink="/create">Add an idea</a>
       </li>
-      <li class="nav-item" routerLinkActive="active" [hidden]="!isManager()">
+      <li class="nav-item" routerLinkActive="active" [hidden]="!isManager">
         <a class="nav-link" routerLink="/approvement">User Approvement</a>
       </li>
     </ul>

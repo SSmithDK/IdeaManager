@@ -9,6 +9,8 @@ import { MockCommentService } from '../mockservices/mock-comment.service';
 import { AuthService } from '../services/auth.service';
 import { MockAuthService } from '../mockservices/mock-auth.service';
 import { RouterTestingModule } from '@angular/router/testing';
+import { MockUserService } from '../mockservices/mock-user.service';
+import { UserService } from '../services/user.service';
 
 describe('IdeaDetailsComponent', () => {
   let component: IdeaDetailsComponent;
@@ -21,7 +23,8 @@ describe('IdeaDetailsComponent', () => {
       providers: [
         {provide: IdeaService, useClass: MockIdeaService},
         {provide: CommentService, useClass: MockCommentService},
-        {provide: AuthService, useClass: MockAuthService}
+        {provide: AuthService, useClass: MockAuthService},
+        {provide: UserService, useClass: MockUserService}
       ]
     })
     .compileComponents();

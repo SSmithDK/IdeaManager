@@ -5,14 +5,49 @@ import { AngularFireDatabase } from 'angularfire2/database';
 
 import { Observable } from 'rxjs/Observable';
 import { User } from '../user';
+import { AuthService } from './auth.service';
+import { Subject } from 'rxjs/Subject';
 
 @Injectable()
 export class UserService {
 
+  private user = new User;
+  private isLoggedIn: boolean;
+  public currentUser = new Subject<User>();
+
   constructor(
     private afAuth: AngularFireAuth,
-    private afDb: AngularFireDatabase
-  ) { }
+    private afDb: AngularFireDatabase,
+    private authService: AuthService
+  ) {
+    this.authService.isAuthorized.subscribe((isAuth) => {
+      this.isLoggedIn = isAuth;
+      if(isAuth)
+      {
+        this.afAuth.auth.onAuthStateChanged((user) => {
+          if(user != null)
+          {
+            this.user.id = user.uid;
+            this.user.Name = user.displayName;
+            this.user.Email = user.email;
+            this.user.Manager = this.isManager(user.uid);
+            this.currentUser.next(this.user);
+            this.isApproved(user.uid);
+          }
+          else
+          {
+            this.isLoggedIn = false;
+            this.user = new User();
+          }
+        });
+      }
+      else
+      {
+        this.user = new User();
+        this.currentUser.next(this.user);
+      }
+    });
+   }
 
   public updateName(uid: string, name: string) {
     this.afAuth.auth.currentUser.updateProfile({
@@ -66,6 +101,13 @@ export class UserService {
 
   public isManager(uid: string) {
     return this.afDb.database.ref(`Managers/`).child(uid) !== null;
+  }
+
+  public isApproved(uid: string) {
+    this.afDb.object(`Users/${uid}`).snapshotChanges().take(1).subscribe((user) => {
+      this.user.Approved = user.payload.val().Approved;
+      this.currentUser.next(this.user);
+    });
   }
 
 }

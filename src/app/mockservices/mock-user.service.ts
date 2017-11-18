@@ -2,11 +2,22 @@ import { Injectable } from '@angular/core';
 import { User } from '../user';
 import { of } from 'rxjs/observable/of';
 import { Observable } from 'rxjs/Observable';
+import { Subject } from 'rxjs/Subject';
 
 @Injectable()
 export class MockUserService {
 
-  constructor( ) { }
+  public currentUser = new Subject<User>();
+
+  constructor( ) {
+    var user = new User;
+    user.id = "testid";
+    user.Name = "Test user";
+    user.Email = "test@email.com";
+    user.Approved = false;
+    user.Manager = false;
+    this.currentUser.next(user);
+   }
 
   public updateName(uid: string, name: string) {
     // Do nothing, act like name is updated

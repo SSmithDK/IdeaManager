@@ -13,6 +13,7 @@ import 'rxjs/add/operator/first';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/map';
 import { Tag } from '../tag';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-create-idea',
@@ -22,7 +23,7 @@ import { Tag } from '../tag';
 })
 export class CreateIdeaComponent implements OnInit {
 
-  private user: User;
+  private user = new User;
   public isLoggedIn: boolean;
 
   items: Tag[];
@@ -35,9 +36,12 @@ export class CreateIdeaComponent implements OnInit {
   constructor(
     public ideaService: IdeaService,
     public tagService: TagService,
+    public userService: UserService,
     private router: Router)
   {
-    this.user = new User;
+    this.userService.currentUser.subscribe((user) => {
+      this.user = user;
+    });
    }
 
   ngOnInit() {
