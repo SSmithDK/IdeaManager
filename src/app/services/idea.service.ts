@@ -21,6 +21,7 @@ export class IdeaService {
       }
       saveTags.push({ID: tags[i].id, Title: tags[i].display});
     }
+    console.log(saveTags);
     return this.afDb.database.ref("Ideas").push({
       Title: title,
       Description: description,
@@ -60,19 +61,12 @@ export class IdeaService {
         idea.negativeVotes = pv.NegativeVote;
         idea.positiveVotes = pv.PositiveVote;
         idea.timestamp = pv.Timestamp;
-        if(pv.Tags)
-        {
-          idea.tags = pv.Tags.map((tagItem) => {
-            var tag = new Tag;
-            tag.id = tagItem.ID;
-            tag.title = tagItem.Title;
-            return tag;
-          });
-        }
-        else
-        {
-          idea.tags = [];
-        }
+        idea.tags = pv.Tags.map((tagItem) => {
+          var tag = new Tag;
+          tag.id = tagItem.ID;
+          tag.title = tagItem.Title;
+          return tag;
+        });
         return idea;
       });
     });
@@ -104,19 +98,12 @@ export class IdeaService {
           idea.negativeVotes = pv.NegativeVote;
           idea.positiveVotes = pv.PositiveVote;
           idea.timestamp = pv.Timestamp;
-          if(pv.Tags)
-          {
-            idea.tags = pv.Tags.map((tagItem) => {
-              var tag = new Tag;
-              tag.id = tagItem.ID;
-              tag.title = tagItem.Title;
-              return tag;
-            });
-          }
-          else
-          {
-            idea.tags = [];
-          }
+          idea.tags = pv.Tags.map((tagItem) => {
+            var tag = new Tag;
+            tag.id = tagItem.ID;
+            tag.title = tagItem.Title;
+            return tag;
+          });
           return idea;
         });
       });
@@ -142,19 +129,12 @@ export class IdeaService {
       idea.negativeVotes = pv.NegativeVote;
       idea.positiveVotes = pv.PositiveVote;
       idea.timestamp = pv.Timestamp;
-      if(pv.Tags)
-      {
-        idea.tags = pv.Tags.map((tagItem) => {
-          var tag = new Tag;
-          tag.id = tagItem.ID;
-          tag.title = tagItem.Title;
-          return tag;
-        });
-      }
-      else
-      {
-        idea.tags = [];
-      }
+      idea.tags = pv.Tags.map((tagItem) => {
+        var tag = new Tag;
+        tag.id = tagItem.ID;
+        tag.title = tagItem.Title;
+        return tag;
+      });
       return idea;
     });
   }
@@ -162,5 +142,27 @@ export class IdeaService {
   updateIdeaVote(idea:Idea):void{
     this.afDb.object('Ideas/'+idea.id).update({PositiveVote:idea.positiveVotes});
   }
+
+  /**
+   * This methods create a relationship between a "child" idea that reference to a "parent" idea 
+   * @param idParent key of parent idea
+   * @param idChild key of child idea
+   */
+  createChildIdea(idParent:string,idChild){
+    //TODO
+    return this.afDb.database.ref("ReferenceIdeas").push({
+      idParent:idParent,
+      idChild:idChild
+    });
+  }
+
+  /**
+   * get all related ideas with a parent idea
+   * @param idParent 
+   */
+  getChildsIdeaOfParent(idParent:string){
+  //TODO
+  }
+
 
 }
