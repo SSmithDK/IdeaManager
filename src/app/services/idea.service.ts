@@ -143,4 +143,25 @@ export class IdeaService {
     this.afDb.object('Ideas/'+idea.id).update({PositiveVote:idea.positiveVotes});
   }
 
+  /**
+   * This methods create a relationship between a "child" idea that reference to a "parent" idea 
+   * @param idParent key of parent idea
+   * @param idChild key of child idea
+   */
+  createChildIdea(idParent:string,idChild){
+    return this.afDb.database.ref("ReferenceIdeas").push({
+      idParent:idParent,
+      idChild:idChild
+    });
+  }
+
+  /**
+   * get all related ideas with a parent idea
+   * @param idParent 
+   */
+  getChildsIdeaOfParent(idParent:string){
+  //TODO
+  }
+
+
 }

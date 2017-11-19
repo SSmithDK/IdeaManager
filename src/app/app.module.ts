@@ -38,6 +38,7 @@ import { CommentDetailsComponent } from './comment-details/comment-details.compo
 import { MyIdeasComponent } from './my-ideas/my-ideas.component';
 import { IdeaComponent } from './idea/idea.component';
 import { ProfileComponent } from './profile/profile.component';
+import { AddingReferenceIdeaComponent } from './adding-reference-idea/adding-reference-idea.component';
 
 export const firebaseConfig = {
   apiKey: "AIzaSyDGMsVOfYPh5aMTgwIEjwnwKCL3_WMQK9U",
@@ -64,7 +65,8 @@ export const firebaseConfig = {
     CommentDetailsComponent,
     MyIdeasComponent,
     IdeaComponent,
-    ProfileComponent
+    ProfileComponent,
+    AddingReferenceIdeaComponent
   ],
   imports: [
     BrowserModule,
