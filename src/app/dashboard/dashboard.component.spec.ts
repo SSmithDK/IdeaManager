@@ -6,6 +6,8 @@ import { IdeaService } from '../services/idea.service';
 import { MockIdeaService } from '../mockservices/mock-idea.service';
 import { IdeaComponent } from '../idea/idea.component';
 import { VotingIdeasComponent } from '../voting-ideas/voting-ideas.component';
+import {MockUserService} from "../mockservices/mock-user.service";
+import {UserService} from "../services/user.service";
 
 describe('DashboardComponent', () => {
   let component: DashboardComponent;
@@ -16,7 +18,8 @@ describe('DashboardComponent', () => {
       imports: [ RouterTestingModule ],
       declarations: [ DashboardComponent, IdeaComponent, VotingIdeasComponent ],
       providers: [
-        {provide: IdeaService, useClass: MockIdeaService}
+        {provide: IdeaService, useClass: MockIdeaService},
+        {provide: UserService, useClass: MockUserService}
       ]
     })
     .compileComponents();
