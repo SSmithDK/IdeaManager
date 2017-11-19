@@ -2,7 +2,6 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import {Observable} from "rxjs/Observable";
 import {User} from "../user";
 import {UserService} from "../services/user.service";
-import {AdminService} from "../services/admin.service";
 
 @Component({
   selector: 'app-user-approval',
@@ -19,7 +18,6 @@ export class UserApprovalComponent implements OnInit {
 
   constructor(
     private userService: UserService,
-    private adminService: AdminService
   ) { }
 
   ngOnInit() {
@@ -40,11 +38,6 @@ export class UserApprovalComponent implements OnInit {
   }
 
   onDecline(uid:string) {
-
-    this.adminService.deleteUser(uid, (error) => {
-      this.hasError = true;
-      this.errorMessage = error.message;
-    });
 
     this.userService.deleteUser(uid, (error) => {
 
