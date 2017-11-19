@@ -1,16 +1,16 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { UserApprovementComponent } from './user-approval.component';
+import { UserApprovalComponent } from './user-approval.component';
 import { UserService } from '../services/user.service';
 import { MockUserService } from '../mockservices/mock-user.service';
 
-describe('UserApprovementComponent', () => {
-  let component: UserApprovementComponent;
-  let fixture: ComponentFixture<UserApprovementComponent>;
+describe('UserApprovalComponent', () => {
+  let component: UserApprovalComponent;
+  let fixture: ComponentFixture<UserApprovalComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ UserApprovementComponent ],
+      declarations: [ UserApprovalComponent ],
       providers: [
         {provide: UserService, useClass: MockUserService}
       ]
@@ -19,7 +19,7 @@ describe('UserApprovementComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(UserApprovementComponent);
+    fixture = TestBed.createComponent(UserApprovalComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -21,7 +21,6 @@ export class IdeaService {
       }
       saveTags.push({ID: tags[i].id, Title: tags[i].display});
     }
-    console.log(saveTags);
     return this.afDb.database.ref("Ideas").push({
       Title: title,
       Description: description,
@@ -61,12 +60,19 @@ export class IdeaService {
         idea.negativeVotes = pv.NegativeVote;
         idea.positiveVotes = pv.PositiveVote;
         idea.timestamp = pv.Timestamp;
-        idea.tags = pv.Tags.map((tagItem) => {
-          var tag = new Tag;
-          tag.id = tagItem.ID;
-          tag.title = tagItem.Title;
-          return tag;
-        });
+        if(pv.Tags)
+        {
+          idea.tags = pv.Tags.map((tagItem) => {
+            var tag = new Tag;
+            tag.id = tagItem.ID;
+            tag.title = tagItem.Title;
+            return tag;
+          });
+        }
+        else
+        {
+          idea.tags = [];
+        }
         return idea;
       });
     });
@@ -98,12 +104,19 @@ export class IdeaService {
           idea.negativeVotes = pv.NegativeVote;
           idea.positiveVotes = pv.PositiveVote;
           idea.timestamp = pv.Timestamp;
-          idea.tags = pv.Tags.map((tagItem) => {
-            var tag = new Tag;
-            tag.id = tagItem.ID;
-            tag.title = tagItem.Title;
-            return tag;
-          });
+          if(pv.Tags)
+          {
+            idea.tags = pv.Tags.map((tagItem) => {
+              var tag = new Tag;
+              tag.id = tagItem.ID;
+              tag.title = tagItem.Title;
+              return tag;
+            });
+          }
+          else
+          {
+            idea.tags = [];
+          }
           return idea;
         });
       });
@@ -129,12 +142,19 @@ export class IdeaService {
       idea.negativeVotes = pv.NegativeVote;
       idea.positiveVotes = pv.PositiveVote;
       idea.timestamp = pv.Timestamp;
-      idea.tags = pv.Tags.map((tagItem) => {
-        var tag = new Tag;
-        tag.id = tagItem.ID;
-        tag.title = tagItem.Title;
-        return tag;
-      });
+      if(pv.Tags)
+      {
+        idea.tags = pv.Tags.map((tagItem) => {
+          var tag = new Tag;
+          tag.id = tagItem.ID;
+          tag.title = tagItem.Title;
+          return tag;
+        });
+      }
+      else
+      {
+        idea.tags = [];
+      }
       return idea;
     });
   }
