@@ -17,7 +17,7 @@ export class UserApprovalComponent implements OnInit {
   errorMessage = "";
 
   constructor(
-    private userService: UserService
+    private userService: UserService,
   ) { }
 
   ngOnInit() {
