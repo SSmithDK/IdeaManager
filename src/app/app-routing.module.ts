@@ -25,7 +25,8 @@ const routes: Routes = [
   { path: 'approval', component: UserApprovalComponent, canActivate: [ManagerAuthGuard]},
   { path: 'my-ideas', component: MyIdeasComponent, canActivate: [UserAuthGuard]},
   { path: 'profile', component: ProfileComponent, canActivate: [UserAuthGuard]},
-  { path: 'create-reference/:ref/:id', component: CreateIdeaComponent, canActivate: [UserAuthGuard]}
+  { path: 'create-reference/:ref/:id', component: CreateIdeaComponent, canActivate: [UserAuthGuard]},
+  { path: 'edit-idea/:edit/:id', component: CreateIdeaComponent, canActivate: [UserAuthGuard]}
 ];
 
 @NgModule({

@@ -15,6 +15,7 @@ import 'rxjs/add/operator/map';
 import { Tag } from '../tag';
 import { UserService } from '../services/user.service';
 import { ActivatedRoute } from '@angular/router';
+import { Idea } from '../Idea';
 
 @Component({
   selector: 'app-create-idea',
@@ -26,9 +27,10 @@ export class CreateIdeaComponent implements OnInit {
 
   private user = new User;
   public isLoggedIn: boolean;
-  public published = false; // Default value for the radio buttons in form
   public ideaID: string;
   public isRef = false;
+  public editing = false;
+  public idea: Idea = new Idea;
 
   items: Tag[];
 
@@ -50,10 +52,17 @@ export class CreateIdeaComponent implements OnInit {
    }
 
   ngOnInit() {
+    this.idea.published = false; // Default for radio buttons
     if(+this.route.snapshot.paramMap.get("ref") === 1 && this.route.snapshot.paramMap.get("id"))
     {
       this.ideaID = this.route.snapshot.paramMap.get("id");
       this.isRef = true;
+    }
+    else if(+this.route.snapshot.paramMap.get("edit") === 1 && this.route.snapshot.paramMap.get("id"))
+    {
+      this.ideaID = this.route.snapshot.paramMap.get("id");
+      this.editing = true;
+      this.ideaService.getIdea(this.ideaID).subscribe((idea) => this.idea = idea);
     }
   }
 
@@ -65,9 +74,18 @@ export class CreateIdeaComponent implements OnInit {
     if( formData.valid )
     {
       let v = formData.value;
-      this.ideaService.createIdea(v.title, v.description, v.short_desc, this.user.id, this.user.Name, v.tags, v.published).then(() => {
-        this.router.navigate(['/']);
-      });
+      if(this.editing)
+      {
+        this.ideaService.updateIdea(this.idea).then(() => {
+          this.router.navigate([`/details/${this.idea.id}`]);
+        });
+      }
+      else
+      {
+        this.ideaService.createIdea(v.title, v.description, v.short_desc, this.user.id, this.user.Name, v.tags, v.published).then(() => {
+          this.router.navigate(['/']);
+        });
+      }
     }
   }
 }

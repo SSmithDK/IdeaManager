@@ -10,6 +10,10 @@
                   <a routerLink="/details/{{idea.id}}"><h4 class="card-title mb-0 float-left">{{idea.title}}</h4></a>
                 </ng-template>
                 <h4 [hidden]="idea.published" class="text-muted float-left ml-3">(Draft)</h4>
+                <!-- Display editing options for managers only -->
+                <div *ngIf="full && isManager">
+                  <a routerLink="/edit-idea/1/{{idea.id}}"><h4 class="text-muted float-left ml-3">(Edit)</h4></a>
+                </div>
               </div>
               <div class="col-sm-4 float-right text-right mb-0">
                 {{idea.timestamp | date:'MMMM d yyyy HH:mm'}}
