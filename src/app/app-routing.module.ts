@@ -13,6 +13,7 @@ import { UserApprovalComponent } from "./user-approval/user-approval.component";
 import { MyIdeasComponent } from './my-ideas/my-ideas.component';
 import { ProfileComponent } from './profile/profile.component';
 import { ManagerAuthGuard} from "./managerauth.guard";
+import {NotFoundComponent} from "./not-found/not-found.component";
 
 const routes: Routes = [
   { path: '', component: DashboardComponent, pathMatch: 'full', canActivate: [UserAuthGuard]},
@@ -26,7 +27,9 @@ const routes: Routes = [
   { path: 'my-ideas', component: MyIdeasComponent, canActivate: [UserAuthGuard]},
   { path: 'profile', component: ProfileComponent, canActivate: [UserAuthGuard]},
   { path: 'create-reference/:ref/:id', component: CreateIdeaComponent, canActivate: [UserAuthGuard]},
-  { path: 'edit-idea/:edit/:id', component: CreateIdeaComponent, canActivate: [UserAuthGuard]}
+  { path: 'edit-idea/:edit/:id', component: CreateIdeaComponent, canActivate: [UserAuthGuard]},
+  { path: '404', component: NotFoundComponent },
+  { path: '**', component: NotFoundComponent}
 ];
 
 @NgModule({

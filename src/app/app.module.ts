@@ -40,6 +40,7 @@ import { IdeaComponent } from './idea/idea.component';
 import { ProfileComponent } from './profile/profile.component';
 import { AddingReferenceIdeaComponent } from './adding-reference-idea/adding-reference-idea.component';
 import { ManagerAuthGuard } from './managerauth.guard';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 export const firebaseConfig = {
   apiKey: "AIzaSyDGMsVOfYPh5aMTgwIEjwnwKCL3_WMQK9U",
@@ -67,7 +68,8 @@ export const firebaseConfig = {
     MyIdeasComponent,
     IdeaComponent,
     ProfileComponent,
-    AddingReferenceIdeaComponent
+    AddingReferenceIdeaComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,
