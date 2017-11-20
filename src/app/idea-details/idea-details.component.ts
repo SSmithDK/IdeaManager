@@ -19,14 +19,14 @@ import { Idea } from '../Idea';
 export class IdeaDetailsComponent implements OnInit {
 
   idea: Observable<Idea>;
-  comments: Observable<any[]>;
+//  comments: Observable<any[]>;
   id: string;
   private user = new User;
 
   constructor(
     private route: ActivatedRoute,
     private ideaService: IdeaService,
-    private commentService: CommentService,
+//    private commentService: CommentService,
     private userService: UserService,
     private router: Router
   ) { 
@@ -43,7 +43,7 @@ export class IdeaDetailsComponent implements OnInit {
     this.id = this.route.snapshot.paramMap.get("id");
     this.idea = this.ideaService.getIdea(this.id);
   }
-
+/*
   getComments(content: string, user: string) {
     this.comments = this.commentService.getComments(this.id);
     //this.comments.push(new Comment("1", content, "2", user, this.id));
@@ -52,13 +52,13 @@ export class IdeaDetailsComponent implements OnInit {
   createComment(formData: NgForm) {
     if (formData.valid) {
       let v = formData.value;
-      this.commentService.createComment(v.content, this.user.id, this.user.Name, this.id).then(() => {
+      this.commentService.createComment(v.title, v.content, this.user.id, this.user.Name, this.id).then(() => {
         // Stays here and show comment!
         formData.value.content = "";
         this.getComments(v.content, this.user.Name);
       });
     }
   }
-
+*/
 
 }

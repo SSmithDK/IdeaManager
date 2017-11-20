@@ -1,23 +1,41 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { Observable } from 'rxjs/Observable';
+import { Idea } from '../Idea';
 
 @Injectable()
 export class CommentService {
 
-  constructor(public afDb: AngularFireDatabase) { }
+  constructor(private afDb: AngularFireDatabase) { }
 
-  createComment(content: string, userID: string, userName: string, ideaID: string) {
-    return this.afDb.database.ref("Comments").push({
+  createComment(idea: Idea, title: string, content: string, userID: string, userName: string) {
+    const ref = this.afDb.list('Comments').query.ref.push();
+    ref.set({
+      Title: title,
       Content: content,
       User: userID,
       OwnerName: userName,
-      Idea: ideaID,
       Timestamp: +new Date,
-      Aproved: true
-    })
+      Aproved: false
+    });
+    return ref.key;
   }
 
+  // trying to update the Idea
+  createComment2(idea: Idea, title: string, content: string, userID: string, userName: string) {
+    /*const ref = this.afDb.list('Idea/${idea.id}').query.ref.update();
+    ref.set({
+      Title: title,
+      Content: content,
+      User: userID,
+      OwnerName: userName,
+      Timestamp: +new Date,
+      Aproved: false
+    });
+    return ref.key;*/
+  }
+
+/*
   getComments(idea_id: string): Observable<any> { //TODO get only comments for an idea_id
     return this.afDb.list<any>('Comments', ref => ref.limitToLast(10)).snapshotChanges().map((arr) => {
       return arr.sort(function(a, b) {
@@ -37,5 +55,5 @@ export class CommentService {
       return data;
     });
   }
-
+*/
 }

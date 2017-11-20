@@ -4,6 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import { Tag } from '../tag';
 import { TagService } from './tag.service';
 import { Idea } from '../Idea';
+import { Comment } from '../Comment';
 import { of } from 'rxjs/observable/of';
 
 @Injectable()
@@ -73,6 +74,21 @@ export class IdeaService {
         {
           idea.tags = [];
         }
+        if (pv.Comments) {
+          idea.comments = pv.Comments.map((commentItem) => {
+            var comment = new Comment(commentItem.Title, commentItem.Content, commentItem.User, commentItem.OwnerName);
+            comment.id = commentItem.ID;
+            /*comment.title = commentItem.Title;
+            comment.content = commentItem.Content;
+            comment.owner = commentItem.User;
+            comment.username = commentItem.OwnerName;*/
+            comment.timestamp = commentItem.Timestamp;
+            comment.aproved = commentItem.Aproved;
+            return comment;
+          });
+        } else {
+            idea.comments = [];
+        }
         return idea;
       });
     });
@@ -117,6 +133,21 @@ export class IdeaService {
           {
             idea.tags = [];
           }
+          if (pv.Comments) {
+            idea.comments = pv.Comments.map((commentItem) => {
+              var comment = new Comment(commentItem.Title, commentItem.Content, commentItem.User, commentItem.OwnerName);
+              comment.id = commentItem.ID;
+              /*comment.title = commentItem.Title;
+              comment.content = commentItem.Content;
+              comment.owner = commentItem.User;
+              comment.username = commentItem.OwnerName;*/
+              comment.timestamp = commentItem.Timestamp;
+              comment.aproved = commentItem.Aproved;
+              return comment;
+            });
+          } else {
+              idea.comments = [];
+          }
           return idea;
         });
       });
@@ -154,6 +185,21 @@ export class IdeaService {
       else
       {
         idea.tags = [];
+      }
+      if (pv.Comments) {
+        idea.comments = pv.Comments.map((commentItem) => {
+          var comment = new Comment(commentItem.Title, commentItem.Content, commentItem.User, commentItem.OwnerName);
+          comment.id = commentItem.ID;
+          /*comment.title = commentItem.Title;
+          comment.content = commentItem.Content;
+          comment.owner = commentItem.User;
+          comment.username = commentItem.OwnerName;*/
+          comment.timestamp = commentItem.Timestamp;
+          comment.aproved = commentItem.Aproved;
+          return comment;
+        });
+      } else {
+          idea.comments = [];
       }
       return idea;
     });
