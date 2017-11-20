@@ -30,7 +30,7 @@
             <div [hidden]="description.valid || description.pristine" class="alert alert-info">A description of min. 50 characters is required.</div>
           </div>
           <div class="form-group">
-              <tag-input name="tags" [(ngModel)]='idea.tags' theme="bootstrap" #tags="ngModel" [onTextChangeDebounce]="50" required aria-describedby="tagHelp">
+              <tag-input name="tags" [(ngModel)]='idea.tags' [displayBy]="'title'" [identifyBy]="'id'"  theme="bootstrap" #tags="ngModel" [onTextChangeDebounce]="50" required aria-describedby="tagHelp">
                 <tag-input-dropdown 
                   [autocompleteObservable]="autocompleteItems" 
                   [displayBy]="'title'" 
@@ -52,7 +52,12 @@
               Published
             </label>
           </div>
-          <button type="submit" class="btn btn-success" [disabled]="!createIdeaForm.form.valid">Create</button>
+          <ng-container *ngIf="editing; else elseTemplate">
+            <button type="submit" class="btn btn-success" [disabled]="!createIdeaForm.form.valid">Update</button>
+          </ng-container>
+          <ng-template #elseTemplate>
+            <button type="submit" class="btn btn-success" [disabled]="!createIdeaForm.form.valid">Create</button>
+          </ng-template>
         </form>
     </div>
     <div class="col-4">

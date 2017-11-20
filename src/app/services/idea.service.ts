@@ -21,7 +21,6 @@ export class IdeaService {
       }
       saveTags.push({ID: tags[i].id, Title: tags[i].display});
     }
-    console.log(saveTags);
     return this.afDb.database.ref("Ideas").push({
       Title: title,
       Description: description,
@@ -136,6 +135,27 @@ export class IdeaService {
         return tag;
       });
       return idea;
+    });
+  }
+
+  updateIdea(idea: Idea) {
+    var saveTags: {ID: string, Title: string}[] = [];
+    for(var i=0; i < idea.tags.length; i++)
+    {
+      if( idea.tags[i].id==null ) // If the tag doesn't exist, create it
+      {
+        idea.tags[i].id = this.tagService.addTag(idea.tags[i].title);
+      }
+      saveTags.push({ID: idea.tags[i].id, Title: idea.tags[i].title});
+    }
+    return this.afDb.object(`Ideas/${idea.id}`).update({
+      Title: idea.title,
+      Description: idea.description,
+      ShortDescription: idea.shortDescription,
+      User: idea.owner,
+      OwnerName: idea.username,
+      Published: idea.published,
+      Tags: saveTags,
     });
   }
 
