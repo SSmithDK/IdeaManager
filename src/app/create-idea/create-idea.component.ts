@@ -14,6 +14,7 @@ import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/map';
 import { Tag } from '../tag';
 import { UserService } from '../services/user.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-create-idea',
@@ -26,6 +27,8 @@ export class CreateIdeaComponent implements OnInit {
   private user = new User;
   public isLoggedIn: boolean;
   public published = false; // Default value for the radio buttons in form
+  public ideaID: string;
+  public isRef = false;
 
   items: Tag[];
 
@@ -35,6 +38,7 @@ export class CreateIdeaComponent implements OnInit {
   errorMessage = "";
 
   constructor(
+    private route: ActivatedRoute,
     public ideaService: IdeaService,
     public tagService: TagService,
     public userService: UserService,
@@ -46,6 +50,11 @@ export class CreateIdeaComponent implements OnInit {
    }
 
   ngOnInit() {
+    if(+this.route.snapshot.paramMap.get("ref") === 1 && this.route.snapshot.paramMap.get("id"))
+    {
+      this.ideaID = this.route.snapshot.paramMap.get("id");
+      this.isRef = true;
+    }
   }
 
   autocompleteItems = (text: string): Observable<Tag[]> => {

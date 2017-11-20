@@ -18,14 +18,4 @@ export class AddingReferenceIdeaComponent implements OnInit {
 
   ngOnInit() {
   }
-
-  /**
-   * this methods add a child idea to a parent 
-   * @param idea parent idea
-   */
-  addReferenceIdea(idea){
-    //here we create the new idea
-
-  }
-
 }
