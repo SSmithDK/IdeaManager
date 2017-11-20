@@ -97,6 +97,9 @@ export class UserService {
 
     this.afDb.object(`Managers/${uid}`).snapshotChanges().subscribe((snapshot) => {
       this.user.Manager = snapshot !== null;
+    },
+    (error) => {
+     // No permission, i.e. user is not manager!
     });
 
   }

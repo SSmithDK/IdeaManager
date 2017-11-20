@@ -30,6 +30,7 @@
             <div [hidden]="description.valid || description.pristine" class="alert alert-info">A description of min. 50 characters is required.</div>
           </div>
           <div class="form-group">
+            <ng-container *ngIf="editing; else elseTags">
               <tag-input name="tags" [(ngModel)]='idea.tags' [displayBy]="'title'" [identifyBy]="'id'"  theme="bootstrap" #tags="ngModel" [onTextChangeDebounce]="50" required aria-describedby="tagHelp">
                 <tag-input-dropdown 
                   [autocompleteObservable]="autocompleteItems" 
@@ -38,6 +39,17 @@
                   [focusFirstElement]="true">
                 </tag-input-dropdown>
               </tag-input>
+            </ng-container>
+            <ng-template #elseTags>
+              <tag-input name="tags" [(ngModel)]="items" theme="bootstrap" #tags="ngModel" [onTextChangeDebounce]="50" required aria-describedby="tagHelp">
+                <tag-input-dropdown 
+                  [autocompleteObservable]="autocompleteItems" 
+                  [displayBy]="'title'" 
+                  [identifyBy]="'id'" 
+                  [focusFirstElement]="true">
+                </tag-input-dropdown>
+              </tag-input>
+            </ng-template>
               <small id="tagHelp" class="form-text text-muted">Provide at least 1 tag for the idea.</small>
           </div>
           <div class="form-check">
@@ -52,10 +64,10 @@
               Published
             </label>
           </div>
-          <ng-container *ngIf="editing; else elseTemplate">
+          <ng-container *ngIf="editing; else elseSubmit">
             <button type="submit" class="btn btn-success" [disabled]="!createIdeaForm.form.valid">Update</button>
           </ng-container>
-          <ng-template #elseTemplate>
+          <ng-template #elseSubmit>
             <button type="submit" class="btn btn-success" [disabled]="!createIdeaForm.form.valid">Create</button>
           </ng-template>
         </form>

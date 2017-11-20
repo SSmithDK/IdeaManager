@@ -76,12 +76,14 @@ export class CreateIdeaComponent implements OnInit {
       let v = formData.value;
       if(this.editing)
       {
+        console.log("Updating idea");
         this.ideaService.updateIdea(this.idea).then(() => {
           this.router.navigate([`/details/${this.idea.id}`]);
         });
       }
       else
       {
+        console.log("Saving new idea");
         this.ideaService.createIdea(v.title, v.description, v.short_desc, this.user.id, this.user.Name, v.tags, v.published).then(() => {
           this.router.navigate(['/']);
         });
