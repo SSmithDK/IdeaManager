@@ -4,6 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import { Tag } from '../tag';
 import { TagService } from './tag.service';
 import { Idea } from '../Idea';
+import { Comment } from '../Comment';
 import { of } from 'rxjs/observable/of';
 
 @Injectable()
