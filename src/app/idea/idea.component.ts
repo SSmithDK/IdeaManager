@@ -1,6 +1,7 @@
 import { Input, Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Idea } from '../Idea';
 import { RouterModule } from '@angular/router';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'idea',
@@ -13,9 +14,19 @@ export class IdeaComponent implements OnInit {
   @Input() idea: Idea;
   @Input() full: boolean;
 
-  constructor() { }
+  public isManager = false;
+
+  constructor(
+    private userService: UserService
+  ) { }
 
   ngOnInit() {
+    this.userService.currentUser.subscribe((user) => {
+      if(user)
+      {
+        this.isManager = user.Manager;
+      }
+    })
   }
 
 }
