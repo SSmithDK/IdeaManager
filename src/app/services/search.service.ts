@@ -18,7 +18,6 @@ export class SearchService {
       return arr.sort(function(a, b){
         const keyA = a.payload.val().Published,
           keyB = b.payload.val().Published;
-        // TODO Maybe compare by draft or published
         if(keyA > keyB) return -1;
         if(keyA < keyB) return 1;
         return 0;

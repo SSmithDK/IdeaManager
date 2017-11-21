@@ -46,11 +46,11 @@ export class SearchIdeasComponent implements OnInit {
     else {
       this.searchResults = this.searchService.searchTitles(this.searchTerm);
     }
-  /*
+
     this.route.params.subscribe(params => {
       this.searchTerm = params['term'];
       this.searchResults = this.searchService.searchTitles(this.searchTerm);
     })
-    */
+    
   }
 }
