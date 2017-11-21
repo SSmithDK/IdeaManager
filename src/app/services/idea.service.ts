@@ -30,7 +30,7 @@ export class IdeaService {
       Description: description,
       ShortDescription: shortDescription,
       User: userID,
-      OwnerName: userName,
+      OwnerName: userNamse,
       Published: published,
       Timestamp: +new Date,
       Tags: saveTags,
@@ -41,7 +41,7 @@ export class IdeaService {
   }
 
   getIdeas(): Observable<Idea[]>{
-    return this.afDb.list<any>('Ideas', ref => ref.orderByChild('Published').equalTo(true)).snapshotChanges().map((arr) => { 
+    return this.afDb.list<any>('Ideas', ref => ref.orderByChild('Published').equalTo(true)).snapshotChanges().map((arr) => {
       return arr.sort(function(a, b){
         var keyA = a.payload.val().Timestamp,
             keyB = b.payload.val().Timestamp;
@@ -80,7 +80,7 @@ export class IdeaService {
     {
       return this.afDb.list<any>('Ideas', ref => ref.orderByChild('User').equalTo(userID)).snapshotChanges().map((arr) => {
         return arr.sort(function(a, b) {
-          var keyA = a.payload.val().Timestamp, 
+          var keyA = a.payload.val().Timestamp,
               keyB= b.payload.val().Timestamp;
           // Compare the two timestamps
           if(keyA > keyB) return -1;
@@ -115,7 +115,7 @@ export class IdeaService {
     {
       return of(null);
     }
-    
+
   }
 
   getIdea(id: string): Observable<Idea> {
@@ -186,11 +186,11 @@ export class IdeaService {
         resolve(vI);
       })
     });
-    return myFirstPromise; 
+    return myFirstPromise;
   }
 
   // /**
-  //  * This methods create a relationship between a "child" idea that reference to a "parent" idea 
+  //  * This methods create a relationship between a "child" idea that reference to a "parent" idea
   //  * @param idParent key of parent idea
   //  * @param idChild key of child idea
   //  */
@@ -204,7 +204,7 @@ export class IdeaService {
 
   // /**
   //  * get all related ideas with a parent idea
-  //  * @param idParent 
+  //  * @param idParent
   //  */
   // getChildsIdeaOfParent(idParent:string){
   // //TODO
