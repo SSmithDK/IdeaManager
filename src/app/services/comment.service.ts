@@ -36,7 +36,7 @@ export class CommentService {
       return arr.map((item) => {
         const $key = item.payload.key;
         //var comment = new Comment(item.payload.val().Idea, item.payload.val().Title, item.payload.val().Content, item.payload.val().User, item.payload.val().OwnerName);
-        var comment = new Comment("", "", "", "", "");
+        var comment = new Comment;
         comment.id = $key;
         comment.idea_id = item.payload.val().Idea;
         comment.title = item.payload.val().Title;
