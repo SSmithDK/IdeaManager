@@ -43,17 +43,6 @@
             <app-adding-reference-idea [idea]="idea"> </app-adding-reference-idea>
           </div>
         </div>
-
-        <div class="card-footer" *ngIf="full">
-          <div class="row">
-            <div class="card-header" *ngFor="let comment of idea.comments">
-              <app-comment-details [comment]="comment"></app-comment-details>
-            </div>
-          </div>
-          <i class="text-muted" [hidden]="idea.comments.length > 0">No comments yet</i>
-          <app-create-comment [idea]="idea"></app-create-comment>
-        </div>
-
       </div>
     </div>
 </div>

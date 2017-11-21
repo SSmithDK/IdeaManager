@@ -13,7 +13,7 @@ import { VotedIdea } from '../VotedIdea';
 export class IdeaService {
   public voteIdea$: Observable<any>;
 
-  constructor(public afDb: AngularFireDatabase, public tagService: TagService) { }
+  constructor(public afDb: AngularFireDatabase, public tagService: TagService /*, public commentService: CommentService*/) { }
 
   createIdea(title: string, description: string, shortDescription: string, userID: string, userName: string, tags?: any[], published?: boolean) {
     var saveTags: {ID: string, Title: string}[] = [];
