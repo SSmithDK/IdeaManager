@@ -35,10 +35,11 @@
           </div>
         </div>
         <div class="card-footer">
-          <span class="badge badge-primary mr-1 p-2" *ngFor="let tag of idea.tags">{{tag.title}}</span>
+          <a class="badge badge-primary mr-1 p-2" routerLink="/search/1/{{tag.title}}"
+             *ngFor="let tag of idea.tags">{{tag.title}}</a>
           <i class="text-muted" [hidden]="idea.tags.length > 0">No tags</i>
          <!--if idea description is shown only then permit to add reference ideas -->
-          <div [hidden]="!full" > 
+          <div [hidden]="!full" >
             <app-adding-reference-idea [idea]="idea"> </app-adding-reference-idea>
           </div>
         </div>

@@ -3,7 +3,7 @@
     <strong>Please note!</strong> You have to be approved by a manager first in order to search ideas.
   </div>
 
-  <h2 [hidden]="!isApproved"><i>Search results for</i> ...</h2>
+  <h2 class="mb-2" [hidden]="!isApproved">Search results for {{isTagSearch ? "tag" : ""}} <i>"{{searchTerm}}"</i>:</h2>
 
   <div *ngFor="let idea of searchResults | async">
     <idea [idea]="idea"></idea>

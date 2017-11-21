@@ -30,6 +30,7 @@ const routes: Routes = [
   { path: 'create-reference/:ref/:id', component: CreateIdeaComponent, canActivate: [UserAuthGuard]},
   { path: 'edit-idea/:edit/:id', component: CreateIdeaComponent, canActivate: [UserAuthGuard]},
   { path: 'search/:term', component: SearchIdeasComponent },
+  { path: 'search/:tag/:term', component: SearchIdeasComponent },
   { path: '404', component: NotFoundComponent },
   { path: '**', component: NotFoundComponent }
 ];
