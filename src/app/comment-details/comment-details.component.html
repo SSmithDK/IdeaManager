@@ -6,7 +6,7 @@
               <h5 class="card-title mb-0">{{comment.title}}</h5>
             </div>
             <div class="col-sm-4 float-right text-right mb-0">
-              {{comment.Timestamp | date:'MMMM d yyyy HH:mm'}}
+              {{comment.timestamp | date:'MMMM d yyyy HH:mm'}}
             </div>
         </div>
     </div>
@@ -20,7 +20,7 @@
     </div>
 
     <div class="card-footer">
-      by {{comment.username}}
+      by {{comment.owner}}
     </div>
 
   </div>

@@ -4,6 +4,7 @@ export class Comment {
 
   constructor(
     public id: string,
+    public idea_id: string,
     public title: string,
     public content: string,
     public owner?: string,

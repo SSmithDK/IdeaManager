@@ -3,6 +3,7 @@ import { AngularFireDatabase } from 'angularfire2/database';
 import { Observable } from 'rxjs/Observable';
 import { Tag } from '../tag';
 import { TagService } from './tag.service';
+//import { CommentService } from './comment.service';
 import { Idea } from '../Idea';
 import { Comment } from '../Comment';
 import { of } from 'rxjs/observable/of';
@@ -10,7 +11,7 @@ import { of } from 'rxjs/observable/of';
 @Injectable()
 export class IdeaService {
 
-  constructor(public afDb: AngularFireDatabase, public tagService: TagService) { }
+  constructor(public afDb: AngularFireDatabase, public tagService: TagService /*, public commentService: CommentService*/) { }
 
   createIdea(title: string, description: string, shortDescription: string, userID: string, userName: string, tags?: any[], published?: boolean) {
     var saveTags: {ID: string, Title: string}[] = [];
@@ -74,21 +75,19 @@ export class IdeaService {
         {
           idea.tags = [];
         }
-        if (pv.Comments) {
-          idea.comments = pv.Comments.map((commentItem) => {
+//        var cmts = this.commentService.getComments(item.key);
+//        if (cmts) {
+          /*idea.comments = cmts; 
+          idea.comments = cmts.map((commentItem) => {
             var comment = new Comment(commentItem.Title, commentItem.Content, commentItem.User, commentItem.OwnerName);
             comment.id = commentItem.ID;
-            /*comment.title = commentItem.Title;
-            comment.content = commentItem.Content;
-            comment.owner = commentItem.User;
-            comment.username = commentItem.OwnerName;*/
             comment.timestamp = commentItem.Timestamp;
             comment.aproved = commentItem.Aproved;
-            return comment;
-          });
-        } else {
-            idea.comments = [];
-        }
+            return comment; 
+          }); */
+//        } else {
+//            idea.comments = [];
+//        }
         return idea;
       });
     });
@@ -133,21 +132,19 @@ export class IdeaService {
           {
             idea.tags = [];
           }
-          if (pv.Comments) {
-            idea.comments = pv.Comments.map((commentItem) => {
+          //idea.comments = this.commentService.getComments(item.key);
+          /*var cmts = this.commentService.getComments(item.key);
+          if (cmts) {
+            idea.comments = cmts.map((commentItem) => {
               var comment = new Comment(commentItem.Title, commentItem.Content, commentItem.User, commentItem.OwnerName);
               comment.id = commentItem.ID;
-              /*comment.title = commentItem.Title;
-              comment.content = commentItem.Content;
-              comment.owner = commentItem.User;
-              comment.username = commentItem.OwnerName;*/
               comment.timestamp = commentItem.Timestamp;
               comment.aproved = commentItem.Aproved;
               return comment;
             });
           } else {
               idea.comments = [];
-          }
+          }*/
           return idea;
         });
       });
@@ -186,21 +183,19 @@ export class IdeaService {
       {
         idea.tags = [];
       }
-      if (pv.Comments) {
-        idea.comments = pv.Comments.map((commentItem) => {
+      //idea.comments = this.commentService.getComments(action.key);
+      /*var cmts = this.commentService.getComments(action.key);
+      if (cmts) {
+        idea.comments = cmts.map((commentItem) => {
           var comment = new Comment(commentItem.Title, commentItem.Content, commentItem.User, commentItem.OwnerName);
           comment.id = commentItem.ID;
-          /*comment.title = commentItem.Title;
-          comment.content = commentItem.Content;
-          comment.owner = commentItem.User;
-          comment.username = commentItem.OwnerName;*/
           comment.timestamp = commentItem.Timestamp;
           comment.aproved = commentItem.Aproved;
           return comment;
         });
       } else {
           idea.comments = [];
-      }
+      }*/
       return idea;
     });
   }

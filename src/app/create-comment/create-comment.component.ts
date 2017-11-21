@@ -42,8 +42,7 @@ export class CreateCommentComponent implements OnInit {
   onSubmit(formData: NgForm) {
     if (formData.valid) {
       let v = formData.value;
-      this.commentService.createComment(this.idea, v.title, v.content, this.user.id, this.user.Name);
-      //this.commentService.createComment2(idea, v.title, v.content, this.user.id, this.user.Name);
+      this.commentService.createComment(this.idea.id, v.title, v.content, this.user.id, this.user.Name);
     }
   }
 
