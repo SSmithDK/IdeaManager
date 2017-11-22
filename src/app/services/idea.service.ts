@@ -11,7 +11,7 @@ import { of } from 'rxjs/observable/of';
 @Injectable()
 export class IdeaService {
 
-  constructor(public afDb: AngularFireDatabase, public tagService: TagService /*, public commentService: CommentService*/) { }
+  constructor(public afDb: AngularFireDatabase, public tagService: TagService) { }
 
   createIdea(title: string, description: string, shortDescription: string, userID: string, userName: string, tags?: any[], published?: boolean) {
     var saveTags: {ID: string, Title: string}[] = [];

@@ -1,5 +1,10 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Input } from '@angular/core/';
+import { User } from '../user';
+import { NgForm } from '@angular/forms';
+import { CommentService } from '../services/comment.service';
+import { UserService } from '../services/user.service';
+import { Comment } from '../Comment';
 
 @Component({
   selector: 'comment-details',
@@ -11,9 +16,35 @@ export class CommentDetailsComponent implements OnInit {
 
   @Input() comment: Comment;
 
-  constructor( ) { }
+  private user = new User;
+  canRemove = false;
+  hasError = false;
+  errorMessage = "";
+
+  constructor(
+    public commentService: CommentService,
+    public userService: UserService) {
+    this.userService.currentUser.subscribe((user) => {
+      if (user) {
+        this.user = user;
+      }
+    })
+  }
 
   ngOnInit() {
+    this.canRemove = this.comment.owner == this.user.id;
+  }
+
+  onDelete(formData: NgForm) {
+    let v = formData.value;
+    if (this.canRemove) {
+      this.commentService.deleteComment(this.comment.id, (error) => {
+        if (error !== null) {
+          this.hasError = true;
+          this.errorMessage = error.message;
+        }
+      });
+    }
   }
 
 }

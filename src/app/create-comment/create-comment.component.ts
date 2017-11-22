@@ -3,7 +3,6 @@ import {Router} from "@angular/router";
 import { User } from '../user';
 import { Idea } from '../Idea';
 import { NgForm } from '@angular/forms';
-//import { IdeaService } from '../idea.service';
 import { Input } from '@angular/core/';
 import { CommentService } from '../services/comment.service';
 import { UserService } from '../services/user.service';

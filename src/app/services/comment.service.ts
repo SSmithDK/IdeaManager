@@ -23,6 +23,21 @@ export class CommentService {
     return ref.key;
   }
 
+  getComment(id: string): Observable<Comment> {
+    return this.afDb.object<any>('Comments/${id}').snapshotChanges().map(action => {
+      var comment = new Comment;
+      var pv = action.payload.val();
+      comment.id = action.key;
+      comment.title = pv.Title;
+      comment.content = pv.Content;
+      comment.owner = pv.User;
+      comment.username = pv.OwnerName;
+      comment.timestamp = pv.Timestamp;
+      comment.aproved = pv.Aproved;
+      return comment;
+    });
+  }
+
   getComments(idea_id: string): Observable<Comment[]> {
     return this.afDb.list<any>('Comments', ref => ref.orderByChild('Idea').equalTo(idea_id)).snapshotChanges().map((arr) => {
       return arr.sort(function(a, b) {
@@ -35,7 +50,6 @@ export class CommentService {
     }).map((arr) => {
       return arr.map((item) => {
         const $key = item.payload.key;
-        //var comment = new Comment(item.payload.val().Idea, item.payload.val().Title, item.payload.val().Content, item.payload.val().User, item.payload.val().OwnerName);
         var comment = new Comment;
         comment.id = $key;
         comment.idea_id = item.payload.val().Idea;
@@ -49,4 +63,9 @@ export class CommentService {
       });
     });
   }
+
+  deleteComment(commentID: string, onComplete?: (a: Error | null) => any) {
+    this.afDb.database.ref(`Comments/${commentID}`).remove(onComplete);
+  }
+
 }

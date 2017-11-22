@@ -1,4 +1,14 @@
 <div class="card mt-3" *ngIf="comment; let comment; else loading">
+
+  <div [hidden]="!hasError" class="alert alert-danger" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <strong>An error occured while removing this comment:</strong> {{errorMessage}}
+  </div>
+
+  <form (ngSubmit)="onDelete(deleteCommentForm)" #deleteCommentForm="ngForm">
+
     <div class="card-header">
       <h5 class="card-title">{{comment.title}}</h5>
       <h6 class="card-subtitle mb-2 text-muted">
@@ -11,6 +21,10 @@
         <footer class="blockquote-footer">by {{comment.username}}</footer>
       </blockquote>
     </div>
+    <button type="submit" class="btn btn-success" [hidden]="!canRemove">Delete</button>
+
+  </form>
+
 </div>
 
 <ng-template #loading>
