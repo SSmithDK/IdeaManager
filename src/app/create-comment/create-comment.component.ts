@@ -43,6 +43,7 @@ export class CreateCommentComponent implements OnInit {
     if (formData.valid) {
       let v = formData.value;
       this.commentService.createComment(this.idea.id, v.title, v.content, this.user.id, this.user.Name);
+      formData.reset();
     }
   }
 

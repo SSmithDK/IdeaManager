@@ -1,16 +1,14 @@
 <div class="container">
   <div *ngIf="idea | async; let idea; else loading">
     <idea [idea]="idea" full="true"></idea>
-  </div>
-  <div class="card-footer" >
-    <div class="row">
-      <div class="card-header" *ngFor="let comment of comments | async">
-        <app-comment-details [comment]="comment"></app-comment-details>
-      </div>
-    </div>
-    <i class="text-muted" [hidden]="comments.length > 0">No comments yet</i>
+
     <app-create-comment [idea]="idea"></app-create-comment>
+
+    <div *ngFor="let comment of comments | async">
+      <app-comment-details [comment]="comment"></app-comment-details>
+    </div>
   </div>
+
 
   <ng-template #loading>
     <div class="text-center">
