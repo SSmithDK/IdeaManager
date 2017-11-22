@@ -2,12 +2,13 @@
   <div *ngIf="idea | async; let idea; else loading">
     <idea [idea]="idea" full="true"></idea>
 
-    <app-create-comment [idea]="idea"></app-create-comment>
+    <h2 class="mt-5">Comments</h2>
+    <create-comment [idea]="idea"></create-comment>
 
     <div *ngFor="let comment of comments | async">
-      <app-comment-details [comment]="comment"></app-comment-details>
+      <comment-details [comment]="comment"></comment-details>
     </div>
-    <i class="text-muted" [hidden]="(comments | async)?.length > 0">No comments yet</i>
+    <h3 class="text-center"><i class="text-center" [hidden]="(comments | async)?.length > 0">No comments yet</i></h3>
   </div>
 
   <ng-template #loading>

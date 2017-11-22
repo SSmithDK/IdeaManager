@@ -8,6 +8,7 @@ import { IdeaComponent } from '../idea/idea.component';
 import { VotingIdeasComponent } from '../voting-ideas/voting-ideas.component';
 import {MockUserService} from "../mockservices/mock-user.service";
 import {UserService} from "../services/user.service";
+import { AddingReferenceIdeaComponent } from '../adding-reference-idea/adding-reference-idea.component';
 
 describe('DashboardComponent', () => {
   let component: DashboardComponent;
@@ -16,7 +17,7 @@ describe('DashboardComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [ RouterTestingModule ],
-      declarations: [ DashboardComponent, IdeaComponent, VotingIdeasComponent ],
+      declarations: [ DashboardComponent, IdeaComponent, VotingIdeasComponent, AddingReferenceIdeaComponent ],
       providers: [
         {provide: IdeaService, useClass: MockIdeaService},
         {provide: UserService, useClass: MockUserService}

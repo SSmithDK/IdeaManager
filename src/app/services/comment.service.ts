@@ -49,14 +49,4 @@ export class CommentService {
       });
     });
   }
-
-/*
-  getComment(id: string): Observable<any> {
-    return this.afDb.object<any>(`Comments/${id}`).snapshotChanges().map(action => {
-      const $key = action.payload.key;
-      const data = { $key, ...action.payload.val() };
-      return data;
-    });
-  }
-*/
 }

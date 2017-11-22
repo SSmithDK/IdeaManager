@@ -13,6 +13,9 @@ import { MockUserService } from '../mockservices/mock-user.service';
 import { UserService } from '../services/user.service';
 import { IdeaComponent } from '../idea/idea.component';
 import { VotingIdeasComponent } from '../voting-ideas/voting-ideas.component';
+import { CreateCommentComponent } from '../create-comment/create-comment.component';
+import { CommentDetailsComponent } from '../comment-details/comment-details.component';
+import { AddingReferenceIdeaComponent } from '../adding-reference-idea/adding-reference-idea.component';
 
 describe('IdeaDetailsComponent', () => {
   let component: IdeaDetailsComponent;
@@ -21,7 +24,7 @@ describe('IdeaDetailsComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [ FormsModule, RouterTestingModule ],
-      declarations: [ IdeaDetailsComponent, IdeaComponent, VotingIdeasComponent ],
+      declarations: [ IdeaDetailsComponent, IdeaComponent, VotingIdeasComponent, CreateCommentComponent, CommentDetailsComponent, AddingReferenceIdeaComponent ],
       providers: [
         {provide: IdeaService, useClass: MockIdeaService},
         {provide: CommentService, useClass: MockCommentService},

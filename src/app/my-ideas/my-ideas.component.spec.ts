@@ -8,6 +8,7 @@ import { IdeaService } from '../services/idea.service';
 import { MockIdeaService } from '../mockservices/mock-idea.service';
 import { RouterTestingModule } from '@angular/router/testing';
 import { VotingIdeasComponent } from '../voting-ideas/voting-ideas.component';
+import { AddingReferenceIdeaComponent } from '../adding-reference-idea/adding-reference-idea.component';
 
 describe('MyIdeasComponent', () => {
   let component: MyIdeasComponent;
@@ -19,7 +20,8 @@ describe('MyIdeasComponent', () => {
       declarations: [
         MyIdeasComponent, 
         IdeaComponent,
-        VotingIdeasComponent
+        VotingIdeasComponent,
+        AddingReferenceIdeaComponent
       ],
       providers: [
         {provide: UserService, useClass: MockUserService},

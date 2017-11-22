@@ -8,6 +8,7 @@ import { MockAuthService } from '../mockservices/mock-auth.service';
 import { RouterTestingModule } from '@angular/router/testing';
 import { UserService } from '../services/user.service';
 import { MockUserService } from '../mockservices/mock-user.service';
+import { FormsModule } from '@angular/forms';
 
 describe('CreateCommentComponent', () => {
   let component: CreateCommentComponent;
@@ -15,11 +16,10 @@ describe('CreateCommentComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [ RouterTestingModule ],
+      imports: [ RouterTestingModule, FormsModule ],
       declarations: [ CreateCommentComponent ],
       providers: [ 
         {provide: CommentService, useClass: MockCommentService},
-        {provide: AuthService, useClass: MockAuthService},
         {provide: UserService, useClass: MockUserService}
       ]
     })

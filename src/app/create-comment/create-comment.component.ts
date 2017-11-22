@@ -6,11 +6,10 @@ import { NgForm } from '@angular/forms';
 //import { IdeaService } from '../idea.service';
 import { Input } from '@angular/core/';
 import { CommentService } from '../services/comment.service';
-import { AuthService } from '../services/auth.service';
 import { UserService } from '../services/user.service';
 
 @Component({
-  selector: 'app-create-comment',
+  selector: 'create-comment',
   templateUrl: './create-comment.component.html',
   styleUrls: ['./create-comment.component.css'],
   encapsulation: ViewEncapsulation.None
@@ -26,7 +25,6 @@ export class CreateCommentComponent implements OnInit {
 
   constructor(
     public commentService: CommentService,
-    public authService: AuthService,
     public userService: UserService,
     private router: Router) {
     this.userService.currentUser.subscribe((user) => {
