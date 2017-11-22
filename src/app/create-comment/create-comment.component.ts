@@ -20,7 +20,6 @@ export class CreateCommentComponent implements OnInit {
   @Input() idea: Idea;
 
   private user = new User;
-  public isLoggedIn: boolean;
 
   hasError = false;
   errorMessage = "";
@@ -30,10 +29,11 @@ export class CreateCommentComponent implements OnInit {
     public authService: AuthService,
     public userService: UserService,
     private router: Router) {
-      this.authService.isAuthorized.subscribe((isAuth) => this.isLoggedIn = isAuth);
-      this.userService.currentUser.subscribe((user) => {
+    this.userService.currentUser.subscribe((user) => {
+      if (user) {
         this.user = user;
-      });
+      }
+    })
   }
 
   ngOnInit() {
