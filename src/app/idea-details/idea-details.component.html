@@ -7,8 +7,8 @@
     <div *ngFor="let comment of comments | async">
       <app-comment-details [comment]="comment"></app-comment-details>
     </div>
+    <i class="text-muted" [hidden]="(comments | async)?.length > 0">No comments yet</i>
   </div>
-
 
   <ng-template #loading>
     <div class="text-center">
