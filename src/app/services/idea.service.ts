@@ -3,13 +3,15 @@ import { AngularFireDatabase } from 'angularfire2/database';
 import { Observable } from 'rxjs/Observable';
 import { Tag } from '../tag';
 import { TagService } from './tag.service';
+//import { CommentService } from './comment.service';
 import { Idea } from '../Idea';
+import { Comment } from '../Comment';
 import { of } from 'rxjs/observable/of';
 
 @Injectable()
 export class IdeaService {
 
-  constructor(public afDb: AngularFireDatabase, public tagService: TagService) { }
+  constructor(public afDb: AngularFireDatabase, public tagService: TagService /*, public commentService: CommentService*/) { }
 
   createIdea(title: string, description: string, shortDescription: string, userID: string, userName: string, tags?: any[], published?: boolean) {
     var saveTags: {ID: string, Title: string}[] = [];

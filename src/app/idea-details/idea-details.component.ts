@@ -19,7 +19,7 @@ import { Idea } from '../Idea';
 export class IdeaDetailsComponent implements OnInit {
 
   idea: Observable<Idea>;
-  comments: Observable<any[]>;
+  comments: Observable<Comment[]>;
   id: string;
   private user = new User;
 
@@ -42,9 +42,11 @@ export class IdeaDetailsComponent implements OnInit {
   getIdea(): void {
     this.id = this.route.snapshot.paramMap.get("id");
     this.idea = this.ideaService.getIdea(this.id);
+    this.comments = this.commentService.getComments(this.id);
   }
 
-  getComments(content: string, user: string) {
+/*
+  getComments() {
     this.comments = this.commentService.getComments(this.id);
     //this.comments.push(new Comment("1", content, "2", user, this.id));
   }
@@ -52,13 +54,13 @@ export class IdeaDetailsComponent implements OnInit {
   createComment(formData: NgForm) {
     if (formData.valid) {
       let v = formData.value;
-      this.commentService.createComment(v.content, this.user.id, this.user.Name, this.id).then(() => {
+      this.commentService.createComment(v.title, v.content, this.user.id, this.user.Name, this.id).then(() => {
         // Stays here and show comment!
         formData.value.content = "";
         this.getComments(v.content, this.user.Name);
       });
     }
   }
-
+*/
 
 }
