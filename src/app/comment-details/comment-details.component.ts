@@ -32,12 +32,15 @@ export class CommentDetailsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.canRemove = (this.comment.owner == this.user.id || this.user.Manager);
+    if(this.comment)
+    {
+      this.canRemove = (this.comment.owner == this.user.id || this.user.Manager);
+    }
+    
   }
 
-  onDelete(formData: NgForm) {
-    let v = formData.value;
-    if (this.canRemove) {
+  deleteComment() {
+    if (this.canRemove && confirm("Are you sure you wish to delete this comment?")) {
       this.commentService.deleteComment(this.comment.id, (error) => {
         if (error !== null) {
           this.hasError = true;
