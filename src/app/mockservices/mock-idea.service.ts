@@ -3,6 +3,7 @@ import { Observable } from 'rxjs/Observable';
 import { Idea } from '../Idea';
 import { Tag } from '../tag';
 import { of } from 'rxjs/observable/of';
+import { VotedIdea } from '../VotedIdea';
 
 @Injectable()
 export class MockIdeaService {
@@ -81,6 +82,20 @@ export class MockIdeaService {
 
   updateIdeaVote(idea: Idea) {
     // Do nothing, act like vote has been casted
+  }
+
+  saveideaUserVote(idea:Idea):void{
+    // Do nothing, act like it has been updated
+  }
+
+  checkUservoteIdea(idea_id:string,user_id):Promise<VotedIdea>{
+    let myFirstPromise = new Promise<VotedIdea>((resolve, reject) => {
+        var vI=new VotedIdea();
+        vI.idea_id="mockIdeaID";
+        vI.user_id="mockUserID";
+        resolve(vI);
+    });
+    return myFirstPromise; 
   }
 
 }

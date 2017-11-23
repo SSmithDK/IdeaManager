@@ -14,45 +14,75 @@ import { Observable } from 'rxjs/Observable';
 })
 export class VotingIdeasComponent implements OnInit {
   @Input() idea:Idea;
-  public hasVote=false;
-  constructor(public ideaService: IdeaService) {}
+  public hasVoted=false;
+  public isOwner = false;
+  constructor(
+    public ideaService: IdeaService,
+    public userService: UserService
+  ) { }
 
   ngOnInit() {
+    if(this.idea)
+    {
+      this.userService.currentUser.subscribe((user) => {
+        if(user && this.idea)
+        {
+          if(user.id == this.idea.owner)
+          {
+            this.isOwner = true;
+          }
+        }
+      });
+      this.ideaService.checkUservoteIdea(this.idea.id,this.idea.owner)
+        .then((result) => {
+          if(result.user_id){
+            if(this.idea.owner==result.user_id){
+              //the idea is voted by user
+              this.hasVoted = true;
+            }
+          }
+      });
+    }
   }
 
   vote_Up(idea) {
     //before vote, check if user hasnt vote this idea before
-    this.ideaService.checkUservoteIdea(idea.id,idea.owner)
-    .then((result) => {
-       if(result.user_id){
-          if(idea.owner==result.user_id){
-            //the idea is voted by user
-            this.hasVote = true;
-          }
-       }else{
-        this.idea.positiveVotes++;
-        this.ideaService.updateIdeaVote(idea);
-        this.ideaService.saveideaUserVote(idea);
-       }
-    });
-   
+    if(!this.isOwner)
+    {
+      this.ideaService.checkUservoteIdea(idea.id,idea.owner)
+      .then((result) => {
+         if(result.user_id){
+            if(idea.owner==result.user_id){
+              //the idea is voted by user
+              this.hasVoted = true;
+            }
+         }else{
+          this.idea.positiveVotes++;
+          this.ideaService.updateIdeaVote(idea);
+          this.ideaService.saveideaUserVote(idea);
+         }
+      });
+    }
   }
 
   vote_Down(idea) {
     //before vote, check if user hasnt vote this idea before
-    this.ideaService.checkUservoteIdea(idea.id,idea.owner)
-    .then((result) => {
-       if(result.user_id){
-          if(idea.owner==result.user_id){
-            this.hasVote =true;
-          }
-       }else{
-        this.idea.positiveVotes--;
-        this.ideaService.updateIdeaVote(idea);
-        this.ideaService.saveideaUserVote(idea);
-       }
-    });
-   }
+    if(!this.isOwner)
+    {
+      this.ideaService.checkUservoteIdea(idea.id,idea.owner)
+      .then((result) => {
+         if(result.user_id){
+            if(idea.owner==result.user_id){
+              this.hasVoted =true;
+            }
+         }else{
+          this.idea.positiveVotes--;
+          this.ideaService.updateIdeaVote(idea);
+          this.ideaService.saveideaUserVote(idea);
+         }
+      });
+    }
+  }
 
   
 }
