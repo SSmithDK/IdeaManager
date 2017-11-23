@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AngularFireDatabase } from 'angularfire2/database';
+import { AngularFireDatabase, snapshotChanges } from 'angularfire2/database';
 import { Observable } from 'rxjs/Observable';
 import { Tag } from '../tag';
 import { TagService } from './tag.service';
@@ -7,9 +7,11 @@ import { TagService } from './tag.service';
 import { Idea } from '../Idea';
 import { Comment } from '../Comment';
 import { of } from 'rxjs/observable/of';
+import { VotedIdea } from '../VotedIdea';
 
 @Injectable()
 export class IdeaService {
+  public voteIdea$: Observable<any>;
 
   constructor(public afDb: AngularFireDatabase, public tagService: TagService) { }
 
@@ -162,29 +164,51 @@ export class IdeaService {
   }
 
   updateIdeaVote(idea:Idea):void{
-    this.afDb.object('Ideas/'+idea.id).update({PositiveVote:idea.positiveVotes});
+    //update total votes of idea
+    this.afDb.database.ref('Ideas/'+idea.id)
+    .update({PositiveVote:idea.positiveVotes});
   }
 
-  /**
-   * This methods create a relationship between a "child" idea that reference to a "parent" idea 
-   * @param idParent key of parent idea
-   * @param idChild key of child idea
-   */
-  createChildIdea(idParent:string,idChild){
-    //TODO
-    return this.afDb.database.ref("ReferenceIdeas").push({
-      idParent:idParent,
-      idChild:idChild
+  saveideaUserVote(idea:Idea):void{
+    var ref=this.afDb.database.ref(`VotedIdea/${idea.id}`);
+    ref.set({user_id:idea.owner});
+  }
+
+  checkUservoteIdea(idea_id:string,user_id):Promise<VotedIdea>{
+    let myFirstPromise = new Promise<VotedIdea>((resolve, reject) => {
+      this.afDb.database.ref(`VotedIdea/${idea_id}`)
+      .on('value',function(datasnapshot){
+        var vI=new VotedIdea();
+        vI.idea_id=idea_id;
+        if(datasnapshot.val()!=null){
+          vI.user_id=datasnapshot.val().user_id;
+        }
+        resolve(vI);
+      })
     });
+    return myFirstPromise; 
   }
 
-  /**
-   * get all related ideas with a parent idea
-   * @param idParent 
-   */
-  getChildsIdeaOfParent(idParent:string){
-  //TODO
-  }
+  // /**
+  //  * This methods create a relationship between a "child" idea that reference to a "parent" idea 
+  //  * @param idParent key of parent idea
+  //  * @param idChild key of child idea
+  //  */
+  // createChildIdea(idParent:string,idChild){
+  //   //TODO
+  //   return this.afDb.database.ref("ReferenceIdeas").push({
+  //     idParent:idParent,
+  //     idChild:idChild
+  //   });
+  // }
+
+  // /**
+  //  * get all related ideas with a parent idea
+  //  * @param idParent 
+  //  */
+  // getChildsIdeaOfParent(idParent:string){
+  // //TODO
+  // }
 
 
 }

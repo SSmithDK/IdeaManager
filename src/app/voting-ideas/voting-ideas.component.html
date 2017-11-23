@@ -1,10 +1,21 @@
+
 <div *ngIf="idea">
+        <!-- <div class="row">
+        <div class="alert alert-warning alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <strong>Warning!</strong> Better check yourself, you're not looking too good.
+        </div>
+        </div> -->
     <div class="row">
-            <div class="col-sm-12">
-            <div class=image_vote (click)="vote_Up(idea)">
+        <div class="col-sm-12">
+            
+            <div [hidden]=hasVote class=image_vote  (click)="vote_Up(idea)">
                 <img  src="./assets/img/arrow_up.png">
-            </div>
-            </div>
+            
+        </div>
+            
+        </div>
+
     </div> 
     <div class="row">
         <div class="col-sm-12">
@@ -13,10 +24,9 @@
     </div> 
     <div class="row">
         <div class="col-sm-12">
-                <div class=image_vote (click)="vote_Down(idea)">
+            <div [hidden]=hasVote class=image_vote (click)="vote_Down(idea)">
                     <img class="img-responsive" src="./assets/img/arrow_down.png">
-                </div>
-            
+             </div>
         </div>
     </div>   
 </div>                  
