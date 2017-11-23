@@ -67,6 +67,13 @@ export class UserService {
     });
   }
 
+  public updateUser(uid: string, name: string, email: string, onComplete?: (a: Error | null) => any) {
+    this.afDb.object(`Users/${uid}`).update({
+      Name: name,
+      Email: email
+    });
+  }
+
   public deleteUser(uid: string, onComplete?: (a: Error | null) => any) {
 
     this.afDb.database.ref(`Users/${uid}`).remove(onComplete);

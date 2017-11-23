@@ -12,6 +12,9 @@ import { NgForm } from '@angular/forms/src/directives/ng_form';
 export class ProfileComponent implements OnInit {
 
   private user = new User;
+  hasError = false;
+  hasChanged = false;
+  errorMessage = "";
 
   constructor(
     private userService: UserService
@@ -35,7 +38,14 @@ export class ProfileComponent implements OnInit {
     if( formData.valid )
     {
       let v = formData.value;
-      // Implementation for udpating profile
+      this.userService.updateUser(this.user.id, v.name, v.email, (error) => {
+        if (error !== null) {
+          this.hasError = true;
+          this.errorMessage = error.message;
+        } else if (error.message == ""){
+          this.hasChanged = true;
+        }
+      });
     }
   }
 
