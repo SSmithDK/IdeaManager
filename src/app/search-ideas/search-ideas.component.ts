@@ -51,6 +51,6 @@ export class SearchIdeasComponent implements OnInit {
       this.searchTerm = params['term'];
       this.searchResults = this.searchService.searchTitles(this.searchTerm);
     })
-    
+
   }
 }
