@@ -6,6 +6,8 @@ import { VotingIdeasComponent } from '../voting-ideas/voting-ideas.component';
 import { AddingReferenceIdeaComponent } from '../adding-reference-idea/adding-reference-idea.component';
 import { UserService } from '../services/user.service';
 import { MockUserService } from '../mockservices/mock-user.service';
+import { IdeaService } from '../services/idea.service';
+import { MockIdeaService } from '../mockservices/mock-idea.service';
 
 describe('IdeaComponent', () => {
   let component: IdeaComponent;
@@ -16,7 +18,8 @@ describe('IdeaComponent', () => {
       imports: [ RouterTestingModule ],
       declarations: [ IdeaComponent, VotingIdeasComponent, AddingReferenceIdeaComponent ],
       providers: [
-        {provide: UserService, useClass: MockUserService}
+        {provide: UserService, useClass: MockUserService},
+        {provide: IdeaService, useClass: MockIdeaService}
       ]
     })
     .compileComponents();

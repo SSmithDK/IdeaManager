@@ -1,9 +1,9 @@
 import { Input, Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Idea } from '../Idea';
 import { User } from '../user';
-import { RouterModule } from '@angular/router';
 import { UserService } from '../services/user.service';
 import { IdeaService } from '../services/idea.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'idea',
@@ -23,6 +23,7 @@ export class IdeaComponent implements OnInit {
   errorMessage = "";
 
   constructor(
+    private router: Router,
     public ideaService: IdeaService,
     private userService: UserService
   ) {
@@ -41,7 +42,7 @@ export class IdeaComponent implements OnInit {
         this.isManager = user.Manager;
       }
     })
-    this.canRemoveIdea = (this.idea.owner == this.user.id || this.user.Manager);
+    this.canRemoveIdea = (this.user.Manager);
   }
 
   deleteIdea() {
@@ -50,6 +51,10 @@ export class IdeaComponent implements OnInit {
         if (error !== null) {
           this.hasError = true;
           this.errorMessage = error.message;
+        }
+        else
+        {
+          this.router.navigate(['/']);
         }
       });
     }

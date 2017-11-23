@@ -21,6 +21,10 @@
                 <div *ngIf="full && isManager">
                   <a routerLink="/edit-idea/1/{{idea.id}}"><h4 class="text-muted float-left ml-3">(Edit)</h4></a>
                 </div>
+                <!-- Display deleting options for managers only -->
+                <div *ngIf="full && isManager">
+                  <a (click)="deleteIdea()"><h4 class="text-muted float-left ml-3 cursor-pointer">Delete</h4></a>
+                </div>
               </div>
               <div class="col-sm-4 float-right text-right mb-0">
                 {{idea.timestamp | date:'MMMM d yyyy HH:mm'}}
@@ -47,9 +51,6 @@
          <!--if idea description is shown only then permit to add reference ideas -->
           <div [hidden]="!full" > 
             <app-adding-reference-idea [idea]="idea"> </app-adding-reference-idea>
-          </div>
-          <div *ngIf="full && isManager">
-            <button class="btn btn-danger float-right" [hidden]="!canRemoveIdea" (click)="deleteIdea()">Delete</button>
           </div>
         </div>
       </div>

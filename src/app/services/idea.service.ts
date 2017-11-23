@@ -142,7 +142,7 @@ export class IdeaService {
   }
 
   deleteIdea(ideaID: string, onComplete?: (a: Error | null) => any) {
-    this.afDb.database.ref(`Idea/${ideaID}`).remove(onComplete);
+    this.afDb.database.ref(`Ideas/${ideaID}`).remove(onComplete);
   }
 
   updateIdea(idea: Idea) {
