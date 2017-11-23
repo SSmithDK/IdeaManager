@@ -8,7 +8,6 @@
   </div>
 
   <form (ngSubmit)="onDelete(deleteCommentForm)" #deleteCommentForm="ngForm">
-
     <div class="card-header">
       <h5 class="card-title">{{comment.title}}</h5>
       <h6 class="card-subtitle mb-2 text-muted">
@@ -21,8 +20,7 @@
         <footer class="blockquote-footer">by {{comment.username}}</footer>
       </blockquote>
     </div>
-    <button type="submit" class="btn btn-success" [hidden]="!canRemove">Delete</button>
-
+    <button type="submit" class="btn btn-success float-right" [hidden]="!canRemove">Delete</button>
   </form>
 
 </div>

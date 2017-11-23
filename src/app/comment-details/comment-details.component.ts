@@ -32,7 +32,7 @@ export class CommentDetailsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.canRemove = this.comment.owner == this.user.id;
+    this.canRemove = (this.comment.owner == this.user.id || this.user.Manager);
   }
 
   onDelete(formData: NgForm) {
