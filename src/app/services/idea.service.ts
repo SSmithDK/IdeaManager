@@ -3,7 +3,6 @@ import { AngularFireDatabase, snapshotChanges } from 'angularfire2/database';
 import { Observable } from 'rxjs/Observable';
 import { Tag } from '../tag';
 import { TagService } from './tag.service';
-//import { CommentService } from './comment.service';
 import { Idea } from '../Idea';
 import { Comment } from '../Comment';
 import { of } from 'rxjs/observable/of';
@@ -140,6 +139,10 @@ export class IdeaService {
       });
       return idea;
     });
+  }
+
+  deleteIdea(ideaID: string, onComplete?: (a: Error | null) => any) {
+    this.afDb.database.ref(`Idea/${ideaID}`).remove(onComplete);
   }
 
   updateIdea(idea: Idea) {

@@ -45,22 +45,4 @@ export class IdeaDetailsComponent implements OnInit {
     this.comments = this.commentService.getComments(this.id);
   }
 
-/*
-  getComments() {
-    this.comments = this.commentService.getComments(this.id);
-    //this.comments.push(new Comment("1", content, "2", user, this.id));
-  }
-
-  createComment(formData: NgForm) {
-    if (formData.valid) {
-      let v = formData.value;
-      this.commentService.createComment(v.title, v.content, this.user.id, this.user.Name, this.id).then(() => {
-        // Stays here and show comment!
-        formData.value.content = "";
-        this.getComments(v.content, this.user.Name);
-      });
-    }
-  }
-*/
-
 }

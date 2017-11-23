@@ -1,4 +1,11 @@
 <div *ngIf="idea">
+  <div [hidden]="!hasError" class="alert alert-danger" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <strong>An error occured while removing this idea:</strong> {{errorMessage}}
+  </div>
+
   <div class="card mb-3">
       <div class="card-header">
           <div class="row mb-0">
@@ -40,6 +47,9 @@
          <!--if idea description is shown only then permit to add reference ideas -->
           <div [hidden]="!full" > 
             <app-adding-reference-idea [idea]="idea"> </app-adding-reference-idea>
+          </div>
+          <div *ngIf="full && isManager">
+            <button class="btn btn-danger float-right" [hidden]="!canRemoveIdea" (click)="deleteIdea()">Delete</button>
           </div>
         </div>
       </div>
