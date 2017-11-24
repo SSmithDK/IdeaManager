@@ -28,6 +28,7 @@ const routes: Routes = [
   { path: 'my-ideas', component: MyIdeasComponent, canActivate: [UserAuthGuard]},
   { path: 'profile', component: ProfileComponent, canActivate: [UserAuthGuard]},
   { path: 'create-reference/:ref/:id', component: CreateIdeaComponent, canActivate: [UserAuthGuard]},
+  { path: 'details-parent/:ref/:id', component: IdeaDetailsComponent, canActivate: [UserAuthGuard]},
   { path: 'edit-idea/:edit/:id', component: CreateIdeaComponent, canActivate: [UserAuthGuard]},
   { path: 'search/:term', component: SearchIdeasComponent },
   { path: 'search/:tag/:term', component: SearchIdeasComponent },

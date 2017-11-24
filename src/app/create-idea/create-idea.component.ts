@@ -32,6 +32,9 @@ export class CreateIdeaComponent implements OnInit {
   public editing = false;
   public idea: Idea = new Idea;
 
+  public ideaReferenced: Idea = new Idea;
+  
+
   items: Tag[];
 
   tags;
@@ -57,6 +60,9 @@ export class CreateIdeaComponent implements OnInit {
     {
       this.ideaID = this.route.snapshot.paramMap.get("id");
       this.isRef = true;
+      this.ideaService.getIdea(this.ideaID).subscribe((ideaReferenced) => this.ideaReferenced = ideaReferenced);
+      
+      console.log("ideaReferenced "+this.ideaReferenced.title);
     }
     else if(+this.route.snapshot.paramMap.get("edit") === 1 && this.route.snapshot.paramMap.get("id"))
     {
@@ -64,6 +70,7 @@ export class CreateIdeaComponent implements OnInit {
       this.editing = true;
       this.ideaService.getIdea(this.ideaID).subscribe((idea) => this.idea = idea);
     }
+
   }
 
   autocompleteItems = (text: string): Observable<Tag[]> => {
@@ -74,16 +81,19 @@ export class CreateIdeaComponent implements OnInit {
     if( formData.valid )
     {
       let v = formData.value;
-      if(this.editing)
-      {
-        console.log("Updating idea");
+      if(this.editing){
         this.ideaService.updateIdea(this.idea).then(() => {
           this.router.navigate([`/details/${this.idea.id}`]);
         });
-      }
-      else
-      {
-        console.log("Saving new idea");
+      } else if(this.isRef){
+        //save new idea 
+        this.ideaService.createIdea(v.title, v.description, v.short_desc, this.user.id, this.user.Name, v.tags, v.published).then((newIdeaRef) => {
+        
+          //save references of child
+          this.ideaService.createReferenceIdea(newIdeaRef.key,this.ideaReferenced.id,this.ideaReferenced.title);
+          this.router.navigate(['/']);
+        });
+      } else{
         this.ideaService.createIdea(v.title, v.description, v.short_desc, this.user.id, this.user.Name, v.tags, v.published).then(() => {
           this.router.navigate(['/']);
         });

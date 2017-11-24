@@ -7,11 +7,16 @@ import { Idea } from '../Idea';
 import { Comment } from '../Comment';
 import { of } from 'rxjs/observable/of';
 import { VotedIdea } from '../VotedIdea';
+<<<<<<< HEAD
 import {SearchService} from "./search.service";
+=======
+import { ReferenceIdea } from '../ReferenceIdea';
+>>>>>>> finish reference ideas
 
 @Injectable()
 export class IdeaService {
   public voteIdea$: Observable<any>;
+  public parent;
 
   constructor(public afDb: AngularFireDatabase, public tagService: TagService, public searchService: SearchService /*, public commentService: CommentService*/) { }
 
@@ -46,6 +51,8 @@ export class IdeaService {
 
     return result;
   }
+
+  
 
   getIdeas(): Observable<Idea[]>{
     return this.afDb.list<any>('Ideas', ref => ref.orderByChild('Published').equalTo(true)).snapshotChanges().map((arr) => {
@@ -205,6 +212,7 @@ export class IdeaService {
     return myFirstPromise;
   }
 
+<<<<<<< HEAD
   // /**
   //  * This methods create a relationship between a "child" idea that reference to a "parent" idea
   //  * @param idParent key of parent idea
@@ -225,6 +233,28 @@ export class IdeaService {
   // getChildsIdeaOfParent(idParent:string){
   // //TODO
   // }
+=======
+  /**
+   * This methods create a relationship between a "child" idea that reference to a "parent" idea 
+   * @param idParent key of parent idea
+   * @param idChild key of child idea
+   */
+  createReferenceIdea(idChild:string,idParent:string,title:string){
+    var ref= this.afDb.database.ref(`ReferenceIdeas/${idChild}`);
+    ref.set({idParent:idParent,title:title});
+  }
+>>>>>>> finish reference ideas
 
+  getParentIdea(id_child:string):Observable<ReferenceIdea>{
+      return this.afDb.object<any>(`ReferenceIdeas/${id_child}`).snapshotChanges().map(action=>{
+        var refIdea=new ReferenceIdea;
+        var pv=action.payload.val();
+        refIdea.idea_id=pv.idParent;
+        refIdea.title=pv.title;
+        console.log("refIdea.idea_id"+ refIdea.idea_id);
+        console.log("refIdea.title "+ refIdea.title);
+        return refIdea;
+      });
+  }
 
 }

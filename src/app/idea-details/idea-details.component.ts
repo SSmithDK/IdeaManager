@@ -36,7 +36,14 @@ export class IdeaDetailsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getIdea();
+    if(+this.route.snapshot.paramMap.get("ref") === 2 && this.route.snapshot.paramMap.get("id")){
+    this.id = this.route.snapshot.paramMap.get("id");
+    this.idea=this.ideaService.getIdea(this.id);
+    this.comments = this.commentService.getComments(this.id);
+    
+    }else{  
+      this.getIdea();
+    }
   }
 
   getIdea(): void {

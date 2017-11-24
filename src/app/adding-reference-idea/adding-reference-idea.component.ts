@@ -1,6 +1,9 @@
 import { Component, OnInit, ViewEncapsulation, Input } from '@angular/core';
 import { Idea } from '../Idea';
 import { IdeaService } from '../services/idea.service';
+import { Observable } from 'rxjs/Observable';
+import { ReferenceIdea } from '../ReferenceIdea';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-adding-reference-idea',
@@ -11,11 +14,21 @@ import { IdeaService } from '../services/idea.service';
 export class AddingReferenceIdeaComponent implements OnInit {
 
   @Input() idea: Idea;
+  public parentIdea:ReferenceIdea = new ReferenceIdea;
   
-  constructor(public ideaService: IdeaService,)
-  { }
+  constructor(
+    public ideaService: IdeaService,
+    private route: ActivatedRoute,
+    private router: Router)
+  { 
+  }
   
 
   ngOnInit() {
+    this.ideaService.getParentIdea(this.idea.id).subscribe((parentIdea)=>
+     {
+       this.parentIdea=parentIdea;
+    });
   }
+  
 }
