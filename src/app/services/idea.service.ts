@@ -7,11 +7,8 @@ import { Idea } from '../Idea';
 import { Comment } from '../Comment';
 import { of } from 'rxjs/observable/of';
 import { VotedIdea } from '../VotedIdea';
-<<<<<<< HEAD
 import {SearchService} from "./search.service";
-=======
 import { ReferenceIdea } from '../ReferenceIdea';
->>>>>>> finish reference ideas
 
 @Injectable()
 export class IdeaService {
@@ -212,28 +209,6 @@ export class IdeaService {
     return myFirstPromise;
   }
 
-<<<<<<< HEAD
-  // /**
-  //  * This methods create a relationship between a "child" idea that reference to a "parent" idea
-  //  * @param idParent key of parent idea
-  //  * @param idChild key of child idea
-  //  */
-  // createChildIdea(idParent:string,idChild){
-  //   //TODO
-  //   return this.afDb.database.ref("ReferenceIdeas").push({
-  //     idParent:idParent,
-  //     idChild:idChild
-  //   });
-  // }
-
-  // /**
-  //  * get all related ideas with a parent idea
-  //  * @param idParent
-  //  */
-  // getChildsIdeaOfParent(idParent:string){
-  // //TODO
-  // }
-=======
   /**
    * This methods create a relationship between a "child" idea that reference to a "parent" idea 
    * @param idParent key of parent idea
@@ -243,7 +218,6 @@ export class IdeaService {
     var ref= this.afDb.database.ref(`ReferenceIdeas/${idChild}`);
     ref.set({idParent:idParent,title:title});
   }
->>>>>>> finish reference ideas
 
   getParentIdea(id_child:string):Observable<ReferenceIdea>{
       return this.afDb.object<any>(`ReferenceIdeas/${id_child}`).snapshotChanges().map(action=>{
