@@ -3,6 +3,7 @@ import {User} from "../user";
 import {AuthService} from "../services/auth.service";
 import {UserService} from "../services/user.service";
 import {Router} from "@angular/router";
+import {NgForm} from '@angular/forms';
 
 @Component({
   selector: 'app-navbar',
@@ -16,6 +17,8 @@ export class AppNavbarComponent implements OnInit {
   public isLoggedIn: boolean;
   public isManager: boolean;
   public isApproved: boolean;
+
+  searchTerm: string = "";
 
   constructor(
     public authService: AuthService,

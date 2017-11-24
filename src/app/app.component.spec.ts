@@ -7,13 +7,15 @@ import { AuthService } from './services/auth.service';
 import { MockAuthService } from './mockservices/mock-auth.service';
 import { UserService } from './services/user.service';
 import { MockUserService } from './mockservices/mock-user.service';
+import {FormsModule} from "@angular/forms";
 
 describe('AppComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        RouterTestingModule
+        RouterTestingModule,
+        FormsModule
       ],
       declarations: [
         AppComponent,

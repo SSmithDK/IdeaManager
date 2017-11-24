@@ -41,6 +41,8 @@ import { ProfileComponent } from './profile/profile.component';
 import { AddingReferenceIdeaComponent } from './adding-reference-idea/adding-reference-idea.component';
 import { ManagerAuthGuard } from './managerauth.guard';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { SearchService } from "./services/search.service";
+import { SearchIdeasComponent } from './search-ideas/search-ideas.component';
 
 export const firebaseConfig = {
   apiKey: "AIzaSyDGMsVOfYPh5aMTgwIEjwnwKCL3_WMQK9U",
@@ -49,6 +51,12 @@ export const firebaseConfig = {
   projectId: "ideamanager-64747",
   storageBucket: "ideamanager-64747.appspot.com",
   messagingSenderId: "477312275133"
+};
+
+export const algoliaConfig = {
+  appId: "LP7DPOPNWX",
+  adminKey: "5d05fd8abe78579111351afbed50a016",
+  indexName: "Ideas"
 };
 
 @NgModule({
@@ -69,7 +77,8 @@ export const firebaseConfig = {
     IdeaComponent,
     ProfileComponent,
     AddingReferenceIdeaComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    SearchIdeasComponent
   ],
   imports: [
     BrowserModule,
@@ -90,7 +99,8 @@ export const firebaseConfig = {
     AngularFireDatabase,
     IdeaService,
     CommentService,
-    TagService
+    TagService,
+    SearchService
   ],
   bootstrap: [AppComponent]
 })

@@ -14,6 +14,7 @@ import { MyIdeasComponent } from './my-ideas/my-ideas.component';
 import { ProfileComponent } from './profile/profile.component';
 import { ManagerAuthGuard} from "./managerauth.guard";
 import {NotFoundComponent} from "./not-found/not-found.component";
+import {SearchIdeasComponent} from "./search-ideas/search-ideas.component";
 
 const routes: Routes = [
   { path: '', component: DashboardComponent, pathMatch: 'full', canActivate: [UserAuthGuard]},
@@ -28,8 +29,10 @@ const routes: Routes = [
   { path: 'profile', component: ProfileComponent, canActivate: [UserAuthGuard]},
   { path: 'create-reference/:ref/:id', component: CreateIdeaComponent, canActivate: [UserAuthGuard]},
   { path: 'edit-idea/:edit/:id', component: CreateIdeaComponent, canActivate: [UserAuthGuard]},
+  { path: 'search/:term', component: SearchIdeasComponent },
+  { path: 'search/:tag/:term', component: SearchIdeasComponent },
   { path: '404', component: NotFoundComponent },
-  { path: '**', component: NotFoundComponent}
+  { path: '**', component: NotFoundComponent }
 ];
 
 @NgModule({
