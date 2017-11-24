@@ -8,16 +8,17 @@ import { Idea } from '../Idea';
 import { Comment } from '../Comment';
 import { of } from 'rxjs/observable/of';
 import { VotedIdea } from '../VotedIdea';
+import {SearchService} from "./search.service";
 
 @Injectable()
 export class IdeaService {
   public voteIdea$: Observable<any>;
 
-  constructor(public afDb: AngularFireDatabase, public tagService: TagService /*, public commentService: CommentService*/) { }
+  constructor(public afDb: AngularFireDatabase, public tagService: TagService, public searchService: SearchService /*, public commentService: CommentService*/) { }
 
   createIdea(title: string, description: string, shortDescription: string, userID: string, userName: string, tags?: any[], published?: boolean) {
-    var saveTags: {ID: string, Title: string}[] = [];
-    for(var i=0; i < tags.length; i++)
+    const saveTags: { ID: string, Title: string }[] = [];
+    for(let i=0; i < tags.length; i++)
     {
       if( tags[i].id==null ) // If the tag doesn't exist, create it
       {
@@ -25,19 +26,26 @@ export class IdeaService {
       }
       saveTags.push({ID: tags[i].id, Title: tags[i].display});
     }
-    return this.afDb.database.ref("Ideas").push({
+
+    const timestamp = +new Date;
+
+    const result = this.afDb.database.ref("Ideas").push({
       Title: title,
       Description: description,
       ShortDescription: shortDescription,
       User: userID,
-      OwnerName: userNamse,
+      OwnerName: userName,
       Published: published,
-      Timestamp: +new Date,
+      Timestamp: timestamp,
       Tags: saveTags,
-      PositiveVote:0,
-      NegativeVote:0
-
+      PositiveVote: 0,
+      NegativeVote: 0
     });
+
+    this.searchService.pushIdeaToIndex(result.key,
+      title, description, shortDescription, userID, userName, saveTags, timestamp, published);
+
+    return result;
   }
 
   getIdeas(): Observable<Idea[]>{
@@ -152,7 +160,7 @@ export class IdeaService {
       }
       saveTags.push({ID: idea.tags[i].id, Title: idea.tags[i].title});
     }
-    return this.afDb.object(`Ideas/${idea.id}`).update({
+    const result = this.afDb.object(`Ideas/${idea.id}`).update({
       Title: idea.title,
       Description: idea.description,
       ShortDescription: idea.shortDescription,
@@ -161,6 +169,11 @@ export class IdeaService {
       Published: idea.published,
       Tags: saveTags,
     });
+
+    this.searchService.updateIdeaInIndex(idea.id, idea.title, idea.description, idea.shortDescription, idea.owner,
+      idea.username, idea.published, saveTags);
+
+    return result;
   }
 
   updateIdeaVote(idea:Idea):void{

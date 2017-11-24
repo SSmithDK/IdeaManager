@@ -18,7 +18,7 @@ export class AppNavbarComponent implements OnInit {
   public isManager: boolean;
   public isApproved: boolean;
 
-  searchTerm: string;
+  searchTerm: string = "";
 
   constructor(
     public authService: AuthService,

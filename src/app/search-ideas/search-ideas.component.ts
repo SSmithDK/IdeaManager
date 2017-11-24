@@ -4,7 +4,6 @@ import {ActivatedRoute} from "@angular/router";
 import {Observable} from "rxjs/Observable";
 import {Idea} from "../Idea";
 import {SearchService} from "../services/search.service";
-import {IdeaService} from "../services/idea.service";
 
 @Component({
   selector: 'app-search-ideas',
@@ -17,6 +16,7 @@ export class SearchIdeasComponent implements OnInit {
   isApproved: boolean;
   isTagSearch: boolean = false;
   searchTerm: string;
+  hasError = false;
 
   searchResults: Observable<Idea[]>;
   ideas: Observable<Idea[]>;
@@ -37,19 +37,27 @@ export class SearchIdeasComponent implements OnInit {
       }
     });
 
+    this.searchResults = this.searchService.results;
+
     this.searchTerm = this.route.snapshot.paramMap.get('term');
 
     if(+this.route.snapshot.paramMap.get("tag") === 1) {
-      this.searchResults = this.searchService.searchTags(this.searchTerm);
+      this.searchService.searchTags(this.searchTerm, (err) => {
+        this.hasError = true;
+      });
       this.isTagSearch = true;
     }
     else {
-      this.searchResults = this.searchService.searchTitles(this.searchTerm);
+      this.searchService.searchIdeas(this.searchTerm, (err) => {
+        this.hasError = true;
+      });
     }
 
     this.route.params.subscribe(params => {
       this.searchTerm = params['term'];
-      this.searchResults = this.searchService.searchTitles(this.searchTerm);
+      this.searchService.searchIdeas(this.searchTerm, (err) => {
+          this.hasError = true;
+      });
     })
 
   }

@@ -6,6 +6,7 @@ import { AuthService } from '../services/auth.service';
 import { MockAuthService } from '../mockservices/mock-auth.service';
 import { UserService } from '../services/user.service';
 import { MockUserService } from '../mockservices/mock-user.service';
+import {FormsModule} from "@angular/forms";
 
 describe('AppNavbarComponent', () => {
   let component: AppNavbarComponent;
@@ -13,9 +14,9 @@ describe('AppNavbarComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [ RouterTestingModule ],
+      imports: [ RouterTestingModule, FormsModule ],
       declarations: [ AppNavbarComponent ],
-      providers: [ 
+      providers: [
         {provide: AuthService, useClass: MockAuthService},
         {provide: UserService, useClass: MockUserService}
       ]
