@@ -2,7 +2,7 @@ import {Injectable} from "@angular/core";
 import {Idea} from "../Idea";
 import {Tag} from "../tag";
 import {BehaviorSubject} from "rxjs/BehaviorSubject";
-import {algoliaConfig} from "../app.module";
+import { algoliaConfig } from '../../environments/api';
 import * as algoliasearch from 'algoliasearch';
 
 @Injectable()

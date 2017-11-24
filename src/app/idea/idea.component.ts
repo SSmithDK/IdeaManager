@@ -42,9 +42,14 @@ export class IdeaComponent implements OnInit {
       {
         this.isManager = user.Manager;
       }
-    })
-    this.canRemoveIdea = (this.user.Manager);
-    this.canEditIdea = (this.user.id == this.idea.owner);
+    });
+    // Check that idea actually exists
+    if(this.idea)
+    {
+      this.canEditIdea = this.user.id == this.idea.owner || this.user.Manager;
+      this.canRemoveIdea = this.user.Manager;
+    }
+    
   }
 
   deleteIdea() {

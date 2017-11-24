@@ -18,12 +18,12 @@
                 </ng-template>
                 <h4 [hidden]="idea.published" class="text-muted float-left ml-3">(Draft)</h4>
                 <!-- Display editing options for managers and owners -->
-                <div *ngIf="full && (isManager || canEditIdea)">
+                <div *ngIf="full && canEditIdea">
                   <span class="separator ml-2 float-left"></span>
                   <a routerLink="/edit-idea/1/{{idea.id}}"><h4 class="idea-action float-left ml-2">Edit</h4></a>
                 </div>
                 <!-- Display deleting options for managers only -->
-                <div *ngIf="full && isManager">
+                <div *ngIf="full && canRemoveIdea">
                   <span class="separator ml-2 float-left"></span>
                   <a (click)="deleteIdea()"><h4 class="idea-action float-left ml-2 cursor-pointer">Delete</h4></a>
                 </div>
