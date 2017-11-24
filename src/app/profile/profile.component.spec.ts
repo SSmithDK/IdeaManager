@@ -4,6 +4,8 @@ import { ProfileComponent } from './profile.component';
 import { UserService } from '../services/user.service';
 import { MockUserService } from '../mockservices/mock-user.service';
 import { FormsModule } from '@angular/forms';
+import { AuthService } from '../services/auth.service';
+import { MockAuthService } from '../mockservices/mock-auth.service';
 
 describe('ProfileComponent', () => {
   let component: ProfileComponent;
@@ -14,7 +16,8 @@ describe('ProfileComponent', () => {
       imports: [ FormsModule ],
       declarations: [ ProfileComponent ],
       providers: [
-        {provide: UserService, useClass: MockUserService}
+        {provide: UserService, useClass: MockUserService},
+        {provide: AuthService, useClass: MockAuthService}
       ]
     })
     .compileComponents();

@@ -4,6 +4,7 @@ import { Idea } from '../Idea';
 import { Tag } from '../tag';
 import { of } from 'rxjs/observable/of';
 import { VotedIdea } from '../VotedIdea';
+import { ReferenceIdea } from '../ReferenceIdea';
 
 @Injectable()
 export class MockIdeaService {
@@ -96,6 +97,17 @@ export class MockIdeaService {
         resolve(vI);
     });
     return myFirstPromise; 
+  }
+
+  createReferenceIdea(idChild:string,idParent:string,title:string){
+    // Do nothing, act like reference is created
+  }
+
+  getParentIdea(id_child:string):Observable<ReferenceIdea>{
+    var ri = new ReferenceIdea;
+    ri.idea_id = "MockID";
+    ri.title = "Mock Title";
+    return of(ri);
   }
 
 }

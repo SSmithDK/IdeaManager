@@ -25,10 +25,13 @@ export class AddingReferenceIdeaComponent implements OnInit {
   
 
   ngOnInit() {
-    this.ideaService.getParentIdea(this.idea.id).subscribe((parentIdea)=>
-     {
-       this.parentIdea=parentIdea;
-    });
+    if(this.idea)
+    {
+      this.ideaService.getParentIdea(this.idea.id).subscribe((parentIdea)=>
+      {
+        this.parentIdea=parentIdea;
+      });
+    }
   }
   
 }
