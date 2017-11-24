@@ -1,0 +1,16 @@
+.separator {
+    display: block;
+    background: url('/assets/img/dot.png');
+    width: 8px;
+    height: 8px;
+    background-size: 5px 10px;
+    background-position:center;
+    background-repeat: no-repeat;
+    margin-top: 10px;
+}
+.idea-action {
+    color: rgb(70, 70, 70);
+}
+.idea-action:hover {
+    color: rgb(100, 100, 100);
+}

@@ -19,11 +19,13 @@
                 <h4 [hidden]="idea.published" class="text-muted float-left ml-3">(Draft)</h4>
                 <!-- Display editing options for managers and owners -->
                 <div *ngIf="full && (isManager || canEditIdea)">
-                  <a routerLink="/edit-idea/1/{{idea.id}}"><h4 class="text-muted float-left ml-3">(Edit)</h4></a>
+                  <span class="separator ml-2 float-left"></span>
+                  <a routerLink="/edit-idea/1/{{idea.id}}"><h4 class="idea-action float-left ml-2">Edit</h4></a>
                 </div>
                 <!-- Display deleting options for managers only -->
                 <div *ngIf="full && isManager">
-                  <a (click)="deleteIdea()"><h4 class="text-muted float-left ml-3 cursor-pointer">Delete</h4></a>
+                  <span class="separator ml-2 float-left"></span>
+                  <a (click)="deleteIdea()"><h4 class="idea-action float-left ml-2 cursor-pointer">Delete</h4></a>
                 </div>
               </div>
               <div class="col-sm-4 float-right text-right mb-0">
