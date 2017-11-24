@@ -14,7 +14,48 @@
           <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
         </div>
         <button type="submit" class="btn btn-success" [disabled]="!profileForm.form.valid">Update</button>
+
+<!--        <div [hidden]="!hasChanged" class="alert" role="alert">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <strong>Profile updated!</strong>
+        </div> -->
+        <div [hidden]="!hasError" class="alert alert-danger" role="alert">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <strong>An error occured updating the profile:</strong> {{errorMessage}}
+        </div>
+
+        <div [hidden]="!hasProfileError" class="alert alert-danger" role="alert">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <strong>An error occured updating the username:</strong> {{errorMessageProfile}}
+        </div>
+        <div [hidden]="!(hasUpdateProfile && hasChanged)" class="alert" role="alert">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <strong>Username updated!</strong>
+        </div>
+
+        <div [hidden]="!hasEmailError" class="alert alert-danger" role="alert">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <strong>An error occured updating the email:</strong> {{errorMessageEmail}}
+        </div>
+        <div [hidden]="!(hasUpdateEmail && hasChanged)" class="alert" role="alert">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <strong>Email updated!</strong>
+        </div>
+
       </form>
+
     </div>
   </div>
   <div class="form row mt-5">
@@ -34,7 +75,22 @@
           <input type="password" id="new2" name="new2" class="form-control" required ngModel #new2="ngModel">
         </div>
         <button type="submit" class="btn btn-success" [disabled]="!passwordForm.form.valid">Change password</button>
+
+        <div [hidden]="!hasPasswordError" class="alert alert-danger" role="alert">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <strong>An error occured updating the password:</strong> {{errorMessagePassword}}
+        </div>
+        <div [hidden]="!hasUpdatePassword" class="alert" role="alert">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <strong>Password updated!</strong>
+        </div>
+
       </form>
+
     </div>
   </div>
 </div>
