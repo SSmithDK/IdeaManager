@@ -49,7 +49,7 @@ export class IdeaService {
     return result;
   }
 
-  
+
 
   getIdeas(): Observable<Idea[]>{
     return this.afDb.list<any>('Ideas', ref => ref.orderByChild('Published').equalTo(true)).snapshotChanges().map((arr) => {
@@ -155,6 +155,8 @@ export class IdeaService {
 
   deleteIdea(ideaID: string, onComplete?: (a: Error | null) => any) {
     this.afDb.database.ref(`Ideas/${ideaID}`).remove(onComplete);
+
+    this.searchService.deleteIdeaInIndex(ideaID);
   }
 
   updateIdea(idea: Idea) {
@@ -210,7 +212,7 @@ export class IdeaService {
   }
 
   /**
-   * This methods create a relationship between a "child" idea that reference to a "parent" idea 
+   * This methods create a relationship between a "child" idea that reference to a "parent" idea
    * @param idParent key of parent idea
    * @param idChild key of child idea
    */
