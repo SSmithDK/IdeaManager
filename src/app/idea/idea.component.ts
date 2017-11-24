@@ -19,6 +19,7 @@ export class IdeaComponent implements OnInit {
   public isManager = false;
   private user = new User;
   canRemoveIdea = false;
+  canEditIdea = false;
   hasError = false;
   errorMessage = "";
 
@@ -43,6 +44,7 @@ export class IdeaComponent implements OnInit {
       }
     })
     this.canRemoveIdea = (this.user.Manager);
+    this.canEditIdea = (this.user.id == this.idea.owner);
   }
 
   deleteIdea() {
