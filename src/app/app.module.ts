@@ -44,6 +44,8 @@ import { ManagerAuthGuard } from './managerauth.guard';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { SearchService } from "./services/search.service";
 import { SearchIdeasComponent } from './search-ideas/search-ideas.component';
+import { UploadComponent } from './upload/upload.component';
+import { UploadService } from './services/upload.service';
 
 @NgModule({
   declarations: [
@@ -64,7 +66,8 @@ import { SearchIdeasComponent } from './search-ideas/search-ideas.component';
     ProfileComponent,
     AddingReferenceIdeaComponent,
     NotFoundComponent,
-    SearchIdeasComponent
+    SearchIdeasComponent,
+    UploadComponent
   ],
   imports: [
     BrowserModule,
@@ -86,7 +89,8 @@ import { SearchIdeasComponent } from './search-ideas/search-ideas.component';
     IdeaService,
     CommentService,
     TagService,
-    SearchService
+    SearchService,
+    UploadService
   ],
   bootstrap: [AppComponent]
 })

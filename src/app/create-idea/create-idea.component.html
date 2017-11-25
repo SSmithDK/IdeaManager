@@ -53,6 +53,10 @@
             </ng-template>
               <small id="tagHelp" class="form-text text-muted">Provide at least 1 tag for the idea.</small>
           </div>
+          <div class="form-group">
+            <b>Attachments</b><br/>
+            <upload></upload>
+          </div>
           <div class="form-check">
             <label class="form-check-label">
               <input class="form-check-input" type="radio" name="published" id="releaseDraft" [value]="false" [(ngModel)]="idea.published" required checked>

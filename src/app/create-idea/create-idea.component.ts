@@ -34,9 +34,7 @@ export class CreateIdeaComponent implements OnInit {
 
   public ideaReferenced: Idea = new Idea;
   
-
   items: Tag[];
-
   tags;
 
   hasError = false;
@@ -61,8 +59,6 @@ export class CreateIdeaComponent implements OnInit {
       this.ideaID = this.route.snapshot.paramMap.get("id");
       this.isRef = true;
       this.ideaService.getIdea(this.ideaID).subscribe((ideaReferenced) => this.ideaReferenced = ideaReferenced);
-      
-      console.log("ideaReferenced "+this.ideaReferenced.title);
     }
     else if(+this.route.snapshot.paramMap.get("edit") === 1 && this.route.snapshot.paramMap.get("id"))
     {
@@ -70,7 +66,6 @@ export class CreateIdeaComponent implements OnInit {
       this.editing = true;
       this.ideaService.getIdea(this.ideaID).subscribe((idea) => this.idea = idea);
     }
-
   }
 
   autocompleteItems = (text: string): Observable<Tag[]> => {
