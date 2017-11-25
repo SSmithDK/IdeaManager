@@ -225,10 +225,11 @@ export class IdeaService {
       return this.afDb.object<any>(`ReferenceIdeas/${id_child}`).snapshotChanges().map(action=>{
         var refIdea=new ReferenceIdea;
         var pv=action.payload.val();
-        refIdea.idea_id=pv.idParent;
-        refIdea.title=pv.title;
-        console.log("refIdea.idea_id"+ refIdea.idea_id);
-        console.log("refIdea.title "+ refIdea.title);
+        if(pv)
+        {
+          refIdea.idea_id=pv.idParent;
+          refIdea.title=pv.title;
+        }
         return refIdea;
       });
   }
