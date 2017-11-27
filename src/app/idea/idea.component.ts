@@ -47,7 +47,7 @@ export class IdeaComponent implements OnInit {
     if(this.idea)
     {
       this.canEditIdea = this.user.id == this.idea.owner || this.user.Manager;
-      this.canRemoveIdea = this.user.Manager;
+      this.canRemoveIdea = this.user.id == this.idea.owner || this.user.Manager;
     }
     
   }
