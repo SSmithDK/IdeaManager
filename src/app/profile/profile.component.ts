@@ -67,6 +67,8 @@ export class ProfileComponent implements OnInit {
         if (!this.hasProfileError) { //Only update when no errors
           this.userService.updateUser(this.user.id, v.name, v.email).then((data) => {
             this.hasChanged = true;
+            this.user.Name = v.name;
+            this.user.Email = v.email;
           }).catch((error) => {
             this.hasError = true;
             this.errorMessage = error.message;
@@ -84,18 +86,23 @@ export class ProfileComponent implements OnInit {
     this.hasPasswordError = false;
     if( formData.valid ) {
       let v = formData.value;
-      //TODO check old password
-      if (v.new1 == v.new2) {
-        this.authService.updatePassword(v.new1).then((data) => {
-          this.hasUpdatePassword = true;
-        }).catch((error) => {
+      //check old password
+      this.authService.login(this.user.Email, v.old).then((data) => {
+        if (v.new1 == v.new2) {
+          this.authService.updatePassword(v.new1).then((data) => {
+            this.hasUpdatePassword = true;
+          }).catch((error) => {
+            this.hasPasswordError = true;
+            this.errorMessagePassword = error.message;
+          });
+        } else {
           this.hasPasswordError = true;
-          this.errorMessagePassword = error.message;
-        });
-      } else {
+          this.errorMessagePassword = "Passwords didn't match, please check again";
+        }
+      }).catch((error) => {
         this.hasPasswordError = true;
-        this.errorMessagePassword = "Passwords didn't match, please check again";
-      }
+        this.errorMessagePassword = "The current password is incorrect";
+      });
     }
   }
 
