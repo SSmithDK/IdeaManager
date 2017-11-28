@@ -41,9 +41,13 @@ export class AuthService {
 
   updateProfile(newUsername: string, newPhoto: string) {
     return this.afAuth.auth.currentUser.updateProfile({
-      displayName: newUsername, 
+      displayName: newUsername,
       photoURL: newPhoto
     });
+  }
+
+  deleteUser() {
+    return this.afAuth.auth.currentUser.delete();
   }
 
   updateEmail(email: string) {

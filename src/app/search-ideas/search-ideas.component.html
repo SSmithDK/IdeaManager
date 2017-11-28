@@ -11,7 +11,9 @@
 
   <h2 class="mb-2" [hidden]="!isApproved">Search results for {{isTagSearch ? "tag" : ""}} <i>"{{searchTerm}}"</i>:</h2>
 
-  <div *ngFor="let idea of searchResults | async">
-    <idea [idea]="idea"></idea>
+  <div *ngIf="isApproved">
+    <div *ngFor="let idea of searchResults | async">
+      <idea [idea]="idea"></idea>
+    </div>
   </div>
 </div>

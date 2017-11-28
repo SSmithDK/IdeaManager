@@ -3,6 +3,7 @@ import { UserService } from '../services/user.service';
 import { User } from '../user';
 import { NgForm } from '@angular/forms/src/directives/ng_form';
 import { AuthService } from '../services/auth.service';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-profile',
@@ -28,7 +29,8 @@ export class ProfileComponent implements OnInit {
 
   constructor(
     public authService: AuthService,
-    private userService: UserService
+    private userService: UserService,
+    private router:Router
   ) {
     this.userService.currentUser.subscribe((user) => {
       if( user != null )
@@ -97,4 +99,17 @@ export class ProfileComponent implements OnInit {
     }
   }
 
+  onDeleteAccount() {
+
+    if(confirm("Do you really want to delete your account?")) {
+
+      this.userService.deleteUser(this.user.id).then(() => {
+        this.authService.deleteUser().catch(error => {
+          this.hasError = true;
+          this.errorMessage = error.message;
+        }).then(() => this.router.navigate(['/']));
+      });
+    }
+
+  }
 }
