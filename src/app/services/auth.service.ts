@@ -50,7 +50,7 @@ export class AuthService {
     return this.afAuth.auth.currentUser.updateEmail(email);
   }
 
-  updatePassword(password: string) { //TODO reauthenticate the user!
+  updatePassword(password: string) {
     return this.afAuth.auth.currentUser.updatePassword(password);
   }
 
