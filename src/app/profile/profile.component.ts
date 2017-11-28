@@ -110,8 +110,11 @@ export class ProfileComponent implements OnInit {
 
     if(confirm("Do you really want to delete your account?")) {
 
-      this.userService.deleteUser(this.user.id).then(() => {
-        this.authService.deleteUser().catch(error => {
+      this.authService.deleteUser().catch(error => {
+        this.hasError = true;
+        this.errorMessage = error.message;
+      }).then(() => {
+        this.userService.deleteUser(this.user.id).catch(error => {
           this.hasError = true;
           this.errorMessage = error.message;
         }).then(() => this.router.navigate(['/']));
