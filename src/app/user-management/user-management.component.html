@@ -1,14 +1,12 @@
 <div class="container">
-  <h1>
-    User Management
-  </h1>
+  <h1>User Management</h1>
 
   <div [hidden]="!hasError" class="alert alert-danger" role="alert">
     <strong>An error occured:</strong> {{errorMessage}}
   </div>
 
   <h2 class="mt-5">User Approval</h2>
-  <div [hidden]="(pendingUsers | async)?.length > 0" class="alert alert-info" role="contentinfo">
+  <div id="noApprovals" [hidden]="(pendingUsers | async)?.length > 0" class="alert alert-info" role="contentinfo">
     There are currently no users that have to be approved.
   </div>
   <div class="pt-2" *ngFor="let user of pendingUsers | async">
@@ -25,7 +23,7 @@
   </div>
   <h2 class="mt-5">List of users</h2>
 
-  <div [hidden]="(userList | async)?.length > 0" class="alert alert-info" role="contentinfo">
+  <div id="noUsers" [hidden]="(userList | async)?.length > 0" class="alert alert-info" role="contentinfo">
     There are currently no users registered and approved.
   </div>
   <div class="pt-2" *ngFor="let user of userList | async">
