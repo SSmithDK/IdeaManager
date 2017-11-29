@@ -15,6 +15,8 @@ export class UserService {
   private isLoggedIn: boolean;
   public currentUser = new BehaviorSubject<User>(this.user);
 
+  private regularUser: boolean = false;
+
   constructor(
     private afAuth: AngularFireAuth,
     private afDb: AngularFireDatabase,
@@ -59,8 +61,24 @@ export class UserService {
     });
   }
 
+  public getRegularUsers(): Observable<User[]> {
+    return this.afDb.list('Users', ref => ref.orderByChild('Approved').equalTo(true))
+      .snapshotChanges()
+      .map(arr => {
+        return arr.filter(item => {
+          return item.key != this.user.id;
+        }).map(item => {
+          const user = new User;
+          user.id = item.key;
+          user.Name = item.payload.val().Name;
+          user.Email = item.payload.val().Email;
+          return user;
+        });
+      });
+  }
+
   public createUser(uid: string, name: string, email: string) {
-    this.afDb.database.ref(`Users/${uid}`).set({
+    return this.afDb.database.ref(`Users/${uid}`).set({
       Name: name,
       Approved: false,
       Email: email

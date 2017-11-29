@@ -46,6 +46,10 @@ export class MockUserService {
     return of([user]);
   }
 
+  public getRegularUsers(): Observable<User[]> {
+    return this.getPendingUsers();
+  }
+
   public isManager(uid: string) {
     return true;
   }
