@@ -6,6 +6,7 @@ import { MockUserService } from '../mockservices/mock-user.service';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
 import { MockAuthService } from '../mockservices/mock-auth.service';
+import {RouterTestingModule} from "@angular/router/testing";
 
 describe('ProfileComponent', () => {
   let component: ProfileComponent;
@@ -13,7 +14,7 @@ describe('ProfileComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [ FormsModule ],
+      imports: [ FormsModule, RouterTestingModule ],
       declarations: [ ProfileComponent ],
       providers: [
         {provide: UserService, useClass: MockUserService},
