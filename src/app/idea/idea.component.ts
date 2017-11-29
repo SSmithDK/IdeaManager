@@ -32,8 +32,7 @@ export class IdeaComponent implements OnInit {
       if (user) {
         this.user = user;
       }
-    })
-
+    });
   }
 
   ngOnInit() {
@@ -65,6 +64,10 @@ export class IdeaComponent implements OnInit {
         }
       });
     }
+  }
+
+  downloadAttachment(file: string) {
+    window.open(file);
   }
 
 }

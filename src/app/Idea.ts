@@ -15,4 +15,5 @@ export class Idea {
     public shortDescription: string;
     public tags: Tag[];
     public comments: Comment[];
+    public attachments: string[];
 }

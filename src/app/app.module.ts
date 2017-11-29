@@ -44,7 +44,6 @@ import { ManagerAuthGuard } from './managerauth.guard';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { SearchService } from "./services/search.service";
 import { SearchIdeasComponent } from './search-ideas/search-ideas.component';
-import { UploadComponent } from './upload/upload.component';
 import { UploadService } from './services/upload.service';
 import { SplitAndGetLastPipe } from './split-and-get-last.pipe';
 
@@ -68,7 +67,6 @@ import { SplitAndGetLastPipe } from './split-and-get-last.pipe';
     AddingReferenceIdeaComponent,
     NotFoundComponent,
     SearchIdeasComponent,
-    UploadComponent,
     SplitAndGetLastPipe
   ],
   imports: [

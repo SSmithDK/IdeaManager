@@ -29,10 +29,10 @@ export class IdeaService {
       saveTags.push({ID: tags[i].id, Title: tags[i].display});
     }
 
-    const saveAttachments: { File: string }[] = [];
+    const saveAttachments: { Type: string, Name: string, File: string }[] = [];
     for(let i=0; i < attachments.length; i++)
     {
-      saveAttachments.push({File: attachments[i].url});
+      saveAttachments.push({Type: attachments[i].file.type, Name: attachments[i].name, File: attachments[i].url});
     }
 
     const timestamp = +new Date;
@@ -89,6 +89,7 @@ export class IdeaService {
           tag.title = tagItem.Title;
           return tag;
         });
+        idea.attachments = pv.Attachments;
         return idea;
       });
     });
@@ -126,6 +127,7 @@ export class IdeaService {
             tag.title = tagItem.Title;
             return tag;
           });
+          idea.attachments = pv.Attachments;
           return idea;
         });
       });
@@ -157,6 +159,7 @@ export class IdeaService {
         tag.title = tagItem.Title;
         return tag;
       });
+      idea.attachments = pv.Attachments;
       return idea;
     });
   }
