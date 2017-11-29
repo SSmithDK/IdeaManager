@@ -16,6 +16,8 @@ import { Tag } from '../tag';
 import { UserService } from '../services/user.service';
 import { ActivatedRoute } from '@angular/router';
 import { Idea } from '../Idea';
+import { Upload } from '../upload';
+import { UploadService } from '../services/upload.service';
 
 @Component({
   selector: 'app-create-idea',
@@ -24,6 +26,10 @@ import { Idea } from '../Idea';
   encapsulation: ViewEncapsulation.None
 })
 export class CreateIdeaComponent implements OnInit {
+
+  selectedFiles: FileList;
+  fileList: Upload[] = [];
+  currentUpload: Upload;
 
   private user = new User;
   public isLoggedIn: boolean;
@@ -45,6 +51,7 @@ export class CreateIdeaComponent implements OnInit {
     public ideaService: IdeaService,
     public tagService: TagService,
     public userService: UserService,
+    private uploadService: UploadService,
     private router: Router)
   {
     this.userService.currentUser.subscribe((user) => {
@@ -82,17 +89,37 @@ export class CreateIdeaComponent implements OnInit {
         });
       } else if(this.isRef){
         //save new idea 
-        this.ideaService.createIdea(v.title, v.description, v.short_desc, this.user.id, this.user.Name, v.tags, v.published).then((newIdeaRef) => {
+        this.ideaService.createIdea(v.title, v.description, v.short_desc, this.user.id, this.user.Name, v.tags, this.fileList, v.published).then((newIdeaRef) => {
         
           //save references of child
           this.ideaService.createReferenceIdea(newIdeaRef.key,this.ideaReferenced.id,this.ideaReferenced.title);
           this.router.navigate(['/']);
         });
       } else{
-        this.ideaService.createIdea(v.title, v.description, v.short_desc, this.user.id, this.user.Name, v.tags, v.published).then(() => {
+        this.ideaService.createIdea(v.title, v.description, v.short_desc, this.user.id, this.user.Name, v.tags, this.fileList, v.published).then(() => {
           this.router.navigate(['/']);
         });
       }
     }
+  }
+
+  detectFiles(event) {
+    this.selectedFiles = event.target.files;
+    for(var i=0; i<this.selectedFiles.length; i++)
+    {
+      this.fileList.push(new Upload(this.selectedFiles[i]));
+    }
+    this.upload();
+  }
+
+  upload() {
+    let files = this.fileList;
+    for(var i=0; i<files.length; i++) {
+      this.uploadService.doUpload(files[i]);
+    }
+  }
+
+  removeFile(file: Upload) {
+    this.fileList.splice(this.fileList.indexOf(file),1);
   }
 }

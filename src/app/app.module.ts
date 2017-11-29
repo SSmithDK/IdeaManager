@@ -46,6 +46,7 @@ import { SearchService } from "./services/search.service";
 import { SearchIdeasComponent } from './search-ideas/search-ideas.component';
 import { UploadComponent } from './upload/upload.component';
 import { UploadService } from './services/upload.service';
+import { SplitAndGetLastPipe } from './split-and-get-last.pipe';
 
 @NgModule({
   declarations: [
@@ -67,7 +68,8 @@ import { UploadService } from './services/upload.service';
     AddingReferenceIdeaComponent,
     NotFoundComponent,
     SearchIdeasComponent,
-    UploadComponent
+    UploadComponent,
+    SplitAndGetLastPipe
   ],
   imports: [
     BrowserModule,

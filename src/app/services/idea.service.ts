@@ -9,6 +9,7 @@ import { of } from 'rxjs/observable/of';
 import { VotedIdea } from '../VotedIdea';
 import {SearchService} from "./search.service";
 import { ReferenceIdea } from '../ReferenceIdea';
+import { Upload } from '../upload';
 
 @Injectable()
 export class IdeaService {
@@ -17,7 +18,7 @@ export class IdeaService {
 
   constructor(public afDb: AngularFireDatabase, public tagService: TagService, public searchService: SearchService /*, public commentService: CommentService*/) { }
 
-  createIdea(title: string, description: string, shortDescription: string, userID: string, userName: string, tags?: any[], published?: boolean) {
+  createIdea(title: string, description: string, shortDescription: string, userID: string, userName: string, tags?: any[], attachments?: Upload[], published?: boolean) {
     const saveTags: { ID: string, Title: string }[] = [];
     for(let i=0; i < tags.length; i++)
     {
@@ -26,6 +27,12 @@ export class IdeaService {
         tags[i].id = this.tagService.addTag(tags[i].display);
       }
       saveTags.push({ID: tags[i].id, Title: tags[i].display});
+    }
+
+    const saveAttachments: { File: string }[] = [];
+    for(let i=0; i < attachments.length; i++)
+    {
+      saveAttachments.push({File: attachments[i].url});
     }
 
     const timestamp = +new Date;
@@ -39,6 +46,7 @@ export class IdeaService {
       Published: published,
       Timestamp: timestamp,
       Tags: saveTags,
+      Attachments: saveAttachments,
       PositiveVote: 0,
       NegativeVote: 0
     });
