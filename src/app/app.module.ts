@@ -29,7 +29,7 @@ import { RouterModule } from '@angular/router';
 import { UserService } from './services/user.service';
 import { AuthService } from './services/auth.service';
 import { IdeaService } from './services/idea.service';
-import { UserApprovalComponent } from "./user-approval/user-approval.component";
+import { UserManagementComponent } from "./user-management/user-management.component";
 import { TagInputModule } from 'ngx-chips';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TagService } from './services/tag.service';
@@ -56,7 +56,7 @@ import { SearchIdeasComponent } from './search-ideas/search-ideas.component';
     CreateIdeaComponent,
     VotingIdeasComponent,
     IdeaDetailsComponent,
-    UserApprovalComponent,
+    UserManagementComponent,
     CreateCommentComponent,
     CommentDetailsComponent,
     MyIdeasComponent,

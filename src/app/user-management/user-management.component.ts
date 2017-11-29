@@ -5,13 +5,14 @@ import {UserService} from "../services/user.service";
 
 @Component({
   selector: 'app-user-approval',
-  templateUrl: './user-approval.component.html',
-  styleUrls: ['./user-approval.component.css'],
+  templateUrl: './user-management.component.html',
+  styleUrls: ['./user-management.component.css'],
   encapsulation: ViewEncapsulation.None
 })
-export class UserApprovalComponent implements OnInit {
+export class UserManagementComponent implements OnInit {
 
   pendingUsers: Observable<User[]>;
+  userList: Observable<User[]>;
 
   hasError = false;
   errorMessage = "";
@@ -22,11 +23,12 @@ export class UserApprovalComponent implements OnInit {
 
   ngOnInit() {
     this.pendingUsers = this.userService.getPendingUsers();
+    this.userList = this.userService.getRegularUsers();
   }
 
-  onAccept(uid: string) {
+  onUserAccept(uid: string) {
 
-    this.userService.approveUser(uid, (error) => {
+    return this.userService.approveUser(uid, (error) => {
 
       if(error !== null) {
         this.hasError = true;
@@ -37,16 +39,20 @@ export class UserApprovalComponent implements OnInit {
 
   }
 
-  onDecline(uid:string) {
+  onUserDelete(uid:string) {
 
-    this.userService.deleteUser(uid, (error) => {
+    if(confirm("Are you sure you want to delete the user?")) {
 
-      if(error !== null) {
-        this.hasError = true;
-        this.errorMessage = error.message;
-      }
+      return this.userService.deleteUser(uid, (error) => {
 
-    });
+        if(error !== null) {
+          this.hasError = true;
+          this.errorMessage = error.message;
+        }
+
+      });
+    }
 
   }
+
 }
