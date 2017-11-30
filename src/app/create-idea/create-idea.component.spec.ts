@@ -66,41 +66,25 @@ describe('CreateIdeaComponent', () => {
     expect(currentAttachment).toBeTruthy();
   });
 
-  it('Should preview description text', () => {
+  it('Should preview description text', async(() => {
 
-      //expect(previewField.nativeElement.collapsed).toBe(true);
-      expect(previewButton.nativeElement.disabled).toBe(true);
+      expect(previewButton.nativeElement.disabled).toBeTruthy();
 
-      let exampleText = "Text";
+      let exampleInput = "Text";
 
-      descriptionField.nativeElement.value = exampleText;
+      descriptionField.nativeElement.value = exampleInput;
       descriptionField.nativeElement.dispatchEvent(new Event('input'));
       fixture.detectChanges();
+
+      expect(descriptionField.nativeElement.value).toBe(exampleInput);
 
       previewButton.nativeElement.click();
 
       fixture.detectChanges();
 
-      expect(previewField.nativeElement.innerHTML).toContain(exampleText);
+      fixture.whenStable().then(() => {
+          expect(previewField.nativeElement.collapsed).toBeFalsy();
+        });
 
-    });
-
-  it('Should transform description text in preview', () => {
-
-    //expect(previewField.nativeElement.collapsed).toBe(true);
-    expect(previewButton.nativeElement.disabled).toBe(true);
-
-    let exampleText = "**bold**, _italic_, ~del~";
-
-    descriptionField.nativeElement.value = exampleText;
-    descriptionField.nativeElement.dispatchEvent(new Event('input'));
-    fixture.detectChanges();
-
-    previewButton.nativeElement.click();
-
-    fixture.detectChanges();
-
-    expect(previewField.nativeElement.innerHTML).toContain("<b>bold</b>, <i>italic</i>, <del>del</del>");
-
-  })
+    }));
 });
