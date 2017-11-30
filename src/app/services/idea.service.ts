@@ -191,9 +191,10 @@ export class IdeaService {
     .update({PositiveVote:idea.positiveVotes});
   }
 
-  saveideaUserVote(idea:Idea):void{
+  saveideaUserVote(idea:Idea,vote:string):void{
+    console.log("vote "+vote);
     var ref=this.afDb.database.ref(`VotedIdea/${idea.id}`);
-    ref.set({user_id:idea.owner});
+    ref.set({user_id:idea.owner,vote:vote});
   }
 
   checkUservoteIdea(idea_id:string,user_id):Promise<VotedIdea>{
@@ -202,8 +203,10 @@ export class IdeaService {
       .on('value',function(datasnapshot){
         var vI=new VotedIdea();
         vI.idea_id=idea_id;
+        
         if(datasnapshot.val()!=null){
           vI.user_id=datasnapshot.val().user_id;
+          vI.vote=datasnapshot.val().vote;
         }
         resolve(vI);
       })

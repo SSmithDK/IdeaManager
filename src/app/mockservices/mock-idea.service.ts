@@ -85,7 +85,7 @@ export class MockIdeaService {
     // Do nothing, act like vote has been casted
   }
 
-  saveideaUserVote(idea:Idea):void{
+  saveideaUserVote(idea:Idea,vote:string):void{
     // Do nothing, act like it has been updated
   }
 
