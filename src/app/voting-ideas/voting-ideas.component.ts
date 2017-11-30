@@ -14,8 +14,13 @@ import { Observable } from 'rxjs/Observable';
 })
 export class VotingIdeasComponent implements OnInit {
   @Input() idea:Idea;
-  public hasVoted=false;
+
+  public hasVotePositive=false;
+  public hasVoteNegative=false;
+  public isVoted=false;
   public isOwner = false;
+  public isChanged=false;
+
   constructor(
     public ideaService: IdeaService,
     public userService: UserService
@@ -37,8 +42,18 @@ export class VotingIdeasComponent implements OnInit {
         .then((result) => {
           if(result.user_id){
             if(this.idea.owner==result.user_id){
-              //the idea is voted by user
-              this.hasVoted = true;
+              this.isVoted=true;
+              if(result.vote=="+1"){
+                //the idea is voted by user
+                this.hasVotePositive = true;
+                this.hasVoteNegative = false;
+              }else{
+                if(result.vote=="-1")
+                  this.hasVoteNegative = true;
+                  this.hasVotePositive = false;
+              } 
+            }else{
+              this.isVoted=false;
             }
           }
       });
@@ -53,13 +68,22 @@ export class VotingIdeasComponent implements OnInit {
       .then((result) => {
          if(result.user_id){
             if(idea.owner==result.user_id){
-              //the idea is voted by user
-              this.hasVoted = true;
+              if(this.hasVoteNegative){//the vote is changed
+                this.idea.positiveVotes++;
+                this.ideaService.updateIdeaVote(idea);
+                this.ideaService.saveideaUserVote(idea,"+1");
+                this.isChanged=true;
+              }else{
+                this.isVoted=true;
+                this.hasVotePositive = true;
+                this.hasVoteNegative=false;
+                this.isChanged=false;
+              }
             }
          }else{
           this.idea.positiveVotes++;
           this.ideaService.updateIdeaVote(idea);
-          this.ideaService.saveideaUserVote(idea);
+          this.ideaService.saveideaUserVote(idea,"+1");
          }
       });
     }
@@ -73,16 +97,24 @@ export class VotingIdeasComponent implements OnInit {
       .then((result) => {
          if(result.user_id){
             if(idea.owner==result.user_id){
-              this.hasVoted =true;
+              if(this.hasVotePositive){//the vote is changed
+                this.idea.positiveVotes--;
+                this.ideaService.updateIdeaVote(idea);
+                this.ideaService.saveideaUserVote(idea,"-1");
+                this.isChanged=true;
+              }else{
+                this.isVoted=true;
+                this.hasVoteNegative =true;
+                this.hasVotePositive = false;
+                this.isChanged=false;
+              }
             }
          }else{
           this.idea.positiveVotes--;
           this.ideaService.updateIdeaVote(idea);
-          this.ideaService.saveideaUserVote(idea);
+          this.ideaService.saveideaUserVote(idea,"-1");
          }
       });
     }
   }
-
-  
 }
