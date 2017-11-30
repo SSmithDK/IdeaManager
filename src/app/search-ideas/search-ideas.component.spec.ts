@@ -11,6 +11,7 @@ import {FormsModule} from "@angular/forms";
 import {VotingIdeasComponent} from "../voting-ideas/voting-ideas.component";
 import {AddingReferenceIdeaComponent} from "../adding-reference-idea/adding-reference-idea.component";
 import { SplitAndGetLastPipe } from '../split-and-get-last.pipe';
+import {TextFormattingPipe} from "../pipes/text-formatting.pipe";
 
 describe('SearchIdeasComponent', () => {
   let component: SearchIdeasComponent;
@@ -19,7 +20,7 @@ describe('SearchIdeasComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [ RouterTestingModule, FormsModule ],
-      declarations: [ SearchIdeasComponent, IdeaComponent, VotingIdeasComponent, AddingReferenceIdeaComponent, SplitAndGetLastPipe ],
+      declarations: [ SearchIdeasComponent, IdeaComponent, VotingIdeasComponent, AddingReferenceIdeaComponent, SplitAndGetLastPipe, TextFormattingPipe ],
       providers: [
         {provide: UserService, useClass: MockUserService},
         {provide: SearchService, useClass: MockSearchService}

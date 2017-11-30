@@ -16,37 +16,44 @@
             <small id="titleHelp" class="form-text text-muted">Give your idea a short title.</small>
             <div [hidden]="title.valid || title.pristine" class="alert alert-info">A title of min. 5 characters is required.</div>
           </div>
-      
+
           <div class="form-group">
             <textarea type="text" id="shortDesc" class="form-control" style="resize:none" rows="2"  [(ngModel)]="idea.shortDescription" name="short_desc"
                       #short_desc="ngModel" aria-describedby="shortDescHelp" placeholder="Short description" minlength="10" required></textarea>
             <small id="shortDescHelp" class="form-text text-muted">Provide a brief description of the idea.</small>
             <div [hidden]="short_desc.valid || short_desc.pristine" class="alert alert-info">A short description of min. 10 characters is required.</div>
           </div>
-      
+
           <div class="form-group">
-            <textarea type="text" id="description" class="form-control" style="resize:none" rows="5" minlength="50" required  [(ngModel)]="idea.description"
-                    name="description" #description="ngModel" aria-describedby="descHelp" placeholder="Description"></textarea>
+            <ng-template #popoverContent>You can use Markdown syntax inside your description to make your text look more appealing.
+              For example use _text_ to make it look <i>italic</i>, **text** to make it <b>bold</b> and ~text~ for a <s>strikethrough</s> style.</ng-template>
+            <textarea type="text" id="description" class="form-control" [ngbPopover]="popoverContent" placement="right" container="body" style="resize:none" rows="5" minlength="50" required
+                      [(ngModel)]="idea.description" name="description" #description="ngModel" aria-describedby="descHelp" placeholder="Description">
+            </textarea>
             <small id="descHelp" class="form-text text-muted">Provide a description of the idea.</small>
             <div [hidden]="description.valid || description.pristine" class="alert alert-info">A description of min. 50 characters is required.</div>
           </div>
+        <button id="btnPreview" type="button" class="btn btn-primary mb-3" [disabled]="!idea.description" (click)="preview = !preview" [attr.aria-expanded]="preview" aria-controls="showPreview">Preview</button>
+        <div id="showPreview" [ngbCollapse]="!preview" class="mb-3">
+          <div class="card card-body" [innerHTML]="idea.description | textFormatting"></div>
+        </div>
           <div class="form-group">
             <ng-container *ngIf="editing; else elseTags">
               <tag-input name="tags" [(ngModel)]='idea.tags' [displayBy]="'title'" [identifyBy]="'id'"  theme="bootstrap" #tags="ngModel" [onTextChangeDebounce]="50" required aria-describedby="tagHelp">
-                <tag-input-dropdown 
-                  [autocompleteObservable]="autocompleteItems" 
-                  [displayBy]="'title'" 
-                  [identifyBy]="'id'" 
+                <tag-input-dropdown
+                  [autocompleteObservable]="autocompleteItems"
+                  [displayBy]="'title'"
+                  [identifyBy]="'id'"
                   [focusFirstElement]="true">
                 </tag-input-dropdown>
               </tag-input>
             </ng-container>
             <ng-template #elseTags>
               <tag-input name="tags" [(ngModel)]="items" theme="bootstrap" #tags="ngModel" [onTextChangeDebounce]="50" required aria-describedby="tagHelp">
-                <tag-input-dropdown 
-                  [autocompleteObservable]="autocompleteItems" 
-                  [displayBy]="'title'" 
-                  [identifyBy]="'id'" 
+                <tag-input-dropdown
+                  [autocompleteObservable]="autocompleteItems"
+                  [displayBy]="'title'"
+                  [identifyBy]="'id'"
                   [focusFirstElement]="true">
                 </tag-input-dropdown>
               </tag-input>
@@ -59,7 +66,7 @@
               <label for="upload" class="uploadButton">Upload</label>
               <input type="file" (change)="detectFiles($event)" accept="application/pdf,image/*" multiple id="upload">
             </div>
-            
+
             <div class="attachments">
               <div *ngFor="let file of fileList">
                   <div class="file float-left" [ngClass]="{'image': file.type.includes('image'),'pdf': file.type=='application/pdf'}">
