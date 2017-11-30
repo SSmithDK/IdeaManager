@@ -225,7 +225,7 @@ export class IdeaService {
     idea.published = payload.Published;
     idea.negativeVotes = payload.NegativeVote;
     idea.positiveVotes = payload.PositiveVote;
-    idea.timestamp = payload.timestamp;
+    idea.timestamp = payload.Timestamp;
     idea.tags = payload.Tags.map((tagItem) => {
       var tag = new Tag;
       tag.id = tagItem.ID;

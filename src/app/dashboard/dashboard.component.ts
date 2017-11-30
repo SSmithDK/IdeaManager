@@ -5,6 +5,8 @@ import { IdeaService } from '../services/idea.service';
 import { Idea } from '../Idea';
 import {UserService} from "../services/user.service";
 
+import * as $ from 'jquery';
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -16,6 +18,8 @@ export class DashboardComponent implements OnInit {
   ideasObservable: Observable<Idea[]>;
 
   isApproved: boolean;
+
+  listView = true;
 
   constructor(
     public ideaService: IdeaService,
@@ -32,6 +36,26 @@ export class DashboardComponent implements OnInit {
       else {
         this.isApproved = false;
       }
+    });
+  }
+
+  ngAfterViewChecked() {
+    //Called after every check of the component's view. Applies to components only.
+    //Add 'implements AfterViewChecked' to the class.
+    $("#list").click(function(event) {
+      event.preventDefault();
+      $("#ideas .item").addClass("list-group-item-light").removeClass("grid-group-item");
+      $("#ideas").addClass("list-group");
+      $(this).addClass("active");
+      $("#grid").removeClass("active");
+    });
+
+    $("#grid").click(function(event) {
+      event.preventDefault();
+      $("#ideas .item").addClass("grid-group-item").removeClass("list-group-item-light");
+      $("#ideas").removeClass("list-group");
+      $(this).addClass("active");
+      $("#list").removeClass("active");
     });
   }
 }
