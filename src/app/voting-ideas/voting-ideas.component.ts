@@ -67,17 +67,29 @@ export class VotingIdeasComponent implements OnInit {
       this.ideaService.checkUservoteIdea(idea.id,idea.owner)
       .then((result) => {
          if(result.user_id){
-            if(idea.owner==result.user_id){
-              if(this.hasVoteNegative){//the vote is changed
+            if(idea.owner==result.user_id){//idea is voted
+              if(this.hasVoteNegative){//the idea chhange the vote
                 this.idea.positiveVotes++;
                 this.ideaService.updateIdeaVote(idea);
                 this.ideaService.saveideaUserVote(idea,"+1");
                 this.isChanged=true;
               }else{
-                this.isVoted=true;
-                this.hasVotePositive = true;
-                this.hasVoteNegative=false;
-                this.isChanged=false;
+                if(this.hasVotePositive){//remove vote
+                  if(confirm("All ideas are awesome, do yo uwant remove your?")){
+                    this.isVoted=false;
+                    this.hasVotePositive = false;
+                    this.hasVoteNegative=false;
+                    this.isChanged=false;
+                    this.ideaService.deleteideaUserVote(idea);
+                    this.idea.positiveVotes--;
+                    this.ideaService.updateIdeaVote(idea);
+                  }
+                }else{
+                  this.isVoted=true;
+                  this.hasVotePositive = true;
+                  this.hasVoteNegative=false;
+                  this.isChanged=false;
+                }
               }
             }
          }else{
@@ -86,6 +98,8 @@ export class VotingIdeasComponent implements OnInit {
           this.ideaService.saveideaUserVote(idea,"+1");
          }
       });
+    }else{
+      confirm("You love your idea but let others vote for it");
     }
   }
 
@@ -103,10 +117,22 @@ export class VotingIdeasComponent implements OnInit {
                 this.ideaService.saveideaUserVote(idea,"-1");
                 this.isChanged=true;
               }else{
-                this.isVoted=true;
-                this.hasVoteNegative =true;
-                this.hasVotePositive = false;
-                this.isChanged=false;
+                if(this.hasVoteNegative){//remove vote
+                  if(confirm("All ideas are awesome, do yo uwant remove your?")){
+                    this.isVoted=false;
+                    this.hasVotePositive = false;
+                    this.hasVoteNegative=false;
+                    this.isChanged=false;
+                    this.ideaService.deleteideaUserVote(idea);
+                    this.idea.positiveVotes++;
+                    this.ideaService.updateIdeaVote(idea);
+                  }
+                }else{
+                  this.isVoted=true;
+                  this.hasVoteNegative =true;
+                  this.hasVotePositive = false;
+                  this.isChanged=false;
+                }
               }
             }
          }else{
@@ -115,6 +141,8 @@ export class VotingIdeasComponent implements OnInit {
           this.ideaService.saveideaUserVote(idea,"-1");
          }
       });
+    }else{
+      confirm("You love your idea but let others vote for it");
     }
   }
 }

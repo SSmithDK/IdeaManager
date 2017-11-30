@@ -83,10 +83,15 @@ export class MockIdeaService {
 
   updateIdeaVote(idea: Idea) {
     // Do nothing, act like vote has been casted
+    
   }
 
   saveideaUserVote(idea:Idea,vote:string):void{
     // Do nothing, act like it has been updated
+  }
+  
+  deleteideaUserVote(idea:Idea):void{
+
   }
 
   checkUservoteIdea(idea_id:string,user_id):Promise<VotedIdea>{
@@ -100,7 +105,9 @@ export class MockIdeaService {
   }
 
   createReferenceIdea(idChild:string,idParent:string,title:string){
-    // Do nothing, act like reference is created
+    var refIdea=new ReferenceIdea;
+    refIdea.idea_id=idChild;
+    refIdea.title=title;
   }
 
   getParentIdea(id_child:string):Observable<ReferenceIdea>{

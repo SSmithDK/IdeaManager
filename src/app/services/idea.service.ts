@@ -169,9 +169,13 @@ export class IdeaService {
   }
 
   saveideaUserVote(idea:Idea,vote:string):void{
-    console.log("vote "+vote);
     var ref=this.afDb.database.ref(`VotedIdea/${idea.id}`);
     ref.set({user_id:idea.owner,vote:vote});
+  }
+
+  deleteideaUserVote(idea:Idea):void{
+    var ref=this.afDb.database.ref(`VotedIdea/${idea.id}`);
+    ref.remove();
   }
 
   checkUservoteIdea(idea_id:string,user_id):Promise<VotedIdea>{

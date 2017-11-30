@@ -37,6 +37,16 @@
     background: url('/assets/img/arrow_down_green.png');
     background-size: 25px 25px;
 }
+/*red arrow when remove vote*/
+.image_vote.up.isPositive:not(.isOwner):hover{
+    background: url('/assets/img/arrow-red-up.png');
+    background-size: 25px 25px;
+}
+/*red arrow when remove vote*/
+.image_vote.down.isNegative:not(.isOwner):hover{
+    background: url('/assets/img/arrow-red-down.png');
+    background-size: 25px 25px;
+}
 
 
 
