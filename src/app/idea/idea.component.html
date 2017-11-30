@@ -58,4 +58,14 @@
         </div>
       </div>
     </div>
+    <div *ngIf="full && idea.attachments?.length > 0">
+      <h2>Attachments</h2>
+      <div *ngFor="let file of idea.attachments">
+          <div class="file float-left download" [ngClass]="{'image': file.type.includes('image'),'pdf': file.type=='application/pdf'}" (click)="downloadAttachment(file.url)">
+            <span class="filename">{{(file.originalName | slice:0:5) + (file.originalName.length > 5 ? '..' : '')}}.{{file.originalName | splitAndGetLast:"."}}</span>
+          </div>
+      </div>
+      <div class="clearfix"></div>
+      <div class="mb-3">&nbsp;</div>
+    </div>
 </div>

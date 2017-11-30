@@ -16,6 +16,8 @@ import { Tag } from '../tag';
 import { UserService } from '../services/user.service';
 import { ActivatedRoute } from '@angular/router';
 import { Idea } from '../Idea';
+import { Upload } from '../upload';
+import { UploadService } from '../services/upload.service';
 
 @Component({
   selector: 'app-create-idea',
@@ -24,6 +26,9 @@ import { Idea } from '../Idea';
   encapsulation: ViewEncapsulation.None
 })
 export class CreateIdeaComponent implements OnInit {
+
+  selectedFiles: FileList;
+  fileList: Upload[] = [];
 
   private user = new User;
   public isLoggedIn: boolean;
@@ -34,9 +39,7 @@ export class CreateIdeaComponent implements OnInit {
 
   public ideaReferenced: Idea = new Idea;
   
-
   items: Tag[];
-
   tags;
 
   hasError = false;
@@ -47,6 +50,7 @@ export class CreateIdeaComponent implements OnInit {
     public ideaService: IdeaService,
     public tagService: TagService,
     public userService: UserService,
+    private uploadService: UploadService,
     private router: Router)
   {
     this.userService.currentUser.subscribe((user) => {
@@ -61,16 +65,16 @@ export class CreateIdeaComponent implements OnInit {
       this.ideaID = this.route.snapshot.paramMap.get("id");
       this.isRef = true;
       this.ideaService.getIdea(this.ideaID).subscribe((ideaReferenced) => this.ideaReferenced = ideaReferenced);
-      
-      console.log("ideaReferenced "+this.ideaReferenced.title);
     }
     else if(+this.route.snapshot.paramMap.get("edit") === 1 && this.route.snapshot.paramMap.get("id"))
     {
       this.ideaID = this.route.snapshot.paramMap.get("id");
       this.editing = true;
-      this.ideaService.getIdea(this.ideaID).subscribe((idea) => this.idea = idea);
+      this.ideaService.getIdea(this.ideaID).subscribe((idea) => {
+        this.idea = idea;
+        this.fileList = this.idea.attachments;
+      });
     }
-
   }
 
   autocompleteItems = (text: string): Observable<Tag[]> => {
@@ -82,22 +86,47 @@ export class CreateIdeaComponent implements OnInit {
     {
       let v = formData.value;
       if(this.editing){
-        this.ideaService.updateIdea(this.idea).then(() => {
+        this.ideaService.updateIdea(this.idea, this.fileList).then(() => {
           this.router.navigate([`/details/${this.idea.id}`]);
         });
       } else if(this.isRef){
         //save new idea 
-        this.ideaService.createIdea(v.title, v.description, v.short_desc, this.user.id, this.user.Name, v.tags, v.published).then((newIdeaRef) => {
+        this.ideaService.createIdea(v.title, v.description, v.short_desc, this.user.id, this.user.Name, v.tags, this.fileList, v.published).then((newIdeaRef) => {
         
           //save references of child
           this.ideaService.createReferenceIdea(newIdeaRef.key,this.ideaReferenced.id,this.ideaReferenced.title);
           this.router.navigate(['/']);
         });
       } else{
-        this.ideaService.createIdea(v.title, v.description, v.short_desc, this.user.id, this.user.Name, v.tags, v.published).then(() => {
+        this.ideaService.createIdea(v.title, v.description, v.short_desc, this.user.id, this.user.Name, v.tags, this.fileList, v.published).then(() => {
           this.router.navigate(['/']);
         });
       }
     }
+  }
+
+  detectFiles(event) {
+    this.selectedFiles = event.target.files;
+    for(var i=0; i<this.selectedFiles.length; i++)
+    {
+      let file = new Upload(this.selectedFiles[i]);
+      file.originalName = file.file.name;
+      file.type = file.file.type;
+      this.fileList.push(file);
+    }
+    this.upload();
+  }
+
+  upload() {
+    let files = this.fileList;
+    for(var i=0; i<files.length; i++) {
+      if(files[i].progress != 100)
+        this.uploadService.doUpload(files[i]);
+    }
+  }
+
+  removeFile(file: Upload) {
+    this.uploadService.deleteFile(file);
+    this.fileList.splice(this.fileList.indexOf(file),1);
   }
 }

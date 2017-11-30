@@ -53,6 +53,27 @@
             </ng-template>
               <small id="tagHelp" class="form-text text-muted">Provide at least 1 tag for the idea.</small>
           </div>
+          <div class="form-group">
+            <b>Attachments</b><br/>
+            <div>
+              <label for="upload" class="uploadButton">Upload</label>
+              <input type="file" (change)="detectFiles($event)" accept=".pdf,image/*" multiple id="upload">
+            </div>
+            
+            <div class="attachments">
+              <div *ngFor="let file of fileList">
+                  <div class="file float-left" [ngClass]="{'image': file.type.includes('image'),'pdf': file.type=='application/pdf'}">
+                    <ng-container *ngIf="file.progress < 100">
+                      <div class="progress" [ngStyle]="{'width': 100-file.progress + '%'}"></div>
+                    </ng-container>
+                    <span class="delete" (click)="removeFile(file)"></span>
+                    <span class="filename">{{(file.originalName | slice:0:5) + (file.originalName.length > 5 ? '..' : '')}}.{{file.originalName | splitAndGetLast:"."}}</span>
+                  </div>
+              </div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="mb-3">&nbsp;</div>
+          </div>
           <div class="form-check">
             <label class="form-check-label">
               <input class="form-check-input" type="radio" name="published" id="releaseDraft" [value]="false" [(ngModel)]="idea.published" required checked>
