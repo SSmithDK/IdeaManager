@@ -75,7 +75,7 @@ export class VotingIdeasComponent implements OnInit {
                 this.isChanged=true;
               }else{
                 if(this.hasVotePositive){//remove vote
-                  if(confirm("Are you sure you want to remove your vote")){
+                  if(confirm("All ideas are awesome, do yo uwant remove your?")){
                     this.isVoted=false;
                     this.hasVotePositive = false;
                     this.hasVoteNegative=false;
@@ -98,6 +98,8 @@ export class VotingIdeasComponent implements OnInit {
           this.ideaService.saveideaUserVote(idea,"+1");
          }
       });
+    }else{
+      confirm("You love your idea but let others vote for it");
     }
   }
 
@@ -116,7 +118,7 @@ export class VotingIdeasComponent implements OnInit {
                 this.isChanged=true;
               }else{
                 if(this.hasVoteNegative){//remove vote
-                  if(confirm("Are you sure you want to remove your vote")){
+                  if(confirm("All ideas are awesome, do yo uwant remove your?")){
                     this.isVoted=false;
                     this.hasVotePositive = false;
                     this.hasVoteNegative=false;
@@ -139,6 +141,8 @@ export class VotingIdeasComponent implements OnInit {
           this.ideaService.saveideaUserVote(idea,"-1");
          }
       });
+    }else{
+      confirm("You love your idea but let others vote for it");
     }
   }
 }
