@@ -1,4 +1,4 @@
-<div *ngIf="idea">
+<div *ngIf="idea" class="float-right mr-2">
     <div class="row">
         <div class="col-sm-12">
             <div class="image_vote up"  (click)="vote_Up(idea)" [ngClass]="{'isVoted': isVoted, 'isOwner':isOwner, 'isPositive':hasVotePositive, 'isChanged':isChanged}"></div>    

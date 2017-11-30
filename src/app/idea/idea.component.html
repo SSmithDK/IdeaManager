@@ -40,19 +40,19 @@
       </div>
       <div class="card-block">
         <div class="row">
-          <div class=col-sm-11>
+          <div class=col-sm-10>
             <p [hidden]="full" class="card-text p-4">{{idea.shortDescription}}</p>
             <p [hidden]="!full" class="card-text p-4" [innerHTML]="idea.description | textFormatting"></p>
           </div>
-          <div class="col-sm-1">
+          <div class="col-sm-2">
             <voting-ideas [idea]="idea"></voting-ideas>
           </div>
         </div>
         <div class="card-footer">
           <a class="badge badge-primary mr-1 p-2" routerLink="/search/1/{{tag.title}}"
-             *ngFor="let tag of idea.tags">{{tag.title}}</a>
+            *ngFor="let tag of idea.tags">{{tag.title}}</a>
           <i class="text-muted" [hidden]="idea.tags.length > 0">No tags</i>
-         <!--if idea description is shown only then permit to add reference ideas -->
+        <!--if idea description is shown only then permit to add reference ideas -->
           <div [hidden]="!full" >
             <app-adding-reference-idea [idea]="idea"> </app-adding-reference-idea>
           </div>
