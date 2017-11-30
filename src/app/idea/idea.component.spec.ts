@@ -11,6 +11,7 @@ import { MockIdeaService } from '../mockservices/mock-idea.service';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 import { Idea } from '../Idea';
+import { SplitAndGetLastPipe } from '../split-and-get-last.pipe';
 
 describe('IdeaComponent', () => {
   let component: IdeaComponent;
@@ -21,7 +22,7 @@ describe('IdeaComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [ RouterTestingModule ],
-      declarations: [ IdeaComponent, VotingIdeasComponent, AddingReferenceIdeaComponent ],
+      declarations: [ IdeaComponent, VotingIdeasComponent, AddingReferenceIdeaComponent, SplitAndGetLastPipe ],
       providers: [
         {provide: UserService, useClass: MockUserService},
         {provide: IdeaService, useClass: MockIdeaService}
