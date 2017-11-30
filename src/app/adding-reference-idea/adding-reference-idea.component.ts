@@ -2,7 +2,7 @@ import { Component, OnInit, ViewEncapsulation, Input } from '@angular/core';
 import { Idea } from '../Idea';
 import { IdeaService } from '../services/idea.service';
 import { Observable } from 'rxjs/Observable';
-import { ReferenceIdea } from '../ReferenceIdea';
+import { ReferenceIdea } from '../referenceIdea';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
@@ -15,14 +15,14 @@ export class AddingReferenceIdeaComponent implements OnInit {
 
   @Input() idea: Idea;
   public parentIdea:ReferenceIdea = new ReferenceIdea;
-  
+
   constructor(
     public ideaService: IdeaService,
     private route: ActivatedRoute,
     private router: Router)
-  { 
+  {
   }
-  
+
 
   ngOnInit() {
     if(this.idea)
@@ -33,5 +33,5 @@ export class AddingReferenceIdeaComponent implements OnInit {
       });
     }
   }
-  
+
 }

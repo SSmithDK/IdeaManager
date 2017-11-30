@@ -17,6 +17,7 @@ import { CreateCommentComponent } from '../create-comment/create-comment.compone
 import { CommentDetailsComponent } from '../comment-details/comment-details.component';
 import { AddingReferenceIdeaComponent } from '../adding-reference-idea/adding-reference-idea.component';
 import { SplitAndGetLastPipe } from '../split-and-get-last.pipe';
+import {TextFormattingPipe} from "../pipes/text-formatting.pipe";
 
 describe('IdeaDetailsComponent', () => {
   let component: IdeaDetailsComponent;
@@ -25,7 +26,7 @@ describe('IdeaDetailsComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [ FormsModule, RouterTestingModule ],
-      declarations: [ IdeaDetailsComponent, IdeaComponent, VotingIdeasComponent, CreateCommentComponent, CommentDetailsComponent, AddingReferenceIdeaComponent, SplitAndGetLastPipe ],
+      declarations: [ IdeaDetailsComponent, IdeaComponent, VotingIdeasComponent, CreateCommentComponent, CommentDetailsComponent, AddingReferenceIdeaComponent, SplitAndGetLastPipe, TextFormattingPipe ],
       providers: [
         {provide: IdeaService, useClass: MockIdeaService},
         {provide: CommentService, useClass: MockCommentService},

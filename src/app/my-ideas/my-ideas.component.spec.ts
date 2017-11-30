@@ -10,6 +10,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { VotingIdeasComponent } from '../voting-ideas/voting-ideas.component';
 import { AddingReferenceIdeaComponent } from '../adding-reference-idea/adding-reference-idea.component';
 import { SplitAndGetLastPipe } from '../split-and-get-last.pipe';
+import {TextFormattingPipe} from "../pipes/text-formatting.pipe";
 
 describe('MyIdeasComponent', () => {
   let component: MyIdeasComponent;
@@ -19,11 +20,12 @@ describe('MyIdeasComponent', () => {
     TestBed.configureTestingModule({
       imports: [ RouterTestingModule ],
       declarations: [
-        MyIdeasComponent, 
+        MyIdeasComponent,
         IdeaComponent,
         VotingIdeasComponent,
         AddingReferenceIdeaComponent,
-        SplitAndGetLastPipe
+        SplitAndGetLastPipe,
+        TextFormattingPipe
       ],
       providers: [
         {provide: UserService, useClass: MockUserService},

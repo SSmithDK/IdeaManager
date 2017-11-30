@@ -10,6 +10,7 @@ import {MockUserService} from "../mockservices/mock-user.service";
 import {UserService} from "../services/user.service";
 import { AddingReferenceIdeaComponent } from '../adding-reference-idea/adding-reference-idea.component';
 import { SplitAndGetLastPipe } from '../split-and-get-last.pipe';
+import {TextFormattingPipe} from "../pipes/text-formatting.pipe";
 
 describe('DashboardComponent', () => {
   let component: DashboardComponent;
@@ -18,7 +19,7 @@ describe('DashboardComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [ RouterTestingModule ],
-      declarations: [ DashboardComponent, IdeaComponent, VotingIdeasComponent, AddingReferenceIdeaComponent, SplitAndGetLastPipe ],
+      declarations: [ DashboardComponent, IdeaComponent, VotingIdeasComponent, AddingReferenceIdeaComponent, SplitAndGetLastPipe, TextFormattingPipe ],
       providers: [
         {provide: IdeaService, useClass: MockIdeaService},
         {provide: UserService, useClass: MockUserService}

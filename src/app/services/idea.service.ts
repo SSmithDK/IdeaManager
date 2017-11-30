@@ -8,7 +8,7 @@ import { Comment } from '../Comment';
 import { of } from 'rxjs/observable/of';
 import { VotedIdea } from '../VotedIdea';
 import {SearchService} from "./search.service";
-import { ReferenceIdea } from '../ReferenceIdea';
+import { ReferenceIdea } from '../referenceIdea';
 import { Upload } from '../upload';
 import { UploadService } from './upload.service';
 
@@ -18,8 +18,8 @@ export class IdeaService {
   public parent;
 
   constructor(
-    public afDb: AngularFireDatabase, 
-    public tagService: TagService, 
+    public afDb: AngularFireDatabase,
+    public tagService: TagService,
     public searchService: SearchService,
     public uploadService: UploadService
   ) { }
@@ -180,7 +180,7 @@ export class IdeaService {
       .on('value',function(datasnapshot){
         var vI=new VotedIdea();
         vI.idea_id=idea_id;
-        
+
         if(datasnapshot.val()!=null){
           vI.user_id=datasnapshot.val().user_id;
           vI.vote=datasnapshot.val().vote;

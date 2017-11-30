@@ -36,9 +36,10 @@ export class CreateIdeaComponent implements OnInit {
   public isRef = false;
   public editing = false;
   public idea: Idea = new Idea;
+  preview: boolean = false;
 
   public ideaReferenced: Idea = new Idea;
-  
+
   items: Tag[];
   tags;
 
@@ -90,9 +91,9 @@ export class CreateIdeaComponent implements OnInit {
           this.router.navigate([`/details/${this.idea.id}`]);
         });
       } else if(this.isRef){
-        //save new idea 
+        //save new idea
         this.ideaService.createIdea(v.title, v.description, v.short_desc, this.user.id, this.user.Name, v.tags, this.fileList, v.published).then((newIdeaRef) => {
-        
+
           //save references of child
           this.ideaService.createReferenceIdea(newIdeaRef.key,this.ideaReferenced.id,this.ideaReferenced.title);
           this.router.navigate(['/']);

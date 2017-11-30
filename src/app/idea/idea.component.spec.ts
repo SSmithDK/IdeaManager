@@ -12,6 +12,7 @@ import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 import { Idea } from '../Idea';
 import { SplitAndGetLastPipe } from '../split-and-get-last.pipe';
+import {TextFormattingPipe} from "../pipes/text-formatting.pipe";
 
 describe('IdeaComponent', () => {
   let component: IdeaComponent;
@@ -22,7 +23,7 @@ describe('IdeaComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [ RouterTestingModule ],
-      declarations: [ IdeaComponent, VotingIdeasComponent, AddingReferenceIdeaComponent, SplitAndGetLastPipe ],
+      declarations: [ IdeaComponent, VotingIdeasComponent, AddingReferenceIdeaComponent, SplitAndGetLastPipe, TextFormattingPipe ],
       providers: [
         {provide: UserService, useClass: MockUserService},
         {provide: IdeaService, useClass: MockIdeaService}

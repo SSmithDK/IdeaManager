@@ -4,7 +4,7 @@ import { Idea } from '../Idea';
 import { Tag } from '../tag';
 import { of } from 'rxjs/observable/of';
 import { VotedIdea } from '../VotedIdea';
-import { ReferenceIdea } from '../ReferenceIdea';
+import { ReferenceIdea } from '../referenceIdea';
 
 @Injectable()
 export class MockIdeaService {
@@ -96,7 +96,7 @@ export class MockIdeaService {
         vI.user_id="mockUserID";
         resolve(vI);
     });
-    return myFirstPromise; 
+    return myFirstPromise;
   }
 
   createReferenceIdea(idChild:string,idParent:string,title:string){
