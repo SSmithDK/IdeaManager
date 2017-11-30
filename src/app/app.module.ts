@@ -45,7 +45,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { SearchService } from "./services/search.service";
 import { SearchIdeasComponent } from './search-ideas/search-ideas.component';
 import { UploadService } from './services/upload.service';
-import { SplitAndGetLastPipe } from './split-and-get-last.pipe';
+import { SplitAndGetLastPipe } from './pipes/split-and-get-last.pipe';
 import { TextFormattingPipe } from "./pipes/text-formatting.pipe";
 
 @NgModule({

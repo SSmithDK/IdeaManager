@@ -11,7 +11,7 @@ import { MockIdeaService } from '../mockservices/mock-idea.service';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 import { Idea } from '../Idea';
-import { SplitAndGetLastPipe } from '../split-and-get-last.pipe';
+import { SplitAndGetLastPipe } from '../pipes/split-and-get-last.pipe';
 import {TextFormattingPipe} from "../pipes/text-formatting.pipe";
 
 describe('IdeaComponent', () => {

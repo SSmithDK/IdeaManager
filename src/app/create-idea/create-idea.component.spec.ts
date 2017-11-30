@@ -16,7 +16,7 @@ import { By } from '@angular/platform-browser';
 import { MockUploadService } from '../mockservices/mock-upload.service';
 import { UploadService } from '../services/upload.service';
 import { Upload } from '../upload';
-import { SplitAndGetLastPipe } from '../split-and-get-last.pipe';
+import { SplitAndGetLastPipe } from '../pipes/split-and-get-last.pipe';
 import { NgbCollapseModule, NgbPopoverModule } from '@ng-bootstrap/ng-bootstrap';
 import {TextFormattingPipe} from "../pipes/text-formatting.pipe";
 
