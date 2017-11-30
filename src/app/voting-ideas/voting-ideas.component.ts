@@ -75,13 +75,15 @@ export class VotingIdeasComponent implements OnInit {
                 this.isChanged=true;
               }else{
                 if(this.hasVotePositive){//remove vote
-                  this.isVoted=false;
-                  this.hasVotePositive = false;
-                  this.hasVoteNegative=false;
-                  this.isChanged=false;
-                  this.ideaService.deleteideaUserVote(idea);
-                  this.idea.positiveVotes--;
-                  this.ideaService.updateIdeaVote(idea);
+                  if(confirm("Are you sure you want to remove your vote")){
+                    this.isVoted=false;
+                    this.hasVotePositive = false;
+                    this.hasVoteNegative=false;
+                    this.isChanged=false;
+                    this.ideaService.deleteideaUserVote(idea);
+                    this.idea.positiveVotes--;
+                    this.ideaService.updateIdeaVote(idea);
+                  }
                 }else{
                   this.isVoted=true;
                   this.hasVotePositive = true;
@@ -114,13 +116,15 @@ export class VotingIdeasComponent implements OnInit {
                 this.isChanged=true;
               }else{
                 if(this.hasVoteNegative){//remove vote
-                  this.isVoted=false;
-                  this.hasVotePositive = false;
-                  this.hasVoteNegative=false;
-                  this.isChanged=false;
-                  this.ideaService.deleteideaUserVote(idea);
-                  this.idea.positiveVotes++;
-                  this.ideaService.updateIdeaVote(idea);
+                  if(confirm("Are you sure you want to remove your vote")){
+                    this.isVoted=false;
+                    this.hasVotePositive = false;
+                    this.hasVoteNegative=false;
+                    this.isChanged=false;
+                    this.ideaService.deleteideaUserVote(idea);
+                    this.idea.positiveVotes++;
+                    this.ideaService.updateIdeaVote(idea);
+                  }
                 }else{
                   this.isVoted=true;
                   this.hasVoteNegative =true;
