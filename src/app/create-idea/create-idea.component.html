@@ -64,7 +64,7 @@
             <b>Attachments</b><br/>
             <div>
               <label for="upload" class="uploadButton">Upload</label>
-              <input type="file" (change)="detectFiles($event)" accept="application/pdf,image/*" multiple id="upload">
+              <input type="file" (change)="detectFiles($event)" accept=".png,.jpg,.jpeg,.pdf" multiple id="upload">
             </div>
 
             <div class="attachments">
@@ -99,6 +99,7 @@
           <ng-template #elseSubmit>
             <button type="submit" class="btn btn-success" [disabled]="!createIdeaForm.form.valid">Create</button>
           </ng-template>
+          <button type="cancel" class="btn btn-danger" (click)="cancel()">Cancel</button>
         </form>
     </div>
     <div class="col-4">
