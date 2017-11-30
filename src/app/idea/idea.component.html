@@ -14,7 +14,8 @@
                   <h4 class="idea-title card-title mb-0 float-left">{{idea.title}}</h4>
                 </ng-container>
                 <ng-template #elseTemplate>
-                  <a routerLink="/details/{{idea.id}}"><h4 class="idea-title card-title mb-0 float-left">{{idea.title}}</h4></a>
+                  <a routerLink="/details/{{idea.id}}"><h4 class="idea-title card-title mb-0 float-left">{{idea.title}}</h4>
+                    <img *ngIf="idea.attachments?.length > 0" class="pl-1" width="25px" height="25px" src="./assets/img/attachment.png"></a>
                 </ng-template>
                 <h4 [hidden]="idea.published" class="text-muted float-left ml-3">(Draft)</h4>
                 <!-- Display editing options for managers and owners -->
