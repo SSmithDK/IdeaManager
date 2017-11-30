@@ -88,6 +88,10 @@ export class MockIdeaService {
   saveideaUserVote(idea:Idea,vote:string):void{
     // Do nothing, act like it has been updated
   }
+  
+  deleteideaUserVote(idea:Idea):void{
+
+  }
 
   checkUservoteIdea(idea_id:string,user_id):Promise<VotedIdea>{
     let myFirstPromise = new Promise<VotedIdea>((resolve, reject) => {
