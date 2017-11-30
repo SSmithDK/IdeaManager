@@ -58,11 +58,11 @@
         </div>
       </div>
     </div>
-    <div *ngIf="full && idea.attachments.length > 0">
+    <div *ngIf="full && idea.attachments?.length > 0">
       <h2>Attachments</h2>
       <div *ngFor="let file of idea.attachments">
-          <div class="file float-left download" [ngClass]="{'image': file.Type.includes('image'),'pdf': file.Type=='application/pdf'}" (click)="downloadAttachment(file.File)">
-            <span class="filename">{{(file.Name | slice:0:5) + (file.Name.length > 5 ? '..' : '')}}.{{file.Name | splitAndGetLast:"."}}</span>
+          <div class="file float-left download" [ngClass]="{'image': file.type.includes('image'),'pdf': file.type=='application/pdf'}" (click)="downloadAttachment(file.url)">
+            <span class="filename">{{(file.originalName | slice:0:5) + (file.originalName.length > 5 ? '..' : '')}}.{{file.originalName | splitAndGetLast:"."}}</span>
           </div>
       </div>
       <div class="clearfix"></div>

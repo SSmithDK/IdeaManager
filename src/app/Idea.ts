@@ -1,6 +1,7 @@
 import {User} from "./user";
 import { Tag } from "./tag";
 import { Comment } from "./Comment";
+import { Upload } from "./upload";
 
 export class Idea {
     public id: string;
@@ -15,5 +16,5 @@ export class Idea {
     public shortDescription: string;
     public tags: Tag[];
     public comments: Comment[];
-    public attachments: string[];
+    public attachments: Upload[];
 }

@@ -62,12 +62,12 @@
             
             <div class="attachments">
               <div *ngFor="let file of fileList">
-                  <div class="file float-left" [ngClass]="{'image': file.file.type.includes('image'),'pdf': file.file.type=='application/pdf'}">
+                  <div class="file float-left" [ngClass]="{'image': file.type.includes('image'),'pdf': file.type=='application/pdf'}">
                     <ng-container *ngIf="file.progress < 100">
                       <div class="progress" [ngStyle]="{'width': 100-file.progress + '%'}"></div>
                     </ng-container>
                     <span class="delete" (click)="removeFile(file)"></span>
-                    <span class="filename">{{(file.file.name | slice:0:5) + (file.file.name.length > 5 ? '..' : '')}}.{{file.file.name | splitAndGetLast:"."}}</span>
+                    <span class="filename">{{(file.originalName | slice:0:5) + (file.originalName.length > 5 ? '..' : '')}}.{{file.originalName | splitAndGetLast:"."}}</span>
                   </div>
               </div>
             </div>

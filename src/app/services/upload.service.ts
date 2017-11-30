@@ -23,8 +23,8 @@ export class UploadService {
     () => {
       // Upload success
       upload.url = uploadTask.snapshot.downloadURL;
-      upload.name = upload.file.name;
-      this.saveFileData(upload);
+      upload.name = generatedFilename;
+      upload.originalName = upload.file.name;
     });
   }
 
@@ -35,12 +35,12 @@ export class UploadService {
     for (var i = 0; i < 5; i++)
       text += possible.charAt(Math.floor(Math.random() * possible.length));
   
-    return text + "_" + (+new Date());
+    return (+new Date()) + "_" + text;
   }
-  
 
-  saveFileData(upload: Upload) {
-    // Do some saving of the file to firebase database
+  deleteFile(file: Upload) {
+    let storageRef = firebase.storage().ref();
+    storageRef.child(`/Attachments/${file.name}`).delete();
   }
 
 }

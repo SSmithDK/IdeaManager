@@ -29,7 +29,6 @@ export class CreateIdeaComponent implements OnInit {
 
   selectedFiles: FileList;
   fileList: Upload[] = [];
-  currentUpload: Upload;
 
   private user = new User;
   public isLoggedIn: boolean;
@@ -71,7 +70,10 @@ export class CreateIdeaComponent implements OnInit {
     {
       this.ideaID = this.route.snapshot.paramMap.get("id");
       this.editing = true;
-      this.ideaService.getIdea(this.ideaID).subscribe((idea) => this.idea = idea);
+      this.ideaService.getIdea(this.ideaID).subscribe((idea) => {
+        this.idea = idea;
+        this.fileList = this.idea.attachments;
+      });
     }
   }
 
@@ -84,7 +86,7 @@ export class CreateIdeaComponent implements OnInit {
     {
       let v = formData.value;
       if(this.editing){
-        this.ideaService.updateIdea(this.idea).then(() => {
+        this.ideaService.updateIdea(this.idea, this.fileList).then(() => {
           this.router.navigate([`/details/${this.idea.id}`]);
         });
       } else if(this.isRef){
@@ -107,7 +109,10 @@ export class CreateIdeaComponent implements OnInit {
     this.selectedFiles = event.target.files;
     for(var i=0; i<this.selectedFiles.length; i++)
     {
-      this.fileList.push(new Upload(this.selectedFiles[i]));
+      let file = new Upload(this.selectedFiles[i]);
+      file.originalName = file.file.name;
+      file.type = file.file.type;
+      this.fileList.push(file);
     }
     this.upload();
   }
@@ -115,11 +120,13 @@ export class CreateIdeaComponent implements OnInit {
   upload() {
     let files = this.fileList;
     for(var i=0; i<files.length; i++) {
-      this.uploadService.doUpload(files[i]);
+      if(files[i].progress != 100)
+        this.uploadService.doUpload(files[i]);
     }
   }
 
   removeFile(file: Upload) {
+    this.uploadService.deleteFile(file);
     this.fileList.splice(this.fileList.indexOf(file),1);
   }
 }

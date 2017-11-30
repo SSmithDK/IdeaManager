@@ -10,13 +10,19 @@ import { VotedIdea } from '../VotedIdea';
 import {SearchService} from "./search.service";
 import { ReferenceIdea } from '../ReferenceIdea';
 import { Upload } from '../upload';
+import { UploadService } from './upload.service';
 
 @Injectable()
 export class IdeaService {
   public voteIdea$: Observable<any>;
   public parent;
 
-  constructor(public afDb: AngularFireDatabase, public tagService: TagService, public searchService: SearchService /*, public commentService: CommentService*/) { }
+  constructor(
+    public afDb: AngularFireDatabase, 
+    public tagService: TagService, 
+    public searchService: SearchService,
+    public uploadService: UploadService
+  ) { }
 
   createIdea(title: string, description: string, shortDescription: string, userID: string, userName: string, tags?: any[], attachments?: Upload[], published?: boolean) {
     const saveTags: { ID: string, Title: string }[] = [];
@@ -29,10 +35,10 @@ export class IdeaService {
       saveTags.push({ID: tags[i].id, Title: tags[i].display});
     }
 
-    const saveAttachments: { Type: string, Name: string, File: string }[] = [];
+    const saveAttachments: { Type: string, Name: string, OriginalName: string, File: string }[] = [];
     for(let i=0; i < attachments.length; i++)
     {
-      saveAttachments.push({Type: attachments[i].file.type, Name: attachments[i].name, File: attachments[i].url});
+      saveAttachments.push({Type: attachments[i].file.type, Name: attachments[i].name, OriginalName: attachments[i].originalName,  File: attachments[i].url});
     }
 
     const timestamp = +new Date;
@@ -71,26 +77,7 @@ export class IdeaService {
       });
     }).map((arr) => {
       return arr.map((item) => {
-        var idea = new Idea;
-        var pv = item.payload.val();
-        idea.id = item.key;
-        idea.title = pv.Title;
-        idea.description = pv.Description;
-        idea.shortDescription = pv.ShortDescription;
-        idea.owner = pv.User;
-        idea.username = pv.OwnerName;
-        idea.published = pv.Published;
-        idea.negativeVotes = pv.NegativeVote;
-        idea.positiveVotes = pv.PositiveVote;
-        idea.timestamp = pv.Timestamp;
-        idea.tags = pv.Tags.map((tagItem) => {
-          var tag = new Tag;
-          tag.id = tagItem.ID;
-          tag.title = tagItem.Title;
-          return tag;
-        });
-        idea.attachments = pv.Attachments;
-        return idea;
+        return this.mapIdea(item.key, item.payload.val());
       });
     });
   }
@@ -109,26 +96,7 @@ export class IdeaService {
         });
       }).map((arr) => {
         return arr.map((item) => {
-          var idea = new Idea;
-          var pv = item.payload.val();
-          idea.id = item.key;
-          idea.title = pv.Title;
-          idea.description = pv.Description;
-          idea.shortDescription = pv.ShortDescription;
-          idea.owner = pv.User;
-          idea.username = pv.OwnerName;
-          idea.published = pv.Published;
-          idea.negativeVotes = pv.NegativeVote;
-          idea.positiveVotes = pv.PositiveVote;
-          idea.timestamp = pv.Timestamp;
-          idea.tags = pv.Tags.map((tagItem) => {
-            var tag = new Tag;
-            tag.id = tagItem.ID;
-            tag.title = tagItem.Title;
-            return tag;
-          });
-          idea.attachments = pv.Attachments;
-          return idea;
+          return this.mapIdea(item.key, item.payload.val());
         });
       });
     }
@@ -141,36 +109,26 @@ export class IdeaService {
 
   getIdea(id: string): Observable<Idea> {
     return this.afDb.object<any>(`Ideas/${id}`).snapshotChanges().map(action => {
-      var idea = new Idea;
-      var pv = action.payload.val();
-      idea.id = action.key;
-      idea.title = pv.Title;
-      idea.description = pv.Description;
-      idea.shortDescription = pv.ShortDescription;
-      idea.owner = pv.User;
-      idea.username = pv.OwnerName;
-      idea.published = pv.Published;
-      idea.negativeVotes = pv.NegativeVote;
-      idea.positiveVotes = pv.PositiveVote;
-      idea.timestamp = pv.Timestamp;
-      idea.tags = pv.Tags.map((tagItem) => {
-        var tag = new Tag;
-        tag.id = tagItem.ID;
-        tag.title = tagItem.Title;
-        return tag;
-      });
-      idea.attachments = pv.Attachments;
-      return idea;
+      return this.mapIdea(action.key, action.payload.val());
     });
   }
 
   deleteIdea(ideaID: string, onComplete?: (a: Error | null) => any) {
-    this.afDb.database.ref(`Ideas/${ideaID}`).remove(onComplete);
-
-    this.searchService.deleteIdeaInIndex(ideaID);
+    this.getIdea(ideaID).subscribe((idea) => {
+      // Make sure to delete attachments too!
+      if(idea.attachments)
+      {
+        for(var i=0;i < idea.attachments.length; i++)
+        {
+          this.uploadService.deleteFile(idea.attachments[i]);
+        }
+      }
+      this.afDb.database.ref(`Ideas/${ideaID}`).remove(onComplete);
+      this.searchService.deleteIdeaInIndex(ideaID);
+    });
   }
 
-  updateIdea(idea: Idea) {
+  updateIdea(idea: Idea, attachments?: Upload[]) {
     var saveTags: {ID: string, Title: string}[] = [];
     for(var i=0; i < idea.tags.length; i++)
     {
@@ -180,6 +138,13 @@ export class IdeaService {
       }
       saveTags.push({ID: idea.tags[i].id, Title: idea.tags[i].title});
     }
+
+    const saveAttachments: { Type: string, Name: string, OriginalName: string, File: string }[] = [];
+    for(let i=0; i < attachments.length; i++)
+    {
+      saveAttachments.push({Type: attachments[i].type, Name: attachments[i].name, OriginalName: attachments[i].originalName,  File: attachments[i].url});
+    }
+
     const result = this.afDb.object(`Ideas/${idea.id}`).update({
       Title: idea.title,
       Description: idea.description,
@@ -188,6 +153,7 @@ export class IdeaService {
       OwnerName: idea.username,
       Published: idea.published,
       Tags: saveTags,
+      Attachments: saveAttachments
     });
 
     this.searchService.updateIdeaInIndex(idea.id, idea.title, idea.description, idea.shortDescription, idea.owner,
@@ -243,6 +209,39 @@ export class IdeaService {
         }
         return refIdea;
       });
+  }
+
+  mapIdea(key: string, payload): Idea {
+    var idea = new Idea;
+    idea.id = key;
+    idea.title = payload.Title;
+    idea.description = payload.Description;
+    idea.shortDescription = payload.ShortDescription;
+    idea.owner = payload.User;
+    idea.username = payload.OwnerName;
+    idea.published = payload.Published;
+    idea.negativeVotes = payload.NegativeVote;
+    idea.positiveVotes = payload.PositiveVote;
+    idea.timestamp = payload.timestamp;
+    idea.tags = payload.Tags.map((tagItem) => {
+      var tag = new Tag;
+      tag.id = tagItem.ID;
+      tag.title = tagItem.Title;
+      return tag;
+    });
+    if(payload.Attachments)
+    {
+      idea.attachments = payload.Attachments.map((file) => {
+        let ul = new Upload;
+        ul.originalName = file.OriginalName;
+        ul.name = file.Name;
+        ul.url = file.File;
+        ul.type = file.Type;
+        ul.progress = 100;
+        return ul;
+      });
+    }
+    return idea;
   }
 
 }
