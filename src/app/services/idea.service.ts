@@ -66,8 +66,8 @@ export class IdeaService {
   getIdeasOrderedByPositiveVote(): Observable<Idea[]>{
     return this.afDb.list<any>('Ideas', ref => ref.orderByChild('PositiveVote')).snapshotChanges().map((arr) => {
       return arr.sort(function(a, b){
-        var keyA = a.payload.val().PositiveVote,
-            keyB = b.payload.val().PositiveVote;
+        var keyA = a.payload.val().PositiveVote - a.payload.val().NegativeVote,
+            keyB = b.payload.val().PositiveVote - b.payload.val().NegativeVote;
         if(keyA > keyB) return -1;
         if(keyA < keyB) return 1;
         return 0;
@@ -82,8 +82,8 @@ export class IdeaService {
   getIdeasFromUserOrderedByPositiveVote(userID: string): Observable<Idea[]>{
     return this.afDb.list<any>('Ideas', ref => ref.orderByChild('User').equalTo(userID)).snapshotChanges().map((arr) => {
       return arr.sort(function(a, b){
-        var keyA = a.payload.val().PositiveVote,
-            keyB = b.payload.val().PositiveVote;
+        var keyA = a.payload.val().PositiveVote - a.payload.val().NegativeVote,
+            keyB = b.payload.val().PositiveVote - b.payload.val().NegativeVote;
         if(keyA > keyB) return -1;
         if(keyA < keyB) return 1;
         return 0;
