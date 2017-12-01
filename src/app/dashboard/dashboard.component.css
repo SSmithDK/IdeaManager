@@ -3,11 +3,16 @@
     width: 12px;
     height: 16px;
 }
-.btn:hover:not(.active) .grid, .btn:hover:not(.active) .list {
+.btn:hover:not(.active) .icon, .btn:hover:not(.active) .icon {
     filter: invert(100%);
 }
 .grid {
     background: url('/assets/img/grid.png');
+    width: 16px;
+    height: 16px;
+}
+.sort {
+    background: url('/assets/img/sort.png');
     width: 16px;
     height: 16px;
 }

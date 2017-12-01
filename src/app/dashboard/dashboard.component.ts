@@ -63,10 +63,10 @@ export class DashboardComponent implements OnInit {
     this.isOrderedByVote = !this.isOrderedByVote;
     if (this.isOrderedByVote) {
       this.ideasObservable = this.ideaService.getIdeasOrderedByPositiveVote();
-      $("#sortButton").addClass("btn-primary");
+      $("#sortButton").addClass("active");
     } else {
       this.ideasObservable = this.ideaService.getIdeas();
-      $("#sortButton").removeClass("btn-primary");
+      $("#sortButton").removeClass("active");
     }
   }
 
