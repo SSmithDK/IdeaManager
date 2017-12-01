@@ -53,7 +53,7 @@ export class SearchService {
   searchTags(title: string, onError: (err: Error) => void) {
 
     this.index.search({
-      filters: 'Tags.Title:' + title + ' AND published:true'
+      filters: 'Tags.Title:\"' + title + '\” AND published:true"'
     }, (err, content) => {
 
       if (err) {
