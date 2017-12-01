@@ -5,3 +5,13 @@ a.nav-link {
     width: 25px;
     height: 25px;
 }
+.navbar-brand {
+    font-size: 11pt;
+    font-weight:  bold;
+}
+.navbar {
+    font-size: 11pt;
+}
+.navbar .ml-auth {
+    font-size: 10pt;
+}
