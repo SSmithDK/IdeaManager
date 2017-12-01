@@ -19,6 +19,7 @@ export class MyIdeasComponent implements OnInit {
   private user = new User;
   public ideasObservable: Observable<Idea[]>;
   isOrderedByVote = false;
+  hasLoadedIdeas = false;
 
   constructor(
     private userService: UserService,
@@ -31,6 +32,15 @@ export class MyIdeasComponent implements OnInit {
    }
 
   ngOnInit() {
+    this.ideasObservable.subscribe((ieas) => {
+      if(ieas) {
+        this.hasLoadedIdeas = true;
+      }
+      else
+      {
+        this.hasLoadedIdeas = false;
+      }
+    });
   }
 
   onSortRequest() {

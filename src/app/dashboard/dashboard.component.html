@@ -2,7 +2,7 @@
   <div [hidden]="isApproved" class="alert alert-warning">
     <strong>Please note!</strong> You have to be approved by a manager first in order to use the dashboard.
   </div>
-  <h2 [hidden]="(ideasObservable | async)?.length > 0 || !isApproved" class="text-center">There are currently no ideas. Go to <a [routerLink]="[ '/create' ]">Add idea</a> to share your great idea!</h2>
+  <h2 [hidden]="(ideasObservable | async)?.length > 0 || !isApproved || hasLoadedIdeas" class="text-center">There are currently no ideas. Go to <a [routerLink]="[ '/create' ]">Add idea</a> to share your great idea!</h2>
   <div [hidden]="(ideasObservable | async)?.length == 0 || !isApproved" class="float-right mb-3" data-toggle="buttons">
       <div class="btn-group">
         <label class="btn-display btn btn-outline-secondary mr-2" id="sortButton" (click)="onSortRequest()">

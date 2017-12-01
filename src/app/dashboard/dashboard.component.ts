@@ -18,6 +18,7 @@ export class DashboardComponent implements OnInit {
 
   isApproved: boolean;
   isOrderedByVote = false;
+  hasLoadedIdeas = false;
 
   listView = true;
 
@@ -28,6 +29,16 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
     this.ideasObservable = this.ideaService.getIdeas();
+
+    this.ideasObservable.subscribe((ieas) => {
+      if(ieas) {
+        this.hasLoadedIdeas = true;
+      }
+      else
+      {
+        this.hasLoadedIdeas = false;
+      }
+    });
 
     this.userService.currentUser.subscribe((user) => {
       if (user !== null) {

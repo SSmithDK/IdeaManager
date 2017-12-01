@@ -8,7 +8,7 @@
   </div>
   <div class="clearfix"></div>
 
-  <h2 [hidden]="(ideasObservable | async)?.length > 0" class="text-center">You haven't added any ideas yet. Go to <a [routerLink]="[ '/create' ]">Add idea</a> to share your great idea!</h2>
+  <h2 [hidden]="(ideasObservable | async)?.length > 0 || hasLoadedIdeas" class="text-center">You haven't added any ideas yet. Go to <a [routerLink]="[ '/create' ]">Add idea</a> to share your great idea!</h2>
   <div *ngFor="let idea of ideasObservable | async">
     <idea [idea]="idea"></idea>
   </div>
