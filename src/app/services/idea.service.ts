@@ -63,7 +63,37 @@ export class IdeaService {
     return result;
   }
 
+  getIdeasOrderedByPositiveVote(): Observable<Idea[]>{
+    return this.afDb.list<any>('Ideas', ref => ref.orderByChild('PositiveVote')).snapshotChanges().map((arr) => {
+      return arr.sort(function(a, b){
+        var keyA = a.payload.val().PositiveVote,
+            keyB = b.payload.val().PositiveVote;
+        if(keyA > keyB) return -1;
+        if(keyA < keyB) return 1;
+        return 0;
+      });
+    }).map((arr) => {
+      return arr.map((item) => {
+        return this.mapIdea(item.key, item.payload.val());
+      });
+    });
+  }
 
+  getIdeasFromUserOrderedByPositiveVote(userID: string): Observable<Idea[]>{
+    return this.afDb.list<any>('Ideas', ref => ref.orderByChild('User').equalTo(userID)).snapshotChanges().map((arr) => {
+      return arr.sort(function(a, b){
+        var keyA = a.payload.val().PositiveVote,
+            keyB = b.payload.val().PositiveVote;
+        if(keyA > keyB) return -1;
+        if(keyA < keyB) return 1;
+        return 0;
+      });
+    }).map((arr) => {
+      return arr.map((item) => {
+        return this.mapIdea(item.key, item.payload.val());
+      });
+    });
+  }
 
   getIdeas(): Observable<Idea[]>{
     return this.afDb.list<any>('Ideas', ref => ref.orderByChild('Published').equalTo(true)).snapshotChanges().map((arr) => {

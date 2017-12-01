@@ -16,6 +16,7 @@ export class MyIdeasComponent implements OnInit {
 
   private user = new User;
   public ideasObservable: Observable<Idea[]>;
+  isOrderedByVote = false;
 
   constructor(
     private userService: UserService,
@@ -28,6 +29,15 @@ export class MyIdeasComponent implements OnInit {
    }
 
   ngOnInit() {
+  }
+
+  onSortRequest() {
+    this.isOrderedByVote = !this.isOrderedByVote;
+    if (this.isOrderedByVote) {
+      this.ideasObservable = this.ideaService.getIdeasFromUserOrderedByPositiveVote(this.user.id);
+    } else {
+      this.ideasObservable = this.ideaService.getIdeasFromUser(this.user.id);
+    }
   }
 
 }

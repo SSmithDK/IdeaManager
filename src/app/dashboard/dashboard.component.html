@@ -1,4 +1,9 @@
 <div class="container">
+  <div class="row align-items-center">
+    <div class="col align-self-end">
+      <button class="btn float-right" [hidden]="!isApproved" data-toggle="button" attr.aria-pressed="{{isOrderedByVote}}" autocomplete="off" (click)="onSortRequest()">Order by Votes</button>
+    </div>
+  </div>
   <div [hidden]="isApproved" class="alert alert-warning">
     <strong>Please note!</strong> You have to be approved by a manager first in order to use the dashboard.
   </div>
@@ -19,4 +24,5 @@
       <idea [idea]="idea"></idea>
     </div>
   </div>
+
 </div>

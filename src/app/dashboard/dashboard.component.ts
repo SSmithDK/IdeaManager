@@ -1,5 +1,4 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-
 import { Observable } from 'rxjs/Observable';
 import { IdeaService } from '../services/idea.service';
 import { Idea } from '../Idea';
@@ -18,6 +17,7 @@ export class DashboardComponent implements OnInit {
   ideasObservable: Observable<Idea[]>;
 
   isApproved: boolean;
+  isOrderedByVote = false;
 
   listView = true;
 
@@ -58,4 +58,14 @@ export class DashboardComponent implements OnInit {
       $("#list").removeClass("active");
     });
   }
+
+  onSortRequest() {
+    this.isOrderedByVote = !this.isOrderedByVote;
+    if (this.isOrderedByVote) {
+      this.ideasObservable = this.ideaService.getIdeasOrderedByPositiveVote();
+    } else {
+      this.ideasObservable = this.ideaService.getIdeas();
+    }
+  }
+
 }
