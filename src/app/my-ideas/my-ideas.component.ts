@@ -37,10 +37,10 @@ export class MyIdeasComponent implements OnInit {
     this.isOrderedByVote = !this.isOrderedByVote;
     if (this.isOrderedByVote) {
       this.ideasObservable = this.ideaService.getIdeasFromUserOrderedByPositiveVote(this.user.id);
-      $("#sortButton").addClass("btn-primary");
+      $("#sortButton").addClass("active");
     } else {
       this.ideasObservable = this.ideaService.getIdeasFromUser(this.user.id);
-      $("#sortButton").removeClass("btn-primary");
+      $("#sortButton").removeClass("active");
     }
   }
 
