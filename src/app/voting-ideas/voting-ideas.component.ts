@@ -69,13 +69,20 @@ export class VotingIdeasComponent implements OnInit {
          if(result.user_id){
             if(idea.owner==result.user_id){//idea is voted
               if(this.hasVoteNegative){//the idea chhange the vote
-                this.idea.positiveVotes++;
-                this.ideaService.updateIdeaVote(idea);
-                this.ideaService.saveideaUserVote(idea,"+1");
-                this.isChanged=true;
+                if(this.idea.positiveVotes==-1){
+                  this.idea.positiveVotes=this.idea.positiveVotes+2;
+                  this.ideaService.updateIdeaVote(idea);
+                  this.ideaService.saveideaUserVote(idea,"+1");
+                  this.isChanged=true;
+                }else{
+                  this.idea.positiveVotes++;
+                  this.ideaService.updateIdeaVote(idea);
+                  this.ideaService.saveideaUserVote(idea,"+1");
+                  this.isChanged=true;
+                }
               }else{
                 if(this.hasVotePositive){//remove vote
-                  if(confirm("All ideas are awesome, do yo uwant remove your?")){
+                  if(confirm("All ideas are awesome, do you want remove your?")){
                     this.isVoted=false;
                     this.hasVotePositive = false;
                     this.hasVoteNegative=false;
@@ -112,13 +119,20 @@ export class VotingIdeasComponent implements OnInit {
          if(result.user_id){
             if(idea.owner==result.user_id){
               if(this.hasVotePositive){//the vote is changed
-                this.idea.positiveVotes--;
-                this.ideaService.updateIdeaVote(idea);
-                this.ideaService.saveideaUserVote(idea,"-1");
-                this.isChanged=true;
+                if(this.idea.positiveVotes==1){
+                  this.idea.positiveVotes=this.idea.positiveVotes-2;
+                  this.ideaService.updateIdeaVote(idea);
+                  this.ideaService.saveideaUserVote(idea,"-1");
+                  this.isChanged=true;
+                }else{
+                  this.idea.positiveVotes--;
+                  this.ideaService.updateIdeaVote(idea);
+                  this.ideaService.saveideaUserVote(idea,"-1");
+                  this.isChanged=true;
+                }
               }else{
                 if(this.hasVoteNegative){//remove vote
-                  if(confirm("All ideas are awesome, do yo uwant remove your?")){
+                  if(confirm("All ideas are awesome, do you want remove your?")){
                     this.isVoted=false;
                     this.hasVotePositive = false;
                     this.hasVoteNegative=false;
