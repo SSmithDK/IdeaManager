@@ -18,6 +18,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Idea } from '../Idea';
 import { Upload } from '../upload';
 import { UploadService } from '../services/upload.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-create-idea',
@@ -52,6 +53,7 @@ export class CreateIdeaComponent implements OnInit {
     public tagService: TagService,
     public userService: UserService,
     private uploadService: UploadService,
+    private location: Location,
     private router: Router)
   {
     this.userService.currentUser.subscribe((user) => {
@@ -129,5 +131,9 @@ export class CreateIdeaComponent implements OnInit {
   removeFile(file: Upload) {
     this.uploadService.deleteFile(file);
     this.fileList.splice(this.fileList.indexOf(file),1);
+  }
+
+  cancel() {
+    this.location.back();
   }
 }

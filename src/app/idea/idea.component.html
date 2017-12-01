@@ -6,6 +6,10 @@
     <strong>An error occured while removing this idea:</strong> {{errorMessage}}
   </div>
 
+  <div class="back btn btn-secondary mb-3" (click)="goBack()" [hidden]="!full">  
+    Return
+  </div>
+
   <div class="card mb-3">
       <div class="card-header">
           <div class="row mb-0">

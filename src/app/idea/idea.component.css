@@ -56,3 +56,20 @@
 .file.download {
     cursor: pointer;
 }
+
+.back {
+    background: url('/assets/img/back.png');
+    background-repeat: none;
+    background-position-y: center;
+    background-position-x: 5px;
+    height: 40px;
+    padding: 10px;
+    padding-left: 30px;
+    line-height: 20px;
+    cursor: pointer;
+    background-repeat: no-repeat;
+    color: #000 !important;
+}
+.back:hover {
+    filter: invert(100%);
+}

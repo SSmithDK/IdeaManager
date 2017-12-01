@@ -4,6 +4,7 @@ import { User } from '../user';
 import { UserService } from '../services/user.service';
 import { IdeaService } from '../services/idea.service';
 import { Router } from '@angular/router';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'idea',
@@ -26,7 +27,8 @@ export class IdeaComponent implements OnInit {
   constructor(
     private router: Router,
     public ideaService: IdeaService,
-    private userService: UserService
+    private userService: UserService,
+    private location: Location
   ) {
     this.userService.currentUser.subscribe((user) => {
       if (user) {
@@ -68,6 +70,10 @@ export class IdeaComponent implements OnInit {
 
   downloadAttachment(file: string) {
     window.open(file);
+  }
+
+  goBack() {
+    this.location.back();
   }
 
 }
