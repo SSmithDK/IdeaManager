@@ -82,7 +82,7 @@ export class VotingIdeasComponent implements OnInit {
                 }
               }else{
                 if(this.hasVotePositive){//remove vote
-                  if(confirm("All ideas are awesome, do you want remove your?")){
+                  if(confirm("All ideas are awesome, do you want remove your vote?")){
                     this.isVoted=false;
                     this.hasVotePositive = false;
                     this.hasVoteNegative=false;
@@ -132,7 +132,7 @@ export class VotingIdeasComponent implements OnInit {
                 }
               }else{
                 if(this.hasVoteNegative){//remove vote
-                  if(confirm("All ideas are awesome, do you want remove your?")){
+                  if(confirm("All ideas are awesome, do you want remove your vote?")){
                     this.isVoted=false;
                     this.hasVotePositive = false;
                     this.hasVoteNegative=false;
