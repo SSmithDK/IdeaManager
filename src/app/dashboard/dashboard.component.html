@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row align-items-center">
     <div class="col align-self-end">
-      <button class="btn float-right" [hidden]="!isApproved" data-toggle="button" attr.aria-pressed="{{isOrderedByVote}}" autocomplete="off" (click)="onSortRequest()">Order by Votes</button>
+      <button class="btn float-right" [hidden]="!isApproved" data-toggle="button" id="sortButton" autocomplete="off" (click)="onSortRequest()">Order by Votes</button>
     </div>
   </div>
   <div [hidden]="isApproved" class="alert alert-warning">

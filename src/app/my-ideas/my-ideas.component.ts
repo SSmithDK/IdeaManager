@@ -6,6 +6,8 @@ import { Idea } from '../Idea';
 import { IdeaService } from '../services/idea.service';
 import { RouterModule } from '@angular/router';
 
+import * as $ from 'jquery';
+
 @Component({
   selector: 'app-my-ideas',
   templateUrl: './my-ideas.component.html',
@@ -35,8 +37,10 @@ export class MyIdeasComponent implements OnInit {
     this.isOrderedByVote = !this.isOrderedByVote;
     if (this.isOrderedByVote) {
       this.ideasObservable = this.ideaService.getIdeasFromUserOrderedByPositiveVote(this.user.id);
+      $("#sortButton").addClass("btn-primary");
     } else {
       this.ideasObservable = this.ideaService.getIdeasFromUser(this.user.id);
+      $("#sortButton").removeClass("btn-primary");
     }
   }
 
