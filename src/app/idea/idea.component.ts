@@ -73,7 +73,7 @@ export class IdeaComponent implements OnInit {
   }
 
   goBack() {
-    this.location.back();
+    this.router.navigate(['/']);
   }
 
 }

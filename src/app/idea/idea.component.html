@@ -7,7 +7,7 @@
   </div>
 
   <div class="back btn btn-secondary mb-3" (click)="goBack()" [hidden]="!full">  
-    Return
+    Return to dashboard
   </div>
 
   <div class="card mb-3">
@@ -57,9 +57,9 @@
           <a class="badge badge-primary mr-1 p-2" routerLink="/search/1/{{tag.title}}"
             *ngFor="let tag of idea.tags">{{tag.title}}</a>
           <i class="text-muted" [hidden]="idea.tags.length > 0">No tags</i>
-        <!--if idea description is shown only then permit to add reference ideas -->
-          <div [hidden]="!full" >
-            <app-adding-reference-idea [idea]="idea"> </app-adding-reference-idea>
+          <!--if idea description is shown only then permit to add reference ideas -->
+          <div [hidden]="!full" class="float-right">
+            <app-adding-reference-idea [idea]="idea"></app-adding-reference-idea>
           </div>
         </div>
       </div>

@@ -140,9 +140,12 @@ export class IdeaService {
     }
 
     const saveAttachments: { Type: string, Name: string, OriginalName: string, File: string }[] = [];
-    for(let i=0; i < attachments.length; i++)
+    if(attachments)
     {
-      saveAttachments.push({Type: attachments[i].type, Name: attachments[i].name, OriginalName: attachments[i].originalName,  File: attachments[i].url});
+      for(let i=0; i < attachments.length; i++)
+      {
+        saveAttachments.push({Type: attachments[i].type, Name: attachments[i].name, OriginalName: attachments[i].originalName,  File: attachments[i].url});
+      }
     }
 
     const result = this.afDb.object(`Ideas/${idea.id}`).update({
